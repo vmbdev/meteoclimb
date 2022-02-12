@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "dependencies": {
+    "got": "^12.0.1",
+    "pg": "^8.7.1",
+    "sequelize": "^6.15.0"
+  }
+}
