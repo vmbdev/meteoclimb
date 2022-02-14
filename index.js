@@ -5,8 +5,12 @@ import { db, City } from './database.js';
 import WeatherProvider from './lib/weatherprovider.js';
 import OpenWeather from './lib/providers/openweather.js';
 
-City.findAll(
-  {
-    where: { country: 'ES' }
-  }
-).then((x) => console.log(x));
+const wprovider = new OpenWeather(config.weather.apikey, config.weather.units);
+City.init(db, wprovider);
+
+if (process.argv.length > 2) {
+  City.getWeatherByName(process.argv[2])
+  .then(body => console.log(body.body));
+
+  City.close();
+}
