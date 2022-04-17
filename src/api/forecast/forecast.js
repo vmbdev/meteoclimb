@@ -141,7 +141,7 @@ export default class Forecast extends Sequelize.Model {
       throw 'City id not found';
     
     var update = false;
-    var forecast = await this.findOne({where: { cityId: city_id}});
+    var forecast = await this.findOne({where: { cityId: city_id }});
     
     if (forecast) {
       const last_updated = ~~(Date.parse(forecast.updatedAt) / 1000);

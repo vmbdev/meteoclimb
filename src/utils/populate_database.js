@@ -1,6 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const config = require('./config');
-const { db, City } = require('./database');
+const City = require('./../city.js');
 const data = require('./city.list.min.json');
 
 console.log(data.length);

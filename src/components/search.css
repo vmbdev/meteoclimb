@@ -1,0 +1,76 @@
+.search {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.search__form {
+  outline: 1px solid var(--main-color);
+  border-radius: 40px;
+  padding: 10px;
+  width: 520px;
+}
+
+.search__location {
+  width: 78%;
+  height: 52px;
+  text-indent: 8px;
+  font-size: 18px;
+  border: 0;
+}
+
+.search__location:focus {
+  outline: none;
+}
+
+.search__dateselect {
+  width: 20%;
+  height: 52px;
+  background: var(--main-color);
+  border: 0;
+  color: white;
+  border-radius: 40px;
+}
+
+.search__options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* search dates input */
+.search__dates {
+  font-family: 'Merriweather', serif;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  margin-left: auto;
+  visibility: hidden;
+  position: absolute;
+}
+
+.search__dates > div {
+  border-top: 1px;
+  border-left: 1px;
+
+  border-right: 0;
+  border-color: var(--main-color);
+  border-style: solid;
+  padding: 4px;
+  text-align: center;
+}
+
+.search__dates > div:last-child {
+  border-right: 1px;
+  border-color: var(--main-color);
+  border-style: solid;
+}
+
+.search__dates > div.active_selection {
+  color: white;
+  background-color: var(--main-color);
+}
+

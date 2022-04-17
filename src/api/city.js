@@ -29,14 +29,20 @@ export default class City extends Sequelize.Model {
     });
   }
 
-  static async findByName(name, limit = 10) {
-    var carr = name.split(',');
+  static async findByName(location_name, limit = 10) {
+    // location_name expects "City" or "City,Country"
+    var [city_name, city_country] = location_name.split(',');
     var where = {};
 
-    where.name = { [Sequelize.Op.iLike]: carr[0] + '%' };
+    // where unaccent('name') ILIKE 'city_name%';
+    where.name = 
+      Sequelize.where(
+        Sequelize.fn('unaccent', Sequelize.col('name')),
+        { [Sequelize.Op.iLike]: Sequelize.fn('unaccent', city_name + '%') }
+      );
 
-    if (carr.length > 1)
-      where.country = { [Sequelize.Op.iLike]: carr[1] };
+    if (city_country)
+      where.country = { [Sequelize.Op.iLike]: city_country };
 
     var params = {
       attributes: ['id', 'lon', 'lat', 'name', 'country'],
