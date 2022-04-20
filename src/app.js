@@ -1,7 +1,6 @@
 import React from 'react'
 import SearchArea from './components/searcharea.js';
 import Results from './components/results.js';
-import './app.css';
 
 function App() {
   return (
