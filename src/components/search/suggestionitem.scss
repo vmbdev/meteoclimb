@@ -1,0 +1,13 @@
+@use '../../layout/variables.scss' as var;
+
+.search__item {
+  color: black;
+  border-bottom: 1px solid var.$primary-color;
+  box-sizing: border-box;
+  padding: 8px;
+
+  &--state-active {
+    color: white;
+    background-color: var.$primary-color;
+  }
+}

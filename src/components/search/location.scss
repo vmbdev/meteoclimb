@@ -1,0 +1,13 @@
+@use '../../layout/variables.scss' as var;
+
+.search__location {
+  width: 78%;
+  height: 52px;
+  text-indent: 8px;
+  font-size: 18px;
+  border: 0;
+
+  &:focus {
+    outline: none;
+  }
+}

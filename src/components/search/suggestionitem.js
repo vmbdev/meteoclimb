@@ -1,14 +1,17 @@
 import React from 'react';
-import './suggestionitem.css';
+import './suggestionitem.scss';
 
-class SuggestionsItem extends React.Component {
+const SuggestionItem = (props) => {
 
-
-  render() {
-    return(
-      <div className="search__item" id={this.props.active ? "search-item-active" : ""}>{this.props.location}</div>
-    )
+  const getClassName = () => {
+    return `search__item ${(props.active ? "search__item--state-active" : "")}`;
   }
+
+  return(
+    <div className={ getClassName() } data-id={ props.id } onMouseEnter={ () => props.setActiveIndex(props.id) }>
+      { props.location }
+    </div>
+  );
 }
 
-export default SuggestionsItem;
+export default SuggestionItem;

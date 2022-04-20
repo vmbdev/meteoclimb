@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import Location from './search/location.js';
-import SearchInputDate from './search/date.js';
 import Suggestions from './search/suggestions.js';
-import './search.css';
+import DateSelector from './search/dateselector.js';
+import './searcharea.scss';
 
 const SearchArea = () => {
   const [isLocationActive, setLocationActive] = useState(false);
+  const [locationKeyPressed, setLocationKeyPressed] = useState(false);
 
   const locationActive = () => {
     setLocationActive(true);
@@ -16,17 +17,16 @@ const SearchArea = () => {
   }
 
   return (
-    <div className="search" id="search">
+    <div className="search">
       <div className="search__nav">
-        <form className="search__form" action="" method="get" autoComplete="off">
-          <Location locationActive={ locationActive } locationInactive={ locationInactive} />
-          <SearchInputDate />
-        </form>
+        <Location
+          locationActive={ locationActive }
+          locationInactive={ locationInactive }
+          keyPressed={ setLocationKeyPressed }
+        />
+        <Suggestions isLocationActive={ isLocationActive } locationKeyPressed={ locationKeyPressed } />
       </div>
-      <div className="search__options">
-        <Suggestions isLocationActive={ isLocationActive }/>
-        <div className="search__dates" id="search-dates"></div>
-      </div>
+      <DateSelector />
     </div>
   );
 }
