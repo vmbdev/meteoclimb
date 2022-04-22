@@ -16,10 +16,19 @@ const DateSelector = () => {
     return list;
   }
 
-  return(
+  return (
     <div>
       <div className="search__datelist">
-        { getDateList().map(item => <div className="search__dateitem" data-timestamp={ item.timestamp }>{ item.day }</div>) }
+        { getDateList().map(item =>
+          <div
+            className="search__dateitem"
+            key={ item.day }
+            data-timestamp={ item.timestamp }
+            onClick={ () => {console.log(item.day)}}
+          >
+            { item.day }
+          </div>
+        )}
       </div>
     </div>
   );

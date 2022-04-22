@@ -8,23 +8,18 @@ const SearchArea = () => {
   const [isLocationActive, setLocationActive] = useState(false);
   const [locationKeyPressed, setLocationKeyPressed] = useState(false);
 
-  const locationActive = () => {
-    setLocationActive(true);
-  }
-
-  const locationInactive = () => {
-    setLocationActive(false);
+  const getCityId = (id) => {
+    console.log(id)
   }
 
   return (
     <div className="search">
       <div className="search__nav">
         <Location
-          locationActive={ locationActive }
-          locationInactive={ locationInactive }
+          setLocationActive={ setLocationActive }
           keyPressed={ setLocationKeyPressed }
         />
-        <Suggestions isLocationActive={ isLocationActive } locationKeyPressed={ locationKeyPressed } />
+        <Suggestions isLocationActive={ isLocationActive } locationKeyPressed={ locationKeyPressed } getCityId={ getCityId } />
       </div>
       <DateSelector />
     </div>

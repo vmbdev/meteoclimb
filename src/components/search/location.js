@@ -7,15 +7,18 @@ const Location = (props) => {
       props.keyPressed(e.key);
   }
 
-  return(
+  const inputHasChanged = (e) => {
+    props.setLocationActive(e.target.value.length >= 3);
+  }
+
+  return (
     <input
       className="search__location"
       type="text"
       placeholder="City, Country"
       spellCheck="false"
       autoComplete="off"
-      onClick={ props.locationActive }
-      onBlur={ props.locationInactive }
+      onChange={ inputHasChanged }
       onKeyDown={ keyPressedDown }
       onKeyUp={ () => { props.keyPressed(false) } }
     />

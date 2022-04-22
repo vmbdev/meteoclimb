@@ -5,7 +5,7 @@ import './suggestions.scss';
 const Suggestions = (props) => {
   const [visible, setVisibility] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const suggestions = useRef([]);;
+  const suggestions = useRef([]);
 
   useEffect(() => {
     suggestions.current = [
@@ -20,7 +20,7 @@ const Suggestions = (props) => {
     setVisibility(props.isLocationActive);
   }, [props.isLocationActive]);
 
-  //FIXME: useCallback()
+
   useEffect(() => {
     if (props.locationKeyPressed !== false) {
       let nextActiveIndex;
@@ -48,20 +48,18 @@ const Suggestions = (props) => {
           key={ i }
           id={ i }
           active={ (i === activeIndex) ? true : false }
-          data-id={ suggestions.current[i].id }
+          cityId={ suggestions.current[i].id }
           location={ suggestions.current[i].city }
           setActiveIndex={ setActiveIndex }
+          getCityId={ props.getCityId }
         />
       );
     }
     return items;
   }
 
-
-  return(
-    <div className={ getClassName() } id="search-suggestions">
-      { getSuggestionList() }
-    </div>
+  return (
+    <div className={ getClassName() } id="search-suggestions">{ getSuggestionList() }</div>
   )
 }
 

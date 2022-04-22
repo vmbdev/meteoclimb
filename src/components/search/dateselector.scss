@@ -5,17 +5,19 @@
   background-color: white;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .search__dateitem {
-    border-top: 1px;
-    border-left: 1px;
-  
-    border-right: 0;
-    border-color: var.$primary-color;
-    border-style: solid;
-    padding: 4px;
-    text-align: center;
+  border-top: 1px;
+  border-left: 1px;
+  border-right: 0;
+  border-color: var.$primary-color;
+  border-style: solid;
+  padding: 4px;
+  text-align: center;
+  display: block;
+  cursor: default;
 
   &:last-child {
     border-right: 1px;
@@ -27,5 +29,4 @@
     color: white;
     background-color: var.$primary-color;
   }
-
 }
