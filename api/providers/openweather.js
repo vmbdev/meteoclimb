@@ -1,6 +1,5 @@
 import got from 'got';
 import WeatherProvider from './../weatherprovider.js';
-import config from './../../config.js';
 
 export default class OpenWeather extends WeatherProvider {
   constructor(key, units = 'standard') {

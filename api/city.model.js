@@ -34,7 +34,7 @@ export default class City extends Sequelize.Model {
     var [city_name, city_country] = location_name.split(',');
     var where = {};
 
-    // where unaccent('name') ILIKE 'city_name%';
+    // where unaccent('name') ILIKE unaccent('city_name%');
     where.name = 
       Sequelize.where(
         Sequelize.fn('unaccent', Sequelize.col('name')),

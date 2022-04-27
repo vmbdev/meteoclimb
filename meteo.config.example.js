@@ -1,4 +1,4 @@
-export default {
+const config = {
   database: {
     name: 'database',
     user: 'user',
@@ -12,3 +12,5 @@ export default {
     units: 'metric' //standard, metric and imperial
   }
 };
+
+export default config;

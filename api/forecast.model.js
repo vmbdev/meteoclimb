@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes } from 'sequelize';
-import City from './city.js';
+import City from './city.model.js';
 import WeatherProvider from './weatherprovider.js';
 import DayForecast from './dayforecast.js';
 
@@ -7,8 +7,8 @@ export default class Forecast extends Sequelize.Model {
   static init(sequelize, wprovider) {
     if (wprovider instanceof WeatherProvider)
       this.wprovider = wprovider;
-      else
-      throw 'Provider not valid';
+    else
+      throw new Error('Provider not valid');
       
       super.init({
         day1: {
@@ -121,7 +121,7 @@ export default class Forecast extends Sequelize.Model {
 
   static storeForecast(raw_forecast, city_id) {
     if (raw_forecast.length < 7)
-    throw 'Incorrect forecast size';
+    throw new Error('Incorrect forecast size');
     
     const forecast = this.parseData(raw_forecast);
     
@@ -138,7 +138,7 @@ export default class Forecast extends Sequelize.Model {
     const city = await City.findByPk(city_id);
     
     if (!city)
-      throw 'City id not found';
+      throw new Error('City id not found');
     
     var update = false;
     var forecast = await this.findOne({where: { cityId: city_id }});
