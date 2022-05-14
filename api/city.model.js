@@ -31,8 +31,8 @@ export default class City extends Sequelize.Model {
 
   static async findByName(location_name, limit = 10) {
     // location_name expects "City" or "City,Country"
-    var [city_name, city_country] = location_name.split(',');
-    var where = {};
+    let [city_name, city_country] = location_name.split(',');
+    let where = {};
 
     // where unaccent('name') ILIKE unaccent('city_name%');
     where.name = 
@@ -44,7 +44,7 @@ export default class City extends Sequelize.Model {
     if (city_country)
       where.country = { [Sequelize.Op.iLike]: city_country };
 
-    var params = {
+    let params = {
       attributes: ['id', 'lon', 'lat', 'name', 'country'],
       where: where,
       order: [['name', 'ASC']], limit: limit

@@ -8,6 +8,7 @@ import cityRoutes from './city.routes.js';
 // models
 import City from './city.model.js';
 import Forecast from './forecast.model.js';
+import ForecastLog from './forecastlog.model.js';
 
 import config from '../meteo.config.js';
 import db from './database.js';
@@ -17,9 +18,10 @@ import OpenWeather from './providers/openweather.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const wprovider = new OpenWeather(config.weather.apikey, config.weather.units)
+const weatherProvider = new OpenWeather(config.weather.apikey, config.weather.units)
 City.init(db);
-Forecast.init(db, wprovider);
+Forecast.init(db);
+ForecastLog.init(db);
 
 const app = express();
 

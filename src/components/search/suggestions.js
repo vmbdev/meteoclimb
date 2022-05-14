@@ -1,20 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SuggestionItem from './suggestionitem.js';
 import './suggestions.scss';
 
 const Suggestions = (props) => {
   const [visible, setVisibility] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const suggestions = useRef([]);
-
-  useEffect(() => {
-    suggestions.current = [
-      { id: 5, city: "Madrid, España" },
-      { id: 12, city: "London, United Kingdom" },
-      { id: 25, city: "Osaka, Japan" }
-    ];
-  }, []);
-  
   
   useEffect(() => {
     setVisibility(props.isLocationActive);
@@ -26,13 +16,15 @@ const Suggestions = (props) => {
       let nextActiveIndex;
 
       if (props.locationKeyPressed === 'ArrowUp')
-        nextActiveIndex = (activeIndex === 0) ? suggestions.current.length-1 : activeIndex - 1;
+        nextActiveIndex = (activeIndex === 0) ? props.children.length-1 : activeIndex - 1;
       
       else if (props.locationKeyPressed === 'ArrowDown')
-        nextActiveIndex = (activeIndex === suggestions.current.length-1) ? 0 : activeIndex + 1;
+        nextActiveIndex = (activeIndex === props.children.length-1) ? 0 : activeIndex + 1;
         
       setActiveIndex(nextActiveIndex);
     }
+    // we don't want to re-render when activeIndex or props.children are updated
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.locationKeyPressed]);
 
 
@@ -42,14 +34,14 @@ const Suggestions = (props) => {
 
   const getSuggestionList = () => {
     let items = [];
-    for (let i = 0; i < suggestions.current.length; i++) {
+    for (let i = 0; i < props.children.length; i++) {
       items.push(
         <SuggestionItem
           key={ i }
           id={ i }
           active={ (i === activeIndex) ? true : false }
-          cityId={ suggestions.current[i].id }
-          location={ suggestions.current[i].city }
+          cityId={ props.children[i].id }
+          location={ props.children[i].city }
           setActiveIndex={ setActiveIndex }
           getCityId={ props.getCityId }
         />

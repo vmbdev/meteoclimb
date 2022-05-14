@@ -1,5 +1,6 @@
-const City = require('./../city.js');
-const data = require('./city.list.min.json');
+import City from '../city.js';
+import { db } from '../database.js';
+import { data } from './city.list.min.json' assert { type: 'json' };
 
 console.log(data.length);
 
@@ -9,7 +10,7 @@ for (var prop of data) {
   delete prop.coord;
 }
 
-console.log(City);
+City.init(db);
 City.sync().then(() => {
   City.bulkCreate(data).catch((error) => {
     console.log('Error during Post: ' + error);
