@@ -5,7 +5,8 @@ const db = new Sequelize(config.database.name, config.database.user, config.data
   //query: { raw: true },
   host: config.database.host,
   dialect: config.database.dialect,
-  timezone: 'utc'
+  timezone: 'utc',
+  logging: process.env.NODE_ENV === 'production' ? false : console.log
 });
 
 export default db;

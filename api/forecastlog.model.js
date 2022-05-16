@@ -1,5 +1,5 @@
-import { Sequelize, DataTypes } from "sequelize";
-import City from "./city.model.js";
+import { Sequelize, DataTypes } from 'sequelize';
+import City from './city.model.js';
 
 class ForecastLog extends Sequelize.Model {
   static init(sequelize) {
@@ -17,8 +17,8 @@ class ForecastLog extends Sequelize.Model {
 
     this.belongsTo(City, {
       foreignKey: { unique: true },
-      onDelete: "CASCADE",
-      onUpdate: "CASCADE",
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
   }
 }

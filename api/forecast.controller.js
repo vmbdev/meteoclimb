@@ -1,11 +1,11 @@
-import City from "./city.model.js";
-import Forecast from "./forecast.model.js";
-import ForecastLog from "./forecastlog.model.js";
+import luxon from 'luxon';
+import City from './city.model.js';
+import Forecast from './forecast.model.js';
+import ForecastLog from './forecastlog.model.js';
 
 // temp
-import config from "../meteo.config.js";
-import OpenWeather from "./providers/openweather.js";
-import db from "./database.js";
+import config from '../meteo.config.js';
+import OpenWeather from './providers/openweather.js';
 const weatherProvider = new OpenWeather(config.weather.apikey, config.weather.units)
 
 /**
@@ -21,7 +21,6 @@ const updatedLastDay = (lastUpdate) => {
   let updateDiff = Math.floor((Date.now() - lastUpdate) / 1000);
   return (updateDiff <= 24 * 60 * 60);
 }
-
 
 /**
  * Fetches the forecast from the weather provider
@@ -59,9 +58,9 @@ const parseData = (data) => {
   let weeklyForecast = [];
   const now = new Date();
   now.setDate(now.getDate() + 1);
-  let start_tomorrow = getUTCEpoch(now);
+  let startTomorrow = getUTCEpoch(now);
   now.setDate(now.getDate() + 1);
-  let start_aftertomorrow = getUTCEpoch(now);
+  let startAftertomorrow = getUTCEpoch(now);
   
   data.daily.forEach(day => {
     let current = createConditions();
@@ -73,24 +72,19 @@ const parseData = (data) => {
     current.temp.feels_like = day.feels_like.day;
     current.wind.degrees = day.wind_deg;
     
-    if ((day.dt < start_tomorrow) || (day.dt < start_aftertomorrow)) {
-      data.hourly
-        .filter(hour => (hour.dt > current.sunrise && hour.dt < current.sunset))
-        .forEach(hour => {
-          current.wind.speed = Math.max(current.wind.speed, hour.wind_speed);
-          current.humidity = Math.max(current.humidity, hour.humidity);
+    if ((day.dt < startTomorrow) || (day.dt < startAftertomorrow)) {
+      let currentHourly = data.hourly.filter(hour => ((hour.dt > current.sunrise) && (hour.dt < current.sunset)));
+      for (let hour of currentHourly) {
+        current.wind.speed = Math.max(current.wind.speed, hour.wind_speed);
+        current.humidity = Math.max(current.humidity, hour.humidity);
 
-          if (hour.pop > 0) {
-            current.pop.chance = Math.max(current.pop.chance, hour.pop);
-            if (!current.pop.from) current.pop.from = hour.dt;
-
-            if (hour.rain && hour.rain["1h"] > 0)
-            current.pop.rain_amount = Math.max(current.pop.rain_amount, hour.rain["1h"]);
-            
-            if (hour.snow && hour.snow["1h"] > 0)
-            current.pop.snow_amount = Math.max(current.pop.snow_amount, hour.snow["1h"]);
-          }
-        });
+        if (hour.pop > 0) {
+          current.pop.chance = Math.max(current.pop.chance, hour.pop);
+          if (!current.pop.from) current.pop.from = hour.dt;
+          if (hour.rain && hour.rain['1h'] > 0) current.pop.rain_amount = Math.max(current.pop.rain_amount, hour.rain['1h']);
+          if (hour.snow && hour.snow['1h'] > 0) current.pop.snow_amount = Math.max(current.pop.snow_amount, hour.snow['1h']);
+        }
+      }
     }
     else {
       current.wind.speed = day.wind_speed;
@@ -123,37 +117,48 @@ const storeForecast = async (weeklyForecast, cityId) => {
   }
 }
 
-const getForecast = async (cityId) => {
+const fetchForecast = async (cityId, dateOffset = 0) => {
   const city = await City.findByPk(cityId);
+  if (!city) throw new Error('City id not found');
 
-  if (!city)
-    throw new Error("City id not found");
-
-  let forecast;
   let log = await ForecastLog.findOne({ where: { cityId: cityId }});
   
   if ((!log) || !updatedLastDay(log.updatedAt)) {
     await fetchProviderForecast(weatherProvider, city.lon, city.lat)
-    .then(weeklyForecast => storeForecast(parseData(weeklyForecast), cityId))
-    .then(async () => {
-      await ForecastLog.upsert({
-        id: log ? log.id : null,
-        cityId: cityId
-      })
-    });
+      .then(weeklyForecast => { storeForecast(parseData(weeklyForecast), cityId) })
+      .then(async () => {
+        await ForecastLog.upsert({
+          id: log ? log.id : null,
+          cityId: cityId
+        })
+      });
   }
-  else
-    forecast = await Forecast.findOne({ where: { cityId: cityId } });
+
+  let forecast = await Forecast.findOne(
+    {
+      attributes: { exclude: ['id', 'cityId'] },
+      include: {
+        model: City,
+        attributes: ['name', 'country', 'lon', 'lat', 'state']
+      },
+      where: {
+        cityId: cityId,
+        date: luxon.DateTime.now().plus({ days: dateOffset }).toJSDate()
+      },
+    }
+  );
 
   return forecast;
 }
 
-
-// City.init(db);
-// Forecast.init(db);
-// ForecastLog.init(db);
-
-// db.close();
+const getForecast = async (req, res) => {
+  if ((req.params.dateOffset < 0) || (req.params.dateOffset > 6)) res.sendStatus(400)
+  else {
+    fetchForecast(req.params.cityId, req.params.dateOffset)
+      .then(forecast => { res.json(forecast) })
+      .catch(e => { res.json({ error: e }) });
+  }
+}
 
 const ForecastController = { getForecast }
 export default ForecastController;
