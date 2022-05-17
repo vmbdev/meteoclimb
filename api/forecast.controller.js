@@ -1,12 +1,14 @@
+import { Op } from 'sequelize';
 import luxon from 'luxon';
+
 import City from './city.model.js';
 import Forecast from './forecast.model.js';
 import ForecastLog from './forecastlog.model.js';
 
-// temp
 import config from '../meteo.config.js';
 import OpenWeather from './providers/openweather.js';
-const weatherProvider = new OpenWeather(config.weather.apikey, config.weather.units)
+
+const weatherProvider = new OpenWeather(config.weather.apikey, config.weather.units);
 
 /**
  * Converts the date to a UNIX epoch timestamp in UTC, as OpenWeather uses UTC timestamps
@@ -117,7 +119,7 @@ const storeForecast = async (weeklyForecast, cityId) => {
   }
 }
 
-const fetchForecast = async (cityId, dateOffset = 0) => {
+const fetchForecast = async (cityId, dateList = [0]) => {
   const city = await City.findByPk(cityId);
   if (!city) throw new Error('City id not found');
 
@@ -134,7 +136,7 @@ const fetchForecast = async (cityId, dateOffset = 0) => {
       });
   }
 
-  let forecast = await Forecast.findOne(
+  let forecast = await Forecast.findAll(
     {
       attributes: { exclude: ['id', 'cityId'] },
       include: {
@@ -143,7 +145,7 @@ const fetchForecast = async (cityId, dateOffset = 0) => {
       },
       where: {
         cityId: cityId,
-        date: luxon.DateTime.now().plus({ days: dateOffset }).toJSDate()
+        date: { [Op.or]: dateList.map(i => luxon.DateTime.now().plus({ days: i }).toJSDate()) }
       },
     }
   );
@@ -152,12 +154,21 @@ const fetchForecast = async (cityId, dateOffset = 0) => {
 }
 
 const getForecast = async (req, res) => {
-  if ((req.params.dateOffset < 0) || (req.params.dateOffset > 6)) res.sendStatus(400)
-  else {
-    fetchForecast(req.params.cityId, req.params.dateOffset)
-      .then(forecast => { res.json(forecast) })
-      .catch(e => { res.json({ error: e }) });
+  let dateList;
+  // separate the parameters, convert the strings to numbers ("2" -> 2),
+  // remove the falsy elements and check 0>=j<=6
+  if (req.params.dateOffset) {
+    dateList =
+      req.params.dateOffset
+        .split(';')
+        .map(i => parseInt(i))
+        .filter(j => j >= 0 && j <= 6);
   }
+  else dateList = [0];
+
+  fetchForecast(req.params.cityId, dateList)
+    .then(forecast => { res.json(forecast) })
+    .catch(e => { console.log(e); res.json({ error: e }) });
 }
 
 const ForecastController = { getForecast }
