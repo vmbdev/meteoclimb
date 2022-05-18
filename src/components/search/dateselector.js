@@ -2,7 +2,6 @@ import React from 'react';
 import './dateselector.scss';
 
 const DateSelector = () => {
-
   const getDateList = () => {
     let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     let list = [];

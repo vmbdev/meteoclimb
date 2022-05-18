@@ -23,13 +23,13 @@ const Suggestions = (props) => {
         
       setActiveIndex(nextActiveIndex);
     }
-    // we don't want to re-render when activeIndex or props.children are updated
+  // we don't want to re-render when activeIndex or props.children are updated
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.locationKeyPressed]);
 
 
   const getClassName = () => {
-    return `search__suggestions search__suggestions--state-${visible ? "visible" : "hidden"}`;
+    return `search__suggestions search__suggestions--state-${visible ? 'visible' : 'hidden'}`;
   }
 
   const getSuggestionList = () => {
@@ -40,8 +40,7 @@ const Suggestions = (props) => {
           key={ i }
           id={ i }
           active={ (i === activeIndex) ? true : false }
-          cityId={ props.children[i].id }
-          location={ props.children[i].city }
+          city={ props.children[i] }
           setActiveIndex={ setActiveIndex }
           getCityId={ props.getCityId }
         />

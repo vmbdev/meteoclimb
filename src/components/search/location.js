@@ -8,7 +8,7 @@ const Location = (props) => {
   }
 
   const inputHasChanged = (e) => {
-    props.setLocationActive(e.target.value.length >= 3);
+    props.findCityName(e.target.value)
   }
 
   return (

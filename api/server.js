@@ -1,4 +1,11 @@
+/**
+ * @module express
+ * @requires controllers/city
+ * @requires controllers/forecast
+ */
+
 import express from 'express';
+import cors from 'cors';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -23,6 +30,7 @@ ForecastLog.init(db);
 
 const app = express();
 
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../build')));

@@ -1,6 +1,15 @@
+/**
+ * @module model/forecast
+ * @requires model/city
+ */
 import { Sequelize, DataTypes } from 'sequelize';
 import City from './city.model.js';
 
+/**
+ * Represents the forecast in the database
+ * @class
+ * @extends Sequelize.Model
+ */
 class Forecast extends Sequelize.Model {
   static init(sequelize) {
     super.init(

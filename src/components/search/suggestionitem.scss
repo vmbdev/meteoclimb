@@ -1,14 +1,25 @@
 @use '../../layout/variables.scss' as var;
 
-.search__item {
+.search__city {
   color: black;
   border-bottom: 1px solid var.$primary-color;
   box-sizing: border-box;
   padding: 8px;
   cursor: default;
+  display: flex;
+  align-items: flex-end;
 
   &--state-active {
     color: white;
     background-color: var.$primary-color;
   }
+}
+
+.search__station {
+  font-size: 10pt;
+  margin-left: auto;
+}
+
+.search__flag {
+  width: 25px;
 }

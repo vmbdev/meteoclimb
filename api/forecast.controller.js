@@ -1,14 +1,19 @@
+/**
+ * Express controller providing Forecast related routes
+ * @module controllers/forecast
+ * @requires model/forecast
+ * @requires model/forecastlog
+ */
+
 import { Op } from 'sequelize';
 import luxon from 'luxon';
 
 import City from './city.model.js';
 import Forecast from './forecast.model.js';
 import ForecastLog from './forecastlog.model.js';
+import WeatherProviderFactory from './weatherproviderfactory.js';
 
-import config from '../meteo.config.js';
-import OpenWeather from './providers/openweather.js';
-
-const weatherProvider = new OpenWeather(config.weather.apikey, config.weather.units);
+const weatherProvider = WeatherProviderFactory.create()
 
 /**
  * Converts the date to a UNIX epoch timestamp in UTC, as OpenWeather uses UTC timestamps
@@ -125,7 +130,7 @@ const fetchForecast = async (cityId, dateList = [0]) => {
 
   let log = await ForecastLog.findOne({ where: { cityId: cityId }});
   
-  if ((!log) || !updatedLastDay(log.updatedAt)) {
+  if (!log || !updatedLastDay(log.updatedAt)) {
     await fetchProviderForecast(weatherProvider, city.lon, city.lat)
       .then(weeklyForecast => { storeForecast(parseData(weeklyForecast), cityId) })
       .then(async () => {
@@ -168,7 +173,7 @@ const getForecast = async (req, res) => {
 
   fetchForecast(req.params.cityId, dateList)
     .then(forecast => { res.json(forecast) })
-    .catch(e => { console.log(e); res.json({ error: e }) });
+    .catch(e => { res.json({ error: e }) });
 }
 
 const ForecastController = { getForecast }

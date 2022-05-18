@@ -19,10 +19,15 @@
   display: block;
   cursor: default;
 
+  &:first-child {
+    border-radius: 15px 0 0 15px;
+  }
+
   &:last-child {
     border-right: 1px;
     border-color: var.$primary-color;
     border-style: solid;
+    border-radius: 0 15px 15px 0;
   }
 
   &--state-active {

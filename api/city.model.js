@@ -1,6 +1,18 @@
+/**
+ * @module model/city
+ */
 import { Sequelize, DataTypes } from 'sequelize';
 
-export default class City extends Sequelize.Model {
+/**
+ * Represents a City from the database.
+ * @class
+ * @extends Sequelize.Model
+ */
+class City extends Sequelize.Model {
+  /**
+   * Initialises the model with the database connection.
+   * @param {Sequelize} - Sequelize object with initiated database.
+   */
   static init(sequelize) {
     super.init({
       name: {
@@ -29,40 +41,35 @@ export default class City extends Sequelize.Model {
     });
   }
 
-  static async findByName(location_name, limit = 10) {
-    // location_name expects "City" or "City,Country"
-    let [city_name, city_country] = location_name.split(',');
-    let where = {};
+  /**
+   * 
+   * @param {string} locationName - The name of the location: City,Country, i.e. Paris,FR.
+   * @param {number} limit - The maximum amount of cities that will be returned from the search.
+   * @returns {Array} An array containing the cities found.
+   */
+  static async findByName(locationName, limit = 10) {
+    // locationName expects "City" or "City,Country"
+    let [cityName, cityCountry] = locationName.split(',').map(i => i.trim());
+    let whereCondition = {};
 
-    // where unaccent('name') ILIKE unaccent('city_name%');
-    where.name = 
+    // where unaccent('name') ILIKE unaccent('cityName%');
+    whereCondition.name = 
       Sequelize.where(
         Sequelize.fn('unaccent', Sequelize.col('name')),
-        { [Sequelize.Op.iLike]: Sequelize.fn('unaccent', city_name + '%') }
+        { [Sequelize.Op.iLike]: Sequelize.fn('unaccent', cityName + '%') }
       );
 
-    if (city_country)
-      where.country = { [Sequelize.Op.iLike]: city_country };
+    if (cityCountry) whereCondition.country = { [Sequelize.Op.iLike]: cityCountry };
 
     let params = {
       attributes: ['id', 'lon', 'lat', 'name', 'country'],
-      where: where,
-      order: [['name', 'ASC']], limit: limit
+      where: whereCondition,
+      order: [['name', 'ASC']],
+      limit: limit
     };
 
-    if (limit > 1)
-      return this.findAll(params);
-
-    return this.findOne(params);
-  }
-
-  static findCoordinatesByCity(city, country) {
-    return this.findOne({ attributes: ['lon', 'lat'], where: { name: { [Sequelize.Op.iLike]: city }, country: country } })
-      .then((res => { return res.get({ plain: true}) }));
-  }
-
-  static findCoordinatesById(id) {
-    return this.findByPk(id, { attributes: ['lon', 'lat'] })
-      .then((res => { return res.get({ plain: true}) }));
+    return this.findAll(params);
   }
 }
+
+export default City;
