@@ -6,7 +6,7 @@
  */
 
 import { Op } from 'sequelize';
-import luxon from 'luxon';
+import { DateTime } from 'luxon';
 
 import City from './city.model.js';
 import Forecast from './forecast.model.js';
@@ -15,18 +15,9 @@ import WeatherProviderFactory from './weatherproviderfactory.js';
 
 const weatherProvider = WeatherProviderFactory.create()
 
-/**
- * Converts the date to a UNIX epoch timestamp in UTC, as OpenWeather uses UTC timestamps
- * @param {Date} date - A Date object representing the date to be converted
- * @returns {number} - The timestamp in UTC
- */
-const getUTCEpoch = (date) => {
-  return ~~(date.getTime() / 1000) + date.getTimezoneOffset() * 60;
-}
-
 const updatedLastDay = (lastUpdate) => {
-  let updateDiff = Math.floor((Date.now() - lastUpdate) / 1000);
-  return (updateDiff <= 24 * 60 * 60);
+  let diff = DateTime.fromJSDate(lastUpdate).diffNow('days').days;
+  return (-1 <= diff);
 }
 
 /**
@@ -63,11 +54,8 @@ const createConditions = () => {
 
 const parseData = (data) => {
   let weeklyForecast = [];
-  const now = new Date();
-  now.setDate(now.getDate() + 1);
-  let startTomorrow = getUTCEpoch(now);
-  now.setDate(now.getDate() + 1);
-  let startAftertomorrow = getUTCEpoch(now);
+  let startTomorrow = DateTime.utc().plus({ days: 1 }).toUnixInteger();
+  let startAftertomorrow = DateTime.utc().plus({ days: 2 }).toUnixInteger();
   
   data.daily.forEach(day => {
     let current = createConditions();
@@ -117,7 +105,7 @@ const storeForecast = async (weeklyForecast, cityId) => {
 
   for (let dailyForecast of weeklyForecast) {
     await Forecast.create({
-      date: new Date(dailyForecast.start_time * 1000),
+      date: DateTime.fromSeconds(dailyForecast.start_time).toJSDate(),
       cityId: cityId,
       conditions: JSON.stringify(dailyForecast)
     });
@@ -150,7 +138,7 @@ const fetchForecast = async (cityId, dateList = [0]) => {
       },
       where: {
         cityId: cityId,
-        date: { [Op.or]: dateList.map(i => luxon.DateTime.now().plus({ days: i }).toJSDate()) }
+        date: { [Op.or]: dateList.map(i => DateTime.now().plus({ days: i }).toJSDate()) }
       },
     }
   );
