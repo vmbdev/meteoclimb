@@ -1,10 +1,10 @@
 import React from 'react';
-import './results.css';
+import './results.scss';
 
 const Results = () => {
 
   return (
-    <div className="results" id="results">
+    <div className="results">
       <p>Hello there</p>
     </div>
   );

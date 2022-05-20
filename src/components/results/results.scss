@@ -1,0 +1,11 @@
+@use '../../layout/variables.scss' as var;
+
+.results {
+  background: rgb(59 171 13 / 30%);
+  height: 100vh;
+  position: absolute;
+  width: 100%;
+  z-index: -5;
+  margin-top: 170px;
+  /* visibility: hidden; */
+}

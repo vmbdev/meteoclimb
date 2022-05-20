@@ -120,7 +120,7 @@ const fetchForecast = async (cityId, dateList = [0]) => {
   
   if (!log || !updatedLastDay(log.updatedAt)) {
     await fetchProviderForecast(weatherProvider, city.lon, city.lat)
-      .then(weeklyForecast => { storeForecast(parseData(weeklyForecast), cityId) })
+      .then(async (weeklyForecast) => { await storeForecast(parseData(weeklyForecast), cityId) })
       .then(async () => {
         await ForecastLog.upsert({
           id: log ? log.id : null,

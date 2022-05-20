@@ -4,11 +4,12 @@ import Location from './location.js';
 import Suggestions from './suggestions.js';
 import DateSelector from './dateselector.js';
 import countryCodes from '../../helpers/countrycodes.js';
-import './area.scss';
+import './search.scss';
 
-const Area = () => {
+const Search = () => {
   const [isLocationActive, setLocationActive] = useState(false);
   const [locationKeyPressed, setLocationKeyPressed] = useState(false);
+  const [isCollapsed, setCollapsed] = useState(false);
   const [suggestionList, setSuggestionList] = useState([]);
   const [dateList, setDateList] = useState([]);
 
@@ -26,9 +27,24 @@ const Area = () => {
     }
     setDateList(list);
   }, []);
-  
-  const getCityId = (id) => {
-    console.log(id, dateList, DateTime.now().toUnixInteger())
+
+  const getClassName = () => {
+    // FIXME temporary
+    return `search ${!isCollapsed ? 'search--state-collapsed' : ''}`;
+  }
+
+  const getCityId = (cityId) => {
+    setCollapsed(true);
+    setLocationActive(false);
+    let dates = dateList.filter((date) => date.active).map((date) => date.dateOffset).join(';');
+    console.log(cityId, dates);
+
+    fetch(`http://localhost:8080/api/forecast/${cityId}/${dates}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(e => {console.log(`error: ${e}`)});
   }
 
   const findCityName = (value) => {
@@ -56,7 +72,7 @@ const Area = () => {
   }
 
   return (
-    <div className="search">
+    <div className={ getClassName() }>
       <DateSelector updateDateList={ setDateList }>
         { dateList }
       </DateSelector>
@@ -73,4 +89,4 @@ const Area = () => {
   );
 }
 
-export default Area;
+export default Search;

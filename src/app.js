@@ -1,12 +1,12 @@
-import Area from './components/search/area.js';
-import Results from './components/results.js';
+import Search from './components/search/search.js';
+import Results from './components/results/results.js';
 
 function App() {
   return (
-    <div>
-      <Area />
+    <>
       <Results />
-    </div>
+      <Search />
+    </>
   );
 }
 
