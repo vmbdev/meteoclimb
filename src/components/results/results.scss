@@ -1,11 +1,15 @@
-@use '../../layout/variables.scss' as var;
+@use '../../layout/colors.scss' as colors;
 
 .results {
-  background: rgb(59 171 13 / 30%);
-  height: 100vh;
-  position: absolute;
+  position: relative;
   width: 100%;
-  z-index: -5;
-  margin-top: 170px;
-  /* visibility: hidden; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  transition: all 0.5s linear;
+
+  &--collapsed {
+    height: 0;
+  }
 }

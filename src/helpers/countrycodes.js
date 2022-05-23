@@ -250,4 +250,12 @@ const countryCodes = {
   AX: { name: 'Åland Islands', flag: '/flags/ax.svg' },
 };
 
-export default countryCodes;
+const getCountry = (code) => {
+  return countryCodes[code];
+}
+
+const getCountryName = (code) => {
+  return countryCodes[code].name;
+}
+
+export { getCountry, getCountryName };

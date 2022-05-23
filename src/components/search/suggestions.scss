@@ -1,8 +1,8 @@
-@use '../../layout/variables.scss' as var;
+@use '../../layout/colors.scss' as colors;
 
 .search__suggestions {
   background: white;
-  border: 1px solid var.$primary-color;
+  border: 1px solid colors.$primary-color;
   border-top: 0;
   position: absolute;
   width: 480px;
@@ -10,11 +10,11 @@
   margin-top: 11px;
   z-index: 1;
 
-  &--state-hidden {
+  &--hidden {
     visibility: hidden;
   }
   
-  &--state-visible {
+  &--visible {
     visibility: visible;
   }
 }

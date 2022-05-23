@@ -1,0 +1,60 @@
+@use '../../layout/colors.scss' as colors;
+
+$forecast-great: #6BCB77;
+$forecast-good: #4D96FF;
+$forecast-bad: #7D1E6A;
+$forecast-terrible: #F32424;
+
+.forecast {
+  border: 1px;
+  border-style: solid;
+  border-radius: 22px;
+  min-width: 350px;
+  padding: 15px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+
+  &--great {
+    background-color: $forecast-great;
+    color: white;
+  }
+
+  &--good {
+    background-color: $forecast-good;
+    color: white;
+  }
+
+  &--bad {
+    background-color: $forecast-bad;
+    color: white;
+  }
+
+  &--terrible {
+    background-color: $forecast-terrible;
+    color: white;
+  }
+
+  &__row {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__row > div {
+    margin: 4px;
+  }
+
+  &__title {
+    margin: 0 auto;
+  }
+
+  &__flag {
+    border: 1px solid black;
+    width: 25px;
+    margin: 0 10px;
+  }
+}

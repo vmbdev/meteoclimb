@@ -36,8 +36,8 @@ const createConditions = () => {
     sunset: NaN,
     humidity: 0,
     temp: {
-      max_temp: NaN,
-      feels_like: NaN
+      max: NaN,
+      feel: NaN
     },
     wind: {
       speed: 0,
@@ -63,8 +63,8 @@ const parseData = (data) => {
     current.start_time = day.dt;
     current.sunrise = day.sunrise;
     current.sunset = day.sunset;
-    current.temp.max_temp = day.temp.day;
-    current.temp.feels_like = day.feels_like.day;
+    current.temp.max = day.temp.day;
+    current.temp.feel = day.feels_like.day;
     current.wind.degrees = day.wind_deg;
     
     if ((day.dt < startTomorrow) || (day.dt < startAftertomorrow)) {
@@ -107,7 +107,7 @@ const storeForecast = async (weeklyForecast, cityId) => {
     await Forecast.create({
       date: DateTime.fromSeconds(dailyForecast.start_time).toJSDate(),
       cityId: cityId,
-      conditions: JSON.stringify(dailyForecast)
+      conditions: dailyForecast
     });
   }
 }
@@ -134,7 +134,7 @@ const fetchForecast = async (cityId, dateList = [0]) => {
       attributes: { exclude: ['id', 'cityId'] },
       include: {
         model: City,
-        attributes: ['name', 'country', 'lon', 'lat', 'state']
+        attributes: { exclude: ['updatedAt', 'createdAt'] }
       },
       where: {
         cityId: cityId,

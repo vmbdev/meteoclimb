@@ -1,4 +1,4 @@
-@use '../../layout/variables.scss' as var;
+@use '../../layout/colors.scss' as colors;
 
 .search {
   align-items: center;
@@ -9,22 +9,21 @@
   justify-content: center;
   position: relative;
   transition: all 1s linear;
-  z-index: 10;
 
-  &--state-collapsed {
+  &--collapsed {
     height: 170px;
   }
 
   &__nav {
     border-radius: 40px;
-    outline: 1px solid var.$primary-color;
+    outline: 1px solid colors.$primary-color;
     padding: 10px;
     position: relative;
     width: 520px;
   }
   
   &__dateselect {
-    background: var.$primary-color;
+    background: colors.$primary-color;
     border: 0;
     border-radius: 40px;
     color: white;

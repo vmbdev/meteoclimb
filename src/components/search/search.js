@@ -3,10 +3,9 @@ import { DateTime } from 'luxon';
 import Location from './location.js';
 import Suggestions from './suggestions.js';
 import DateSelector from './dateselector.js';
-import countryCodes from '../../helpers/countrycodes.js';
 import './search.scss';
 
-const Search = () => {
+const Search = (props) => {
   const [isLocationActive, setLocationActive] = useState(false);
   const [locationKeyPressed, setLocationKeyPressed] = useState(false);
   const [isCollapsed, setCollapsed] = useState(false);
@@ -29,22 +28,18 @@ const Search = () => {
   }, []);
 
   const getClassName = () => {
-    // FIXME temporary
-    return `search ${!isCollapsed ? 'search--state-collapsed' : ''}`;
+    return `search ${isCollapsed ? 'search--collapsed' : ''}`;
   }
 
-  const getCityId = (cityId) => {
+  const fetchForecast = (cityId) => {
     setCollapsed(true);
     setLocationActive(false);
     let dates = dateList.filter((date) => date.active).map((date) => date.dateOffset).join(';');
-    console.log(cityId, dates);
 
     fetch(`http://localhost:8080/api/forecast/${cityId}/${dates}`)
       .then(res => res.json())
-      .then(data => {
-        console.log(data);
-      })
-      .catch(e => {console.log(`error: ${e}`)});
+      .then(data => { props.getResults(data); })
+      .catch(e => { console.error(`Error: ${e}`) });
   }
 
   const findCityName = (value) => {
@@ -54,10 +49,6 @@ const Search = () => {
       .then(res => res.json())
       .then(data => {
         if (data.length > 0) {
-          for (let item of data) {
-            item.flag = countryCodes[item.country].flag;
-            item.country = countryCodes[item.country].name;
-          }
           setSuggestionList(data)
           setLocationActive(true);
         }
@@ -81,7 +72,7 @@ const Search = () => {
           findCityName={ findCityName }
           keyPressed={ setLocationKeyPressed }
         />
-        <Suggestions isLocationActive={ isLocationActive } locationKeyPressed={ locationKeyPressed } getCityId={ getCityId }>
+        <Suggestions isLocationActive={ isLocationActive } locationKeyPressed={ locationKeyPressed } fetchForecast={ fetchForecast }>
           { suggestionList }
         </Suggestions>
       </div>

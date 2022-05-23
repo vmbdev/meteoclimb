@@ -1,17 +1,17 @@
-@use '../../layout/variables.scss' as var;
+@use '../../layout/colors.scss' as colors;
 
 .search__city {
   color: black;
-  border-bottom: 1px solid var.$primary-color;
+  border-bottom: 1px solid colors.$primary-color;
   box-sizing: border-box;
   padding: 8px;
   cursor: default;
   display: flex;
   align-items: flex-end;
 
-  &--state-active {
+  &--active {
     color: white;
-    background-color: var.$primary-color;
+    background-color: colors.$primary-color;
   }
 }
 

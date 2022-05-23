@@ -29,7 +29,7 @@ const Suggestions = (props) => {
 
 
   const getClassName = () => {
-    return `search__suggestions search__suggestions--state-${visible ? 'visible' : 'hidden'}`;
+    return `search__suggestions search__suggestions--${visible ? 'visible' : 'hidden'}`;
   }
 
   const getSuggestionList = () => {
@@ -42,7 +42,7 @@ const Suggestions = (props) => {
           active={ (i === activeIndex) ? true : false }
           city={ props.children[i] }
           setActiveIndex={ setActiveIndex }
-          getCityId={ props.getCityId }
+          fetchForecast={ props.fetchForecast }
         />
       );
     }
