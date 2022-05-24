@@ -9,6 +9,10 @@ const Forecast = (props) => {
   const [stateClasses, setStateClasses] = useState({ main: null, temp: null, wind: null, pop: null, humidity: null});
 
   useEffect(() => {
+    const inInterval = (value, min, max) => {
+      return (value >= min && value <= max);
+    }
+
     let states = {};
     let temp = props.conditions.temp.max;
     let wind = props.conditions.wind.speed;
@@ -48,16 +52,14 @@ const Forecast = (props) => {
     setCountry(getCountry(props.city.country));
   }, [props.conditions, props.city.country]);
 
-  const inInterval = (value, min, max) => {
-    return (value >= min && value <= max);
-  }
 
   const getPrecipitation = () => {
     let pop = props.conditions.pop;
+    let amount = pop.rain_amount + pop.snow_amount;
     if (pop.chance > 0) {
       return (
-        `${pop.chance * 100}% chance of ${pop.rain_amount > 0 ? 'rain' : 'snow'}
-        expected (${pop.rain_amount + pop.snow_amount}l)
+        `${Math.trunc(pop.chance * 100)}% chance of ${pop.rain_amount > 0 ? 'rain' : 'snow'}
+        expected ${amount > 0 ? `(${amount}l)` : ''}
         ${pop.from ? 'from ' + DateTime.fromSeconds(pop.from).toFormat('HH:mm') : ''}`
       );
     }
@@ -67,6 +69,7 @@ const Forecast = (props) => {
 
   return (
     <div className={ `forecast ${ stateClasses.main }` }>
+      <button className="forecast__close" onClick={ () => { props.remove(props.index) } }>&#10006;</button>
       <div className="forecast__row forecast__title">
         <img className="forecast__flag" src={ country.flag } alt={ country.name } />
         { props.city.name }, { country.name } on { DateTime.fromISO(props.date).weekdayLong }

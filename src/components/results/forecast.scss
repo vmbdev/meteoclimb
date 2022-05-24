@@ -10,10 +10,12 @@ $forecast-terrible: #F32424;
   border-style: solid;
   border-radius: 22px;
   min-width: 350px;
+  max-width: 350px;
   padding: 15px;
   margin: 20px;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &--great {
     background-color: $forecast-great;
@@ -56,5 +58,17 @@ $forecast-terrible: #F32424;
     border: 1px solid black;
     width: 25px;
     margin: 0 10px;
+  }
+
+  &__close {
+    background-color: #2A1A5E;
+    border: 1px solid #2A1A5E;
+    border-radius: 100%;
+    color: white;
+    font-size: 14pt;
+    padding: 5px 10px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
   }
 }
