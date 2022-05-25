@@ -27,18 +27,36 @@ const Search = (props) => {
     setDateList(list);
   }, []);
 
+  useEffect(() => {
+    if (props.storedData) {
+      props.setLoadingData(true);
+      for (const [cityId, dates] of Object.entries(props.storedData)) {
+        const list = dates
+          .map(date => Math.abs(Math.ceil(DateTime.fromFormat(date, 'yyyy-MM-dd').toUTC().diffNow('days').days)))
+          .filter(i => i > -1 && i <= 6)
+          .join(';');
+       
+        fetchForecast(cityId, list);
+      }
+      props.setLoadingData(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.storedData]);
+
   const getClassName = () => {
     return `search ${isCollapsed ? 'search--collapsed' : ''}`;
   }
 
-  const fetchForecast = (cityId) => {
+  const fetchForecast = (cityId, dates) => {
+    console.log('call for ',cityId, dates)
     setCollapsed(true);
     setLocationActive(false);
-    let dates = dateList.filter((date) => date.active).map((date) => date.dateOffset).join(';');
+    if (dates === undefined)
+      dates = dateList.filter((date) => date.active).map((date) => date.dateOffset).join(';');
 
     fetch(`http://localhost:8080/api/forecast/${cityId}/${dates}`)
       .then(res => res.json())
-      .then(data => { props.getResults(data); })
+      .then(data => { if (data) props.setResults(data); })
       .catch(e => { console.error(`Error: ${e}`) });
   }
 

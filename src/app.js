@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Search from './components/search/search.js';
 import Results from './components/results/results.js';
 
 function App() {
   const [results, setResults] = useState([]);
+  const [storedData, setStoredData] = useState([]);
+  const [loadingData, setLoadingData] = useState(false);
 
-  const getResults = (results) => {
-    if (results) setResults(results);
+  useEffect(() => {
+    const storableResults = JSON.parse(localStorage.getItem('resultList'));
+    console.log('loaded ', storableResults);
+    setStoredData(storableResults);    
+  }, []);
+
+  const save = (storableResults) => {
+    if (!loadingData)
+      localStorage.setItem('resultList', JSON.stringify(storableResults));
   }
 
   return (
     <>
-      <Search getResults={ getResults } />
-      <Results results={ results } />
+      <Search storedData={ storedData } setResults={ setResults } setLoadingData={ setLoadingData } />
+      <Results save={ save } results={ results } />
     </>
   );
 }
