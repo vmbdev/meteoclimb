@@ -30,14 +30,17 @@ const Search = (props) => {
   useEffect(() => {
     if (props.storedData) {
       props.setLoadingData(true);
+      let restoredData = [];
       for (const [cityId, dates] of Object.entries(props.storedData)) {
         const list = dates
           .map(date => Math.abs(Math.ceil(DateTime.fromFormat(date, 'yyyy-MM-dd').toUTC().diffNow('days').days)))
-          .filter(i => i > -1 && i <= 6)
+          .filter(i => (i > -1) && (i <= 6))
           .join(';');
        
-        fetchForecast(cityId, list);
+        const forecast = fetchForecast(cityId, list);
+        restoredData.push(forecast);
       }
+      props.awaitSearchResults(restoredData);
       props.setLoadingData(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,17 +50,20 @@ const Search = (props) => {
     return `search ${isCollapsed ? 'search--collapsed' : ''}`;
   }
 
-  const fetchForecast = (cityId, dates) => {
-    console.log('call for ',cityId, dates)
+  const findForecast = async (cityId, dates) => {
+    const forecast = fetchForecast(cityId, dates);
+    props.awaitSearchResults([forecast]);
+  }
+
+  const fetchForecast = async (cityId, dates) => {
     setCollapsed(true);
     setLocationActive(false);
     if (dates === undefined)
       dates = dateList.filter((date) => date.active).map((date) => date.dateOffset).join(';');
 
-    fetch(`http://localhost:8080/api/forecast/${cityId}/${dates}`)
-      .then(res => res.json())
-      .then(data => { if (data) props.setResults(data); })
-      .catch(e => { console.error(`Error: ${e}`) });
+    const res = await fetch(`http://localhost:8080/api/forecast/${cityId}/${dates}`);
+    const data = await res.json();
+    return data;
   }
 
   const findCityName = (value) => {
@@ -90,9 +96,12 @@ const Search = (props) => {
           findCityName={ findCityName }
           keyPressed={ setLocationKeyPressed }
         />
-        <Suggestions isLocationActive={ isLocationActive } locationKeyPressed={ locationKeyPressed } fetchForecast={ fetchForecast }>
-          { suggestionList }
-        </Suggestions>
+        <Suggestions
+          isLocationActive={ isLocationActive }
+          locationKeyPressed={ locationKeyPressed }
+          findForecast={ findForecast }
+          suggestionList={ suggestionList }
+        />
       </div>
     </div>
   );

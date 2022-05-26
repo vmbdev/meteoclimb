@@ -16,14 +16,14 @@ const Suggestions = (props) => {
       let nextActiveIndex;
 
       if (props.locationKeyPressed === 'ArrowUp')
-        nextActiveIndex = (activeIndex === 0) ? props.children.length-1 : activeIndex - 1;
+        nextActiveIndex = (activeIndex === 0) ? props.suggestionList.length-1 : activeIndex - 1;
       
       else if (props.locationKeyPressed === 'ArrowDown')
-        nextActiveIndex = (activeIndex === props.children.length-1) ? 0 : activeIndex + 1;
+        nextActiveIndex = (activeIndex === props.suggestionList.length-1) ? 0 : activeIndex + 1;
         
       setActiveIndex(nextActiveIndex);
     }
-  // we don't want to re-render when activeIndex or props.children are updated
+  // we don't want to re-render when activeIndex or props.suggestionList are updated
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.locationKeyPressed]);
 
@@ -34,15 +34,15 @@ const Suggestions = (props) => {
 
   const getSuggestionList = () => {
     let items = [];
-    for (let i = 0; i < props.children.length; i++) {
+    for (let i = 0; i < props.suggestionList.length; i++) {
       items.push(
         <SuggestionItem
           key={ i }
           id={ i }
           active={ (i === activeIndex) ? true : false }
-          city={ props.children[i] }
+          city={ props.suggestionList[i] }
           setActiveIndex={ setActiveIndex }
-          fetchForecast={ props.fetchForecast }
+          findForecast={ props.findForecast }
         />
       );
     }

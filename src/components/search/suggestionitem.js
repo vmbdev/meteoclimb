@@ -19,7 +19,7 @@ const SuggestionItem = (props) => {
       className={ getClassName() }
       data-id={ props.city.id }
       onMouseEnter={ () => { props.setActiveIndex(props.id) } }
-      onClick={ () => { props.fetchForecast(props.city.id) } }
+      onClick={ () => { props.findForecast(props.city.id) } }
     >
       <div className="search__cityname">
         <img className="search__flag" src={ country.flag } alt={ country.name } /> { props.city.name }, { country.name }

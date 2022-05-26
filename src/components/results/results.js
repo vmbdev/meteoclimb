@@ -6,12 +6,12 @@ const Results = (props) => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    if (props.results && props.results.length > 0) {
-      setResults(props.results.concat(results));
+    if (props.searchResults && props.searchResults.length > 0) {
+      setResults(props.searchResults.concat(results));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.results]);
+  }, [props.searchResults]);
 
   useEffect(() => {
     if (results && results.length > 0) {
