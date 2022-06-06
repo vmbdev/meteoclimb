@@ -17,7 +17,7 @@ export default class OpenWeather extends WeatherProvider {
     return null;
   }
 
-  async getWeatherData(lon, lat, exclude = null) {
-    return got(this.getPath(lon, lat, exclude), {responseType: 'json'}).then(res => { return res.body });
+  getWeatherData(lon, lat, exclude = null) {
+    return got(this.getPath(lon, lat, exclude), {responseType: 'json'}).then(res => res.body);
   }
 }

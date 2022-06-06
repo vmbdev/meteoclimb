@@ -20,7 +20,6 @@ import ForecastLog from './forecastlog.model.js';
 
 import db from './database.js';
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

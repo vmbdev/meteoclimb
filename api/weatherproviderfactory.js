@@ -1,9 +1,9 @@
-import config from '../meteo.config.js';
+import { weather } from '../meteo.config.js';
 import OpenWeather from './providers/openweather.js';
 
 // factory class to generate provider objects
 class WeatherProviderFactory {
-  static create(provider = config.weather.provider, key = config.weather.apikey, units = config.weather.units) {
+  static create(provider = weather.provider, key = weather.apikey, units = weather.units) {
     let newProvider;
 
     switch (provider) {

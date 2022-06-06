@@ -14,10 +14,10 @@ const Forecast = (props) => {
     }
 
     let states = {};
-    let temp = props.conditions.temp.max;
-    let wind = props.conditions.wind.speed;
-    let pop = props.conditions.pop.chance;
-    let humidity = props.conditions.humidity;
+    const temp = props.conditions.temp.max;
+    const wind = props.conditions.wind.speed;
+    const pop = props.conditions.pop.chance;
+    const humidity = props.conditions.humidity;
 
     const classNames = {
       0: 'forecast--terrible',
@@ -54,11 +54,11 @@ const Forecast = (props) => {
 
 
   const getPrecipitation = () => {
-    let pop = props.conditions.pop;
-    let amount = pop.rain_amount + pop.snow_amount;
+    const pop = props.conditions.pop;
+    const amount = pop.rain + pop.snow;
     if (pop.chance > 0) {
       return (
-        `${Math.trunc(pop.chance * 100)}% chance of ${pop.rain_amount > 0 ? 'rain' : 'snow'}
+        `${Math.trunc(pop.chance * 100)}% chance of ${pop.snow > 0 ? 'snow' : 'rain'}
         expected ${amount > 0 ? `(${amount}l)` : ''}
         ${pop.from ? 'from ' + DateTime.fromSeconds(pop.from).toFormat('HH:mm') : ''}`
       );
@@ -73,6 +73,12 @@ const Forecast = (props) => {
       <div className="forecast__row forecast__title">
         <img className="forecast__flag" src={ country.flag } alt={ country.name } />
         { props.city.name }, { country.name } on { DateTime.fromISO(props.date).weekdayLong }
+      </div>
+      <div className="forecast__row--centered">
+        <div>{ DateTime.fromSeconds(props.conditions.sunrise).toFormat('HH:mm') }</div>
+        <div className="forecast__icon--sun"></div>
+        <div className="forecast__icon--moon"></div>
+        <div>{ DateTime.fromSeconds(props.conditions.sunset).toFormat('HH:mm') }</div>
       </div>
       <div className={ `forecast__row ${ stateClasses.temp }` }>
         <div className="forecast__icon--temperature" />

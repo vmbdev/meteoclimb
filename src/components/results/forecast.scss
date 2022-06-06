@@ -1,9 +1,4 @@
-@use '../../layout/colors.scss' as colors;
-
-$forecast-great: #6BCB77;
-$forecast-good: #4D96FF;
-$forecast-bad: #7D1E6A;
-$forecast-terrible: #F32424;
+@use '../../layout/theming.scss' as t;
 
 .forecast {
   border: 1px;
@@ -18,23 +13,31 @@ $forecast-terrible: #F32424;
   position: relative;
 
   &--great {
-    background-color: $forecast-great;
-    color: white;
+    @include t.themify {
+      background-color: t.theme(forecastGreat);
+      color: t.theme(forecastText);
+    }
   }
 
   &--good {
-    background-color: $forecast-good;
-    color: white;
+    @include t.themify {
+      background-color: t.theme(forecastGood);
+      color: t.theme(forecastText);
+    }
   }
 
   &--bad {
-    background-color: $forecast-bad;
-    color: white;
+    @include t.themify {
+      background-color: t.theme(forecastBad);
+      color: t.theme(forecastText);
+    }
   }
 
   &--terrible {
-    background-color: $forecast-terrible;
-    color: white;
+    @include t.themify {
+      background-color: t.theme(forecastTerrible);
+      color: t.theme(forecastText);
+    }
   }
 
   &__row {
@@ -44,6 +47,11 @@ $forecast-terrible: #F32424;
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    &--centered {
+      @extend .forecast__row;
+      justify-content: center;
+    }
   }
 
   &__row > div {
@@ -65,6 +73,7 @@ $forecast-terrible: #F32424;
     border: 1px solid #2A1A5E;
     border-radius: 100%;
     color: white;
+    cursor: pointer;
     font-size: 14pt;
     padding: 5px 10px;
     position: absolute;

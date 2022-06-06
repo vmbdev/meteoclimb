@@ -1,17 +1,21 @@
-@use '../../layout/colors.scss' as colors;
+@use '../../layout/theming.scss' as t;
 
 .search__city {
-  color: black;
-  border-bottom: 1px solid colors.$primary-color;
+  align-items: flex-end;
+  @include t.themify {
+    border-bottom: 1px solid t.theme(mainColor);
+  }
   box-sizing: border-box;
-  padding: 8px;
+  color: black;
   cursor: default;
   display: flex;
-  align-items: flex-end;
+  padding: 8px;
 
   &--active {
     color: white;
-    background-color: colors.$primary-color;
+    @include t.themify {
+      background-color: t.theme(mainColor);
+    }
   }
 }
 

@@ -1,0 +1,17 @@
+@use '../layout/theming.scss' as t;
+
+.footer {
+  @include t.themify {
+    background-color: t.theme('footerBg');
+    color: t.theme('footerText');;
+  }
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  > a {
+    @include t.themify {
+      color: t.theme('footerLink');
+    }
+  }
+}

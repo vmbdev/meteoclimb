@@ -29,7 +29,8 @@ class Forecast extends Sequelize.Model {
       },
       {
         sequelize,
-        timestamps: false
+        timestamps: false,
+        modelName: 'forecasts'
       }
     );
 

@@ -1,0 +1,24 @@
+$themes: (
+  light: (
+    mainColor: #42a1e3,
+    footerBg: rgb(27 120 194),
+    footerText: white,
+    footerLink: #A7C6E5,
+    forecastGreat: #6BCB77,
+    forecastGood: #4D96FF,
+    forecastBad: #7D1E6A,
+    forecastTerrible: #F32424,
+    forecastText: white,
+  ),
+  dark: (
+    mainColor: #1d2c36,
+    footerBg: rgb(2, 4, 5),
+    footerText: white,
+    footerLink: #bea14f,
+    forecastGreat: #6BCB77,
+    forecastGood: #4D96FF,
+    forecastBad: #7D1E6A,
+    forecastTerrible: #F32424,
+    forecastText: white,
+  )
+);

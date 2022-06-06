@@ -1,7 +1,7 @@
 {
   "name": "meteoclimb",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
@@ -25,7 +25,7 @@
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
-    "server": "nodemon --ext js --exec node ./api/server.js",
+    "server": "nodemon --ext js --exec node ./api/server.js --watch ./api",
     "docs": "jsdoc -c ./jsdoc.json"
   },
   "eslintConfig": {

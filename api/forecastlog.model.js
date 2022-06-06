@@ -20,7 +20,8 @@ class ForecastLog extends Sequelize.Model {
         },
       },
       {
-        sequelize
+        sequelize,
+        modelName: 'forecastlogs'
       }
     );
 

@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize';
-import config from './../meteo.config.js';
+import { database } from './../meteo.config.js';
 
-const db = new Sequelize(config.database.name, config.database.user, config.database.password, {
+const db = new Sequelize(database.name, database.user, database.password, {
   //query: { raw: true },
-  host: config.database.host,
-  dialect: config.database.dialect,
+  host: database.host,
+  dialect: database.dialect,
   timezone: 'utc',
   logging: process.env.NODE_ENV === 'production' ? false : console.log
 });
