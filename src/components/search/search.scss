@@ -15,23 +15,13 @@
   }
 
   &__nav {
-    border-radius: 40px;
+    border: solid;
     @include t.themify {
-      outline: 1px solid t.theme(mainColor);
+      border-color: t.theme(mainColor);
     }
+    border-width: 1px 14px 4px 1px;
     padding: 10px;
     position: relative;
     width: 520px;
-  }
-  
-  &__dateselect {
-    @include t.themify {
-      background-color: t.theme(mainColor);
-    }
-    border: 0;
-    border-radius: 40px;
-    color: white;
-    height: 52px;
-    width: 20%;
   }
 }
