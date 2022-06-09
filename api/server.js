@@ -19,6 +19,7 @@ import Forecast from './forecast.model.js';
 import ForecastLog from './forecastlog.model.js';
 
 import db from './database.js';
+import { config } from '../meteo.config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -29,7 +30,7 @@ ForecastLog.init(db);
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+if (config.server.enable_cors === true && config.server.cors_origin) app.use(cors({ origin: config.server.cors_origin }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../build')));
@@ -40,7 +41,7 @@ app.get("*", (res) => {
   res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
-const PORT = 8080;
+const PORT = process.env.PORT || config.server.port;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

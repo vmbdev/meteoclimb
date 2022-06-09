@@ -1,4 +1,11 @@
 const config = {
+  server: {
+    // if changed, remember to update it in src/config.js
+    port: 5005,
+    enable_cors: true,
+    cors_origin: 'http://localhost:3000'
+  },
+
   database: {
     name: 'database',
     user: 'user',
@@ -6,11 +13,12 @@ const config = {
     host: 'localhost',
     dialect: 'postgres' // comply with Sequelize dialects
   },
+
   weather: {
-    provider: 'openweather',
+    provider: 'OpenWeather',
     apikey: '',
     units: 'metric' //standard, metric and imperial
   }
-};
+}
 
-export default config;
+export { config };

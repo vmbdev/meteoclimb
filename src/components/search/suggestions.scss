@@ -1,4 +1,5 @@
 @use '../../layout/theming.scss' as t;
+@use '../../layout/media.scss' as media;
 
 .search__suggestions {
   background: white;
@@ -18,5 +19,13 @@
   
   &--visible {
     visibility: visible;
+  }
+}
+
+@include media.device('sm') {
+  .search__suggestions {
+    margin-left: 0;
+    left: 0;
+    width: 100%;
   }
 }

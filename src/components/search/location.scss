@@ -1,9 +1,9 @@
 .search__location {
-  width: 100%;
+  border: 0;
+  font-size: 18px;
   height: 52px;
   text-indent: 8px;
-  font-size: 18px;
-  border: 0;
+  width: 100%;
 
   &:focus {
     outline: none;

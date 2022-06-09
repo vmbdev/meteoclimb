@@ -1,0 +1,16 @@
+$media: (
+  sm: 640px,
+  md: 720px,
+  hd: 1280px,
+  fhd: 1920px,
+);
+
+@mixin device($breakpoints) {
+  @each $point, $dim in $media {
+    @if ($point == $breakpoints) {
+      @media only screen and (max-width: $dim) {
+        @content;
+      }
+    }
+  }
+}

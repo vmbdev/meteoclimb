@@ -1,4 +1,5 @@
 @use '../../layout/theming.scss' as t;
+@use '../../layout/media.scss' as media;
 
 .search__city {
   align-items: flex-end;
@@ -26,4 +27,14 @@
 
 .search__flag {
   width: 25px;
+}
+
+@include media.device('sm') {
+  .search__city {
+    display: block;
+  }
+
+  .search__station {
+    padding-top: 6px;
+  }
 }

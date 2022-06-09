@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { DateTime } from 'luxon';
 import Location from './location.js';
 import Suggestions from './suggestions.js';
 import DateSelector from './dateselector.js';
+import { ConfigContext } from '../../config.js';
 import './search.scss';
 
 const Search = (props) => {
@@ -11,10 +12,11 @@ const Search = (props) => {
   const [isCollapsed, setCollapsed] = useState(false);
   const [suggestionList, setSuggestionList] = useState([]);
   const [dateList, setDateList] = useState([]);
+  const config = useContext(ConfigContext);
 
   useEffect(() => {
     let list = [];
-    let currentDay = DateTime.local()
+    let currentDay = DateTime.local();
 
     for (let i = 0; i < 7; i++) {
       list.push({
@@ -31,6 +33,7 @@ const Search = (props) => {
     if (props.storedData) {
       props.setLoadingData(true);
       let restoredData = [];
+
       for (const [cityId, dates] of Object.entries(props.storedData)) {
         const list = dates
           .map(date => Math.abs(Math.ceil(DateTime.fromFormat(date, 'yyyy-MM-dd').toUTC().diffNow('days').days)))
@@ -58,18 +61,17 @@ const Search = (props) => {
   const fetchForecast = async (cityId, dates) => {
     setCollapsed(true);
     setLocationActive(false);
-    if (dates === undefined)
-      dates = dateList.filter((date) => date.active).map((date) => date.dateOffset).join(';');
 
-    const res = await fetch(`http://localhost:8080/api/forecast/${cityId}/${dates}`);
+    if (dates === undefined) dates = dateList.filter((date) => date.active).map((date) => date.dateOffset).join(';');
+
+    const res = await fetch(`${config.endpoint}/forecast/${cityId}/${dates}`);
     const data = await res.json();
     return data;
   }
 
   const findCityName = (value) => {
     if (value.length >= 3) {
-      // FIXME: variable endpoint
-      fetch(`http://localhost:8080/api/city/search/${value}`)
+      fetch(`${config.endpoint}/city/search/${value}`)
       .then(res => res.json())
       .then(data => {
         if (data.length > 0) {
@@ -82,8 +84,7 @@ const Search = (props) => {
         }
       });
     }
-    else
-      setLocationActive(false);
+    else setLocationActive(false);
   }
 
   return (

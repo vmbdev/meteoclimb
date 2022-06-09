@@ -1,11 +1,11 @@
 import React from 'react';
 import './footer.scss';
 
-const Footer = () => {
+const Footer = (props) => {
 
   return (
     <footer className="footer">
-      © 2022 meteoclimb - Source code at <a href="https://github.com/vmbdev/meteoclimb" rel="noreferrer" target="_blank">GitHub</a>
+      { props.children }
     </footer>
   );
 }
