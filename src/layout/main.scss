@@ -1,6 +1,11 @@
+@use './theming.scss' as t;
+
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
+  @include t.themify {
+    background-color: t.theme(mainBackground);
+  }
 }
 
 .body-wrapper {
