@@ -1,4 +1,9 @@
+@use '../../layout/theming.scss' as t;
+
 .search__location {
+  @include t.themify {
+    background-color: t.theme(location_background);
+  }
   border: 0;
   font-size: 18px;
   height: 52px;

@@ -26,6 +26,8 @@ const Search = (props) => {
         });
       currentDay = currentDay.plus({ days: 1 });
     }
+
+    list[0].active = true;
     setDateList(list);
   }, []);
 

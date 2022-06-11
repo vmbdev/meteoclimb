@@ -9,11 +9,11 @@
 
 .search__dateitem {
   @include t.themify {
-    border-color: t.theme(mainColor);
+    border-color: t.theme(main_color);
   }
   border-style: solid;
   border-width: 3px 0 1px 1px;
-  cursor: default;
+  cursor: pointer;
   display: block;
   padding: 4px;
   text-align: center;
@@ -25,7 +25,7 @@
   &:last-child {
     border-right: 1px;
     @include t.themify {
-      border-color: t.theme(mainColor);
+      border-color: t.theme(main_color);
     }
     border-style: solid;
   }
@@ -33,7 +33,7 @@
   &--active {
     color: white;
     @include t.themify {
-      background-color: t.theme(mainColor);
+      background-color: t.theme(main_color);
     }
   }
 }

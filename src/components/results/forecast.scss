@@ -1,9 +1,16 @@
 @use '../../layout/theming.scss' as t;
 @use '../../layout/media.scss' as media;
 
+@mixin forecastState($state) {
+  &--#{$state} {
+    @include t.themify {
+      background-color: t.theme(forecast_#{$state});
+      color: t.theme(forecast_text);
+    }
+  }
+}
+
 .forecast {
-  border: 1px;
-  border-style: solid;
   border-radius: 22px;
   min-width: 350px;
   max-width: 350px;
@@ -13,33 +20,10 @@
   flex-direction: column;
   position: relative;
 
-  &--great {
-    @include t.themify {
-      background-color: t.theme(forecastGreat);
-      color: t.theme(forecastText);
-    }
-  }
-
-  &--good {
-    @include t.themify {
-      background-color: t.theme(forecastGood);
-      color: t.theme(forecastText);
-    }
-  }
-
-  &--bad {
-    @include t.themify {
-      background-color: t.theme(forecastBad);
-      color: t.theme(forecastText);
-    }
-  }
-
-  &--terrible {
-    @include t.themify {
-      background-color: t.theme(forecastTerrible);
-      color: t.theme(forecastText);
-    }
-  }
+  @include forecastState('great');
+  @include forecastState('good');
+  @include forecastState('bad');
+  @include forecastState('terrible');
 
   &__row {
     margin: 5px;
@@ -76,7 +60,7 @@
     color: white;
     cursor: pointer;
     font-size: 14pt;
-    padding: 5px 10px;
+    padding: 5px 10px 7px 10px;
     position: absolute;
     right: -10px;
     top: -10px;

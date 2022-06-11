@@ -2,8 +2,8 @@
 
 .footer {
   @include t.themify {
-    background-color: t.theme('footerBg');
-    color: t.theme('footerText');;
+    background-color: t.theme(footer_background);
+    color: t.theme(footer_text);;
   }
   text-align: center;
   padding-top: 20px;
@@ -11,7 +11,7 @@
 
   > a {
     @include t.themify {
-      color: t.theme('footerLink');
+      color: t.theme(footer_link);
     }
   }
 }

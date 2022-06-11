@@ -4,7 +4,7 @@
 .search__city {
   align-items: flex-end;
   @include t.themify {
-    border-bottom: 1px solid t.theme(mainColor);
+    border-bottom: 1px solid t.theme(main_color);
   }
   box-sizing: border-box;
   color: black;
@@ -15,7 +15,7 @@
   &--active {
     color: white;
     @include t.themify {
-      background-color: t.theme(mainColor);
+      background-color: t.theme(main_color);
     }
   }
 }

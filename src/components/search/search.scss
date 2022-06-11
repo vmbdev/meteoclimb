@@ -16,10 +16,11 @@
   }
 
   &__nav {
-    border: solid;
     @include t.themify {
-      border-color: t.theme(mainColor);
+      background-color: t.theme(location_background);
+      border-color: t.theme(main_color);
     }
+    border: solid;
     border-width: 1px 14px 4px 1px;
     padding: 10px;
     position: relative;

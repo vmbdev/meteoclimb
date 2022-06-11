@@ -76,8 +76,7 @@ const Forecast = (props) => {
       </div>
       <div className="forecast__row--centered">
         <div>{ DateTime.fromSeconds(props.conditions.sunrise).toFormat('HH:mm') }</div>
-        <div className="forecast__icon--sun"></div>
-        <div className="forecast__icon--moon"></div>
+        <div className="forecast__icon--daynight"></div>
         <div>{ DateTime.fromSeconds(props.conditions.sunset).toFormat('HH:mm') }</div>
       </div>
       <div className={ `forecast__row ${ stateClasses.temp }` }>

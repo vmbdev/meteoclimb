@@ -4,7 +4,7 @@
 .search__suggestions {
   background: white;
   @include t.themify {
-    border: 1px solid t.theme(mainColor);
+    border: 1px solid t.theme(main_color);
   }
   border-top: 0;
   position: absolute;
