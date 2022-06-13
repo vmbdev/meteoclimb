@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { toDMS } from '../../helpers/geocoords.js';
 import { getCountry } from '../../helpers/countrycodes.js';
 import './suggestionitem.scss';
@@ -25,7 +26,14 @@ const SuggestionItem = (props) => {
         <img className="search__flag" src={ country.flag } alt={ country.name } /> { props.city.name }, { country.name }
       </div>
       <div className="search__station">
-        Station @ ({ toDMS(props.city.lat, 'lat') }, { toDMS(props.city.lon, 'lon') })
+        <FormattedMessage 
+          id="item.station"
+          defaultMessage="Station @ ({lat}, {lon})"
+          values={{
+            lat: toDMS(props.city.lat, 'lat'),
+            lon: toDMS(props.city.lon, 'lon')
+          }}
+        />
       </div>
     </div>
   );

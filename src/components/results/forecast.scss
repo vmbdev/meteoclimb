@@ -19,6 +19,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  animation: fadein 500ms;
 
   @include forecastState('great');
   @include forecastState('good');
@@ -72,4 +73,9 @@
     min-width: calc(100vw - 4.5rem);
     max-width: calc(100vw - 4.5rem);
   }
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

@@ -251,11 +251,23 @@ const countryCodes = {
 };
 
 const getCountry = (code) => {
-  return countryCodes[code];
+  return countryCodes[code.toUpperCase()];
 }
 
 const getCountryName = (code) => {
-  return countryCodes[code].name;
+  return countryCodes[code.toUpperCase()].name;
 }
 
-export { getCountry, getCountryName };
+const getLanguageData = (lang) => {
+  const cLang = Intl.getCanonicalLocales(lang)[0];
+  const name = new Intl.DisplayNames([cLang], {type: 'language'});
+
+  const langObj = {};
+  langObj.langDesc = name.of(cLang);
+  langObj.locale = cLang;
+  langObj.flag = countryCodes[cLang.slice(-2).toUpperCase()].flag;
+
+  return langObj;
+}
+
+export { getCountry, getCountryName, getLanguageData };

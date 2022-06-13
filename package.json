@@ -28,7 +28,10 @@
     "react-eject": "react-scripts eject",
     "server-dev": "nodemon --ext js --exec node ./api/server.js --watch ./api",
     "server-prod": "NODE_ENV=production node ./api/server.js",
-    "docs": "jsdoc -c ./jsdoc.json"
+    "docs": "jsdoc -c ./jsdoc.json",
+    "formatjs-extract": "formatjs extract",
+    "formatjs-compile": "formatjs compile",
+    "formatjs-build": "formatjs compile-folder ./src/translations ./src/locales"
   },
   "eslintConfig": {
     "extends": [
@@ -47,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@formatjs/cli": "^5.0.2"
   }
 }

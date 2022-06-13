@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
 import Location from './location.js';
 import Suggestions from './suggestions.js';
 import DateSelector from './dateselector.js';
-import { ConfigContext } from '../../config.js';
 import './search.scss';
 
 const Search = (props) => {
@@ -12,11 +12,11 @@ const Search = (props) => {
   const [isCollapsed, setCollapsed] = useState(false);
   const [suggestionList, setSuggestionList] = useState([]);
   const [dateList, setDateList] = useState([]);
-  const config = useContext(ConfigContext);
+  const {locale} = useIntl();
 
   useEffect(() => {
     let list = [];
-    let currentDay = DateTime.local();
+    let currentDay = DateTime.local().setLocale(locale);
 
     for (let i = 0; i < 7; i++) {
       list.push({
@@ -29,7 +29,7 @@ const Search = (props) => {
 
     list[0].active = true;
     setDateList(list);
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     if (props.storedData) {
@@ -66,14 +66,14 @@ const Search = (props) => {
 
     if (dates === undefined) dates = dateList.filter((date) => date.active).map((date) => date.dateOffset).join(';');
 
-    const res = await fetch(`${config.endpoint}/forecast/${cityId}/${dates}`);
+    const res = await fetch(`${props.endpoint}/forecast/${cityId}/${dates}`);
     const data = await res.json();
     return data;
   }
 
   const findCityName = (value) => {
     if (value.length >= 3) {
-      fetch(`${config.endpoint}/city/search/${value}`)
+      fetch(`${props.endpoint}/city/search/${value}`)
       .then(res => res.json())
       .then(data => {
         if (data.length > 0) {

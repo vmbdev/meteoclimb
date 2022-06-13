@@ -1,0 +1,35 @@
+{
+  "footer.msg": {
+    "defaultMessage": "© 2022 meteoclimb - Código fuente en {link}"
+  },
+  "forecast.from": {
+    "defaultMessage": "desde las {time}"
+  },
+  "forecast.humidity": {
+    "defaultMessage": "{humidity}% humedad"
+  },
+  "forecast.nopop": {
+    "defaultMessage": "No se esperan precipitaciones"
+  },
+  "forecast.pop": {
+    "defaultMessage": "{chance}% de probabilidades de {type} {amount}"
+  },
+  "forecast.rain": {
+    "defaultMessage": "lluvia"
+  },
+  "forecast.snow": {
+    "defaultMessage": "nieve"
+  },
+  "forecast.temperature": {
+    "defaultMessage": "{temp}º (sensación de {feel}º)"
+  },
+  "forecast.title": {
+    "defaultMessage": "{city}, {country} el {weekday}"
+  },
+  "item.station": {
+    "defaultMessage": "Estación en ({lat}, {lon})"
+  },
+  "location.placeholder": {
+    "defaultMessage": "Ciudad, país (ej: Madrid, ES)"
+  }
+}

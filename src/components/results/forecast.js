@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
+import { FormattedMessage, useIntl } from 'react-intl';
 import { getCountry } from '../../helpers/countrycodes.js';
 import './forecast.scss';
 import './forecast-sprites.scss';
@@ -7,6 +8,7 @@ import './forecast-sprites.scss';
 const Forecast = (props) => {
   const [country, setCountry] = useState({ flag: '', name: '' });
   const [stateClasses, setStateClasses] = useState({ main: null, temp: null, wind: null, pop: null, humidity: null});
+  const intl = useIntl();
 
   useEffect(() => {
     const inInterval = (value, min, max) => {
@@ -52,19 +54,39 @@ const Forecast = (props) => {
     setCountry(getCountry(props.city.country));
   }, [props.conditions, props.city.country]);
 
-
   const getPrecipitation = () => {
     const pop = props.conditions.pop;
     const amount = pop.rain + pop.snow;
     if (pop.chance > 0) {
       return (
-        `${Math.trunc(pop.chance * 100)}% chance of ${pop.snow > 0 ? 'snow' : 'rain'}
-        expected ${amount > 0 ? `(${amount}l)` : ''}
-        ${pop.from ? 'from ' + DateTime.fromSeconds(pop.from).toFormat('HH:mm') : ''}`
+        <>
+          <FormattedMessage 
+            id="forecast.pop"
+            defaultMessage="{chance}% of {type} expected {amount}"
+            values={{
+              chance: Math.trunc(pop.chance * 100),
+              type: pop.snow > 0 ? intl.formatMessage({id: 'forecast.snow', defaultMessage: 'snow'}) : intl.formatMessage({id: 'forecast.rain', defaultMessage: 'rain'}),
+              amount: amount > 0 ? `(${amount}l)` : '',
+            }}
+          />
+          &nbsp;
+          { pop.from &&
+            <FormattedMessage
+              id="forecast.from"
+              defaultMessage="from {time}"
+              values={{time: DateTime.fromSeconds(pop.from).setLocale(intl.locale).toFormat('HH:mm')}}
+            />
+          }
+        </>
       );
     }
 
-    else return 'No precipitations expected';
+    else return (
+      <FormattedMessage
+        id="forecast.nopop"
+        defaultMessage="No precipitations expected"
+      />
+    );
   }
 
   return (
@@ -72,7 +94,15 @@ const Forecast = (props) => {
       <button className="forecast__close" onClick={ () => { props.remove(props.index) } }>&#10006;</button>
       <div className="forecast__row forecast__title">
         <img className="forecast__flag" src={ country.flag } alt={ country.name } />
-        { props.city.name }, { country.name } on { DateTime.fromISO(props.date).weekdayLong }
+        <FormattedMessage
+          id="forecast.title"
+          defaultMessage="{city}, {country} on {weekday}"
+          values={{
+            city: props.city.name,
+            country: country.name,
+            weekday: DateTime.fromISO(props.date).setLocale(intl.locale).weekdayLong
+          }}
+        />
       </div>
       <div className="forecast__row--centered">
         <div>{ DateTime.fromSeconds(props.conditions.sunrise).toFormat('HH:mm') }</div>
@@ -81,7 +111,16 @@ const Forecast = (props) => {
       </div>
       <div className={ `forecast__row ${ stateClasses.temp }` }>
         <div className="forecast__icon--temperature" />
-        <div>{ props.conditions.temp.max }&ordm; (feels like { props.conditions.temp.feel }&ordm;)</div>
+        <div>
+          <FormattedMessage
+            id="forecast.temperature"
+            defaultMessage="{temp}&ordm; (feels like {feel}&ordm;)"
+            values={{
+              temp: props.conditions.temp.max,
+              feel: props.conditions.temp.feel
+            }}
+          />
+        </div>
       </div>
       <div className={ `forecast__row ${ stateClasses.wind }` }>
         <div className="forecast__icon--arrow" style={{ transform: `rotate(${ props.conditions.wind.degrees + 180 }deg)` }} />
@@ -93,7 +132,13 @@ const Forecast = (props) => {
       </div>
       <div className={ `forecast__row ${ stateClasses.humidity }` }>
         <div className="forecast__icon--humidity"></div>
-        <div>{ props.conditions.humidity }% humidity</div>
+        <div>
+          <FormattedMessage
+            id="forecast.humidity"
+            defaultMessage="{humidity}% humidity"
+            values={{humidity: props.conditions.humidity}}
+          />
+        </div>
       </div>
     </div>
   );

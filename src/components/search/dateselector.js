@@ -2,6 +2,7 @@ import React from 'react';
 import './dateselector.scss';
 
 const DateSelector = (props) => {
+
   const updateDateList = (index) => {
     if (index >= 0 && index < props.children.length) {
       let list = [...props.children];
