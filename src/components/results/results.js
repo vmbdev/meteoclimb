@@ -35,10 +35,6 @@ const Results = (props) => {
       props.save([]);
   }
 
-  const getClassName = () => {
-    return `results ${results.length === 0 ? 'results--collapsed' : ''}`;
-  }
-
   const scrollResults = (event) => {
     let amount;
     if (event.deltaY > 0) amount = 100;
@@ -48,19 +44,21 @@ const Results = (props) => {
   }
 
   return (
-    <div className={ getClassName() } onWheel={ scrollResults }>
+    <div className="">
+      <div className={ `results__list ${results.length === 0 ? 'results--collapsed' : ''}` } onWheel={ scrollResults }>
       {
         results.map((data, index) =>
-          <Forecast
+        <Forecast
             index={ index }
             date={ data.date }
             city={ data.city }
             conditions={ data.conditions }
             remove={ remove }
             key={ `${data.city.id}+${data.date}` }
-          />
-        )
-      }
+            />
+            )
+          }
+      </div>
     </div>
   );
 }

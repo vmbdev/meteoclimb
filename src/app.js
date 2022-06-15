@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 
 // Components
@@ -6,41 +6,36 @@ import Search from './components/search/search.js';
 import Results from './components/results/results.js';
 import Footer from './components/footer.js';
 import Navbar from './components/navbar/navbar.js';
-import LangSelector from './components/langselector.js';
-import ThemeSwitcher from './components/themeswitcher.js';
+import Help from './components/navbar/help.js';
+import LangSelector from './components/navbar/langselector.js';
+import ThemeSwitcher from './components/navbar/themeswitcher.js';
 
 import settings from './settings.js';
-import defaultTranslation from './locales/default.json';
 import './layout/main.scss';
 
-function App() {
+function App(props) {
   const [searchResults, setSearchResults] = useState([]);
   const [storedData, setStoredData] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
   const [theme, setTheme] = useState(settings.theme);
-  const [lang, setLang] = useState(settings.lang);
-  const [messages, setMessages] = useState(defaultTranslation);
-  const translations = useRef({});
+  const [lang, setLang] = useState(props.defaultLang);
+  const [messages, setMessages] = useState(props.defaultMessages);
 
   useEffect(() => {
-    // FIXME: temporary; make it lazy load on request
-    (async () => {
-      for await (const translation of settings.availableTranslations) {
-        if (translation !== settings.lang) {
-          const { default: content } = await import(`./locales/${translation}.json`)
-          translations.current[translation] = content;
-        }
-      }
-    })();
-    translations.current[lang] = defaultTranslation;
+      // load theme from localstorage
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme) setTheme(storedTheme);
+      
+      // Tries to load an stored language in localStorage.
+      // If it can't, then tries to load user's browser language
+      const storedLang = localStorage.getItem('lang');
+      if (storedLang && settings.availableTranslations.includes(storedLang)) changeLang(storedLang);
+      else if (settings.availableTranslations.includes(navigator.language)) changeLang(navigator.language)
 
-    // load theme from localstorage
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) setTheme(storedTheme);
-
-    // load previous searches from localstorage
-    const storableResults = JSON.parse(localStorage.getItem('resultList'));
-    setStoredData(storableResults);
+      // load previous searches from localstorage
+      const storableResults = JSON.parse(localStorage.getItem('resultList'));
+      setStoredData(storableResults);
+    // });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -53,21 +48,26 @@ function App() {
     setSearchResults(resolvedResults);
   }
 
-  const changeLang = (lang) => {
-    setLang(lang);
-    setMessages(translations.current[lang]);
+  const changeLang = async (newLang) => {
+    if (settings.availableTranslations.includes(newLang)) {
+      const { default: newMessages } = await import(`./locales/${newLang}.json`);
+      setLang(newLang);
+      setMessages(newMessages);
+      localStorage.setItem('lang', newLang);
+    }
   }
 
   const switchTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
-    localStorage.setItem('theme', newTheme);
     setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
   }
 
   return (
     <IntlProvider locale={ lang } messages={ messages }>
       <div className={ `body-wrapper theme-${theme}` }>
         <Navbar>
+          <Help />
           <LangSelector
             changeLang={ changeLang }
             lang={ lang }

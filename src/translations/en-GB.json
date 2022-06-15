@@ -1,0 +1,74 @@
+{
+  "footer.msg": {
+    "defaultMessage": "© 2022 meteoclimb - Source code at {link}"
+  },
+  "forecast.from": {
+    "defaultMessage": "from {time}"
+  },
+  "forecast.wind": {
+    "defaultMessage": "Wind: {speed} {unit}"
+  },
+  "forecast.humidity": {
+    "defaultMessage": "{humidity}% humidity"
+  },
+  "forecast.nopop": {
+    "defaultMessage": "No precipitations expected"
+  },
+  "forecast.pop": {
+    "defaultMessage": "{chance}% of {type} expected {amount}"
+  },
+  "forecast.rain": {
+    "defaultMessage": "rain"
+  },
+  "forecast.snow": {
+    "defaultMessage": "snow"
+  },
+  "forecast.temperature": {
+    "defaultMessage": "{temp}º (feels like {feel}º)"
+  },
+  "forecast.term.humidity": {
+    "defaultMessage": "humidity"
+  },
+  "forecast.term.precipitation": {
+    "defaultMessage": "precipitation"
+  },
+  "forecast.term.temperature": {
+    "defaultMessage": "temperature"
+  },
+  "forecast.term.wind": {
+    "defaultMessage": "wind"
+  },
+  "forecast.title": {
+    "defaultMessage": "{city}, {country} on {weekday}"
+  },
+  "help.desc.colours": {
+    "defaultMessage": "Each parameter has a colour associated to its predicted state, ranging from great (mild temperatures, little wind, no rain/snow or low humidity) to terrible (too cold or hot, strong wind currents, rain or snow predicted or extreme humidity). The box containing the forecast will inherit the colour of the worst situation possible (i.e. if there's rain, precipitation and the box will be red, independently of the rest of the parameters)."
+  },
+  "help.desc.figure": {
+    "defaultMessage": "In the figure below, temperature is bad as it's too hot, wind speed is great, precipitation is terrible as it's going to rain and humidity is good. As precipitations are expected and it has the lowest quality score, the box color will be red. Also, the wind arrow points to the wind direction!"
+  },
+  "help.desc.params": {
+    "defaultMessage": "Four parameters are observed: {temperature}, {wind}, {precipitation} and {humidity}."
+  },
+  "help.title": {
+    "defaultMessage": "How does meteoclimb work?"
+  },
+  "item.station": {
+    "defaultMessage": "Station @ ({lat}, {lon})"
+  },
+  "location.placeholder": {
+    "defaultMessage": "City, Country (i.e. London, GB)"
+  },
+  "forecast.status.great": {
+    "defaultMessage": "Great"
+  },
+  "forecast.status.good": {
+    "defaultMessage": "Good"
+  },
+  "forecast.status.bad": {
+    "defaultMessage": "Bad"
+  },
+  "forecast.status.terrible": {
+    "defaultMessage": "Terrible"
+  }
+}

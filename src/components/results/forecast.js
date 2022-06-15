@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { FormattedMessage, useIntl } from 'react-intl';
+import CloseButton from '../closebutton.js';
 import { getCountry } from '../../helpers/countrycodes.js';
 import './forecast.scss';
 import './forecast-sprites.scss';
@@ -91,7 +92,7 @@ const Forecast = (props) => {
 
   return (
     <div className={ `forecast ${ stateClasses.main }` }>
-      <button className="forecast__close" onClick={ () => { props.remove(props.index) } }>&#10006;</button>
+      <CloseButton closeAction={ () => { props.remove(props.index) } }/>
       <div className="forecast__row forecast__title">
         <img className="forecast__flag" src={ country.flag } alt={ country.name } />
         <FormattedMessage
@@ -114,7 +115,7 @@ const Forecast = (props) => {
         <div>
           <FormattedMessage
             id="forecast.temperature"
-            defaultMessage="{temp}&ordm; (feels like {feel}&ordm;)"
+            defaultMessage="{temp}º (feels like {feel}º)"
             values={{
               temp: props.conditions.temp.max,
               feel: props.conditions.temp.feel
@@ -124,7 +125,18 @@ const Forecast = (props) => {
       </div>
       <div className={ `forecast__row ${ stateClasses.wind }` }>
         <div className="forecast__icon--arrow" style={{ transform: `rotate(${ props.conditions.wind.degrees + 180 }deg)` }} />
-        <div>Wind: { props.conditions.wind.speed } km/h</div>
+        <div>
+        <FormattedMessage
+            id="forecast.wind"
+            defaultMessage="Wind: {speed} {unit}"
+            values={{
+              speed: props.conditions.wind.speed,
+              // TODO variable unit system
+              unit: 'km/h'
+            }}
+          />
+          
+        </div>
       </div>
       <div className={ `forecast__row ${ stateClasses.pop }` }>
         <div className="forecast__icon--rain" />

@@ -23,13 +23,52 @@
   "forecast.temperature": {
     "defaultMessage": "{temp}º (sensación de {feel}º)"
   },
+  "forecast.wind": {
+    "defaultMessage": "Viento: {speed} {unit}"
+  },
+  "forecast.term.humidity": {
+    "defaultMessage": "humedad"
+  },
+  "forecast.term.precipitation": {
+    "defaultMessage": "precipitación"
+  },
+  "forecast.term.temperature": {
+    "defaultMessage": "temperatura"
+  },
+  "forecast.term.wind": {
+    "defaultMessage": "viento"
+  },
   "forecast.title": {
     "defaultMessage": "{city}, {country} el {weekday}"
+  },
+  "help.desc.colours": {
+    "defaultMessage": "Cada parámetro tiene un color asociado al estado, que va desde genial (temperaturas suaves, poco viento, sin precipitaciones o baja humedad) hasta terrible (mucho calor o frío, viento fuerte, lluvia o nieve o humedad extrema. El cuadro que contiene la predicción entera hereda el color de la peor situación posible (por ejemplo, si hay lluvia, tanto el parámetro de la precipitación como el cuadro estarán en rojos, independientemente del color de los demás parámetros)."
+  },
+  "help.desc.figure": {
+    "defaultMessage": "En la imagen de abajo, la temperatura es mala al ser demasiado alta, el viento es genial, la precipitación es terrible pues va a llover y la humedad es buena. Como la precipitación tiene la peor puntuación, el color del cuadro será rojo. Por cierto, ¡la flecha del viento apunta a su dirección!"
+  },
+  "help.desc.params": {
+    "defaultMessage": "Se observan cuatro parámetros: {temperature}, {wind}, {precipitation} y {humidity}."
+  },
+  "help.title": {
+    "defaultMessage": "¿Cómo funciona meteoclimb?"
   },
   "item.station": {
     "defaultMessage": "Estación en ({lat}, {lon})"
   },
   "location.placeholder": {
     "defaultMessage": "Ciudad, país (ej: Madrid, ES)"
+  },
+  "forecast.status.great": {
+    "defaultMessage": "Genial"
+  },
+  "forecast.status.good": {
+    "defaultMessage": "Bueno"
+  },
+  "forecast.status.bad": {
+    "defaultMessage": "Malo"
+  },
+  "forecast.status.terrible": {
+    "defaultMessage": "Terrible"
   }
 }

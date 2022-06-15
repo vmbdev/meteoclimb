@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: row;
   justify-content: right;
-
-  width: 100vw;
+  align-items: center;
+  padding-top: 10px;
+  column-gap: 10px;
+  width: 100%;
 }

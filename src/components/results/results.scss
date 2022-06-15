@@ -1,13 +1,14 @@
 .results {
-  position: relative;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  // transition: all 0.5s linear;
+  &__list {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
 
-  &--collapsed {
-    height: 0;
+    &--collapsed {
+      height: 0;
+    }
   }
 }

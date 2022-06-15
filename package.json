@@ -1,8 +1,7 @@
 {
   "name": "meteoclimb",
   "type": "module",
-  "version": "0.2.0",
-  "private": true,
+  "version": "0.9a",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^13.3.0",
@@ -18,8 +17,7 @@
     "react-intl": "^6.0.4",
     "react-scripts": "^5.0.1",
     "sass": "^1.52.1",
-    "sequelize": "^6.19.2",
-    "web-vitals": "^2.1.4"
+    "sequelize": "^6.19.2"
   },
   "scripts": {
     "react-start": "react-scripts start",
@@ -31,7 +29,7 @@
     "docs": "jsdoc -c ./jsdoc.json",
     "formatjs-extract": "formatjs extract",
     "formatjs-compile": "formatjs compile",
-    "formatjs-build": "formatjs compile-folder ./src/translations ./src/locales"
+    "formatjs-compile-all": "formatjs compile-folder ./src/translations ./src/locales"
   },
   "eslintConfig": {
     "extends": [

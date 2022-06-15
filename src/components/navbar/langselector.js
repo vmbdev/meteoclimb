@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getLanguageData } from '../helpers/countrycodes.js';
+import { getLanguageData } from '../../helpers/countrycodes.js';
 import './langselector.scss';
 
 const LangSelector = (props) => {
@@ -23,7 +23,11 @@ const LangSelector = (props) => {
         { props.availableTranslations.map(translation => {
           const t = getLanguageData(translation);
           return (
-            <div key={ t.locale } className="langselector__translation" onClick={ () => { props.changeLang(t.locale) } }>
+            <div
+              key={ t.locale }
+              className="langselector__translation"
+              onClick={ () => { props.changeLang(t.locale) } }
+            >
               <img src={ t.flag } alt={ t.langDesc } />
               {/* capitalise the first letter} */}
               { t.langDesc[0].toUpperCase() + t.langDesc.slice(1) }

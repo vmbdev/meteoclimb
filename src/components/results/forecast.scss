@@ -53,19 +53,6 @@
     width: 25px;
     margin: 0 10px;
   }
-
-  &__close {
-    background-color: #2A1A5E;
-    border: 1px solid #2A1A5E;
-    border-radius: 100%;
-    color: white;
-    cursor: pointer;
-    font-size: 14pt;
-    padding: 5px 10px 7px 10px;
-    position: absolute;
-    right: -10px;
-    top: -10px;
-  }
 }
 
 @include media.device('sm') {
