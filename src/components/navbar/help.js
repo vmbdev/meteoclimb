@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import ModalWindow from '../modalwindow.js';
+import helpImage from '../../images/help/help.png';
 import './help.scss';
 
 const Help = () => {
@@ -21,7 +22,7 @@ const Help = () => {
       <ModalWindow active={ modalActive } closeAction={ closeModal }>
         <div className="help__modal">
           <div className="modal__left">
-            <img src="/help/help.png" alt="Forecast example" />
+            <img src={ helpImage } alt="Forecast example" />
           </div>
 
           <div className="modal__right">
