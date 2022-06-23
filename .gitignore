@@ -24,8 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 meteo.config.js
-package-lock.json
 /src/locales/*
-/intern
 /assets
 TODO
