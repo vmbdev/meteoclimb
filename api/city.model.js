@@ -19,6 +19,10 @@ class City extends Sequelize.Model {
         type: DataTypes.TEXT,
         allowNull: false
       },
+      flatName: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
       state: {
         type: DataTypes.TEXT,
         allowNull: true
@@ -52,14 +56,8 @@ class City extends Sequelize.Model {
     let [cityName, cityCountry] = locationName.split(',').map(i => i.trim());
     let whereCondition = {};
 
-    // where unaccent('name') ILIKE unaccent('cityName%');
-    whereCondition.name = 
-      Sequelize.where(
-        Sequelize.fn('unaccent', Sequelize.col('name')),
-        { [Sequelize.Op.iLike]: Sequelize.fn('unaccent', cityName + '%') }
-      );
-
-    if (cityCountry) whereCondition.country = { [Sequelize.Op.iLike]: cityCountry };
+    whereCondition.flatName = { [Sequelize.Op.like]: Sequelize.fn('unaccent', cityName.toLowerCase() + '%') };
+    if (cityCountry) whereCondition.country = cityCountry.toUpperCase();
 
     let params = {
       attributes: ['id', 'lon', 'lat', 'name', 'country'],
