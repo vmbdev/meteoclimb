@@ -33,13 +33,10 @@ const app = express();
 if (config.server.enable_cors === true && config.server.cors_origin) app.use(cors({ origin: config.server.cors_origin }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../build')));
 
+app.use('/', express.static(path.join(__dirname, '../build')));
 app.use('/api/city', cityRoutes);
 app.use('/api/forecast', forecastRoutes);
-app.get("*", (res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
 
 const PORT = process.env.PORT || config.server.port;
 app.listen(PORT, () => {

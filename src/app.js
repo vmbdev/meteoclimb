@@ -30,7 +30,7 @@ function App(props) {
       // If it can't, then tries to load user's browser language
       const storedLang = localStorage.getItem('lang');
       if (storedLang && settings.availableTranslations.includes(storedLang)) changeLang(storedLang);
-      else if (settings.availableTranslations.includes(navigator.language)) changeLang(navigator.language)
+      else if (settings.availableTranslations.includes(navigator.language)) changeLang(navigator.language);
 
       // load previous searches from localstorage
       const storableResults = JSON.parse(localStorage.getItem('resultList'));
