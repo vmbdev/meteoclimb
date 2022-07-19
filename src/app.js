@@ -66,15 +66,17 @@ function App(props) {
   return (
     <IntlProvider locale={ lang } messages={ messages }>
       <div className={ `body-wrapper theme-${theme}` }>
-        <Navbar>
-          <Help />
-          <LangSelector
-            changeLang={ changeLang }
-            lang={ lang }
-            availableTranslations={ settings.availableTranslations }
-          />
-          <ThemeSwitcher switchTheme={ switchTheme } theme={ theme } />
-        </Navbar>
+        <header>
+          <Navbar>
+            <Help />
+            <LangSelector
+              changeLang={ changeLang }
+              lang={ lang }
+              availableTranslations={ settings.availableTranslations }
+            />
+            <ThemeSwitcher switchTheme={ switchTheme } theme={ theme } />
+          </Navbar>
+        </header>
         <div className="main-content">
           <Search
             storedData={ storedData }
