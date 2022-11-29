@@ -53,13 +53,13 @@ class City extends Sequelize.Model {
    */
   static async findByName(locationName, limit = 10) {
     // locationName expects "City" or "City,Country"
-    let [cityName, cityCountry] = locationName.split(',').map(i => i.trim());
-    let whereCondition = {};
+    const [cityName, cityCountry] = locationName.split(',').map(i => i.trim());
+    const whereCondition = {};
 
     whereCondition.flatName = { [Sequelize.Op.like]: Sequelize.fn('unaccent', cityName.toLowerCase() + '%') };
     if (cityCountry) whereCondition.country = cityCountry.toUpperCase();
 
-    let params = {
+    const params = {
       attributes: ['id', 'lon', 'lat', 'name', 'country'],
       where: whereCondition,
       order: [['name', 'ASC']],

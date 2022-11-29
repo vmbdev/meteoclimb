@@ -11,8 +11,9 @@ export default class OpenWeather extends WeatherProvider {
   }
 
   getPath(lon, lat, exclude = null) {
-    if ((lon >= -180 && lon <= 180) && (lat >= -90 && lat <= 90))
+    if ((lon >= -180 && lon <= 180) && (lat >= -90 && lat <= 90)) {
       return this.host + this.path + `&lon=${lon}&lat=${lat}${exclude ? `&exclude=${exclude}` : ''}`;
+    }
 
     return null;
   }

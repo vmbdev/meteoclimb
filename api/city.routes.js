@@ -1,7 +1,7 @@
 import express from 'express';
 import CityController from './city.controller.js'
 
-let router = express.Router();
+const router = express.Router();
 
 router.get('/:id', CityController.getCity);
 router.get('/search/:name', CityController.getCityNameList);

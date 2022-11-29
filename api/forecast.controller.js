@@ -16,7 +16,7 @@ import WeatherProviderFactory from './weatherproviderfactory.js';
 const weatherProvider = WeatherProviderFactory.create()
 
 const updatedLastDay = (lastUpdate) => {
-  let diff = DateTime.fromJSDate(lastUpdate).diffNow('days').days;
+  const diff = DateTime.fromJSDate(lastUpdate).diffNow('days').days;
   return (-1 <= diff);
 }
 
@@ -43,12 +43,12 @@ const createConditions = () => {
 }
 
 const parseData = (data) => {
-  let weeklyForecast = [];
-  let startTomorrow = DateTime.utc().plus({ days: 1 }).toUnixInteger();
-  let startAftertomorrow = DateTime.utc().plus({ days: 2 }).toUnixInteger();
+  const weeklyForecast = [];
+  const startTomorrow = DateTime.utc().plus({ days: 1 }).toUnixInteger();
+  const startAftertomorrow = DateTime.utc().plus({ days: 2 }).toUnixInteger();
   
   data.daily.forEach(day => {
-    let current = createConditions();
+    const current = createConditions();
 
     current.start_time = day.dt;
     current.sunrise = day.sunrise;
@@ -58,8 +58,8 @@ const parseData = (data) => {
     current.wind.degrees = day.wind_deg;
 
     if ((day.dt < startTomorrow) || (day.dt < startAftertomorrow)) {
-      let currentHourly = data.hourly.filter(hour => ((hour.dt > current.sunrise) && (hour.dt < current.sunset)));
-      for (let hour of currentHourly) {
+      const currentHourly = data.hourly.filter(hour => ((hour.dt > current.sunrise) && (hour.dt < current.sunset)));
+      for (const hour of currentHourly) {
         current.wind.speed = Math.max(current.wind.speed, hour.wind_speed);
         current.humidity = Math.max(current.humidity, hour.humidity);
 
@@ -90,7 +90,7 @@ const parseData = (data) => {
 const storeForecast = async (weeklyForecast, cityId) => {
   await Forecast.destroy({ where: { cityId: cityId }});
 
-  for (let dailyForecast of weeklyForecast) {
+  for (const dailyForecast of weeklyForecast) {
     await Forecast.create({
       date: DateTime.fromSeconds(dailyForecast.start_time).toJSDate(),
       cityId: cityId,
@@ -103,7 +103,7 @@ const fetchForecast = async (cityId, dateList = [0]) => {
   const city = await City.findByPk(cityId);
   if (!city) throw new Error('City id not found');
 
-  let log = await ForecastLog.findOne({ where: { cityId: cityId }});
+  const log = await ForecastLog.findOne({ where: { cityId: cityId }});
   
   if (!log || !updatedLastDay(log.updatedAt)) {
     const weatherData = await weatherProvider.getWeatherData(city.lon, city.lat);
@@ -114,7 +114,7 @@ const fetchForecast = async (cityId, dateList = [0]) => {
     });
   }
 
-  let forecast = await Forecast.findAll(
+  const forecast = await Forecast.findAll(
     {
       attributes: { exclude: ['id', 'cityId'] },
       include: {
