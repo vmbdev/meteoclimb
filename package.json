@@ -2,23 +2,6 @@
   "name": "meteoclimb",
   "type": "module",
   "version": "0.9a",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "got": "^12.5.3",
-    "luxon": "^3.1.0",
-    "nodemon": "^2.0.20",
-    "pg": "^8.8.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-intl": "^6.2.1",
-    "react-scripts": "^5.0.1",
-    "sass": "^1.56.1",
-    "sequelize": "^6.25.8"
-  },
   "scripts": {
     "react-start": "react-scripts start",
     "react-build": "react-scripts build",
@@ -30,6 +13,26 @@
     "formatjs-extract": "formatjs extract",
     "formatjs-compile": "formatjs compile",
     "formatjs-compile-all": "formatjs compile-folder ./src/translations ./src/locales"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "got": "^12.5.3",
+    "luxon": "^3.2.1",
+    "nodemon": "^2.0.20",
+    "pg": "^8.8.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intl": "^6.2.1",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.56.1",
+    "sequelize": "^6.31.0"
+  },
+  "devDependencies": {
+    "@formatjs/cli": "^6.1.1"
   },
   "eslintConfig": {
     "extends": [
@@ -48,8 +51,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@formatjs/cli": "^5.1.3"
   }
 }
