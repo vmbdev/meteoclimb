@@ -5,6 +5,7 @@ import settings from './settings.js';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
+
 import(`./locales/${settings.lang}.json`).then(({ default: defaultMessages }) => {
   root.render(
     <App 

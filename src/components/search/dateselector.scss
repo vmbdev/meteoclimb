@@ -8,9 +8,6 @@
 }
 
 .search__dateitem {
-  @include t.themify {
-    border-color: t.theme(main_color);
-  }
   border-style: solid;
   border-width: 3px 0 1px 1px;
   cursor: pointer;
@@ -18,20 +15,26 @@
   padding: 4px;
   text-align: center;
 
+  @include t.themify {
+    border-color: t.theme(main_color);
+  }
+
   &:first-child {
     border-left-width: 6px;
   }
 
   &:last-child {
     border-right: 1px;
+    border-style: solid;
+
     @include t.themify {
       border-color: t.theme(main_color);
     }
-    border-style: solid;
   }
 
   &--active {
     color: white;
+
     @include t.themify {
       background-color: t.theme(main_color);
     }

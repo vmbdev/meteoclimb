@@ -58,22 +58,33 @@ const parseData = (data) => {
     current.wind.degrees = day.wind_deg;
 
     if ((day.dt < startTomorrow) || (day.dt < startAftertomorrow)) {
-      const currentHourly = data.hourly.filter(hour => ((hour.dt > current.sunrise) && (hour.dt < current.sunset)));
+      const currentHourly = data.hourly.filter(hour =>
+        ((hour.dt > current.sunrise) && (hour.dt < current.sunset))
+      );
+
       for (const hour of currentHourly) {
         current.wind.speed = Math.max(current.wind.speed, hour.wind_speed);
         current.humidity = Math.max(current.humidity, hour.humidity);
 
         if (hour.pop > 0) {
           current.pop.chance = Math.max(current.pop.chance, hour.pop);
+
           if (!current.pop.from) current.pop.from = hour.dt;
-          if (hour.rain && hour.rain['1h'] > 0) current.pop.rain = Math.max(current.pop.rain, hour.rain['1h']);
-          if (hour.snow && hour.snow['1h'] > 0) current.pop.snow = Math.max(current.pop.snow, hour.snow['1h']);
+
+          if (hour.rain && hour.rain['1h'] > 0) {
+            current.pop.rain = Math.max(current.pop.rain, hour.rain['1h']);
+          }
+
+          if (hour.snow && hour.snow['1h'] > 0) {
+            current.pop.snow = Math.max(current.pop.snow, hour.snow['1h']);
+          }
         }
       }
     }
     else {
       current.wind.speed = day.wind_speed;
       current.humidity = day.humidity;
+
       if (day.pop > 0) {
         current.pop.chance = day.pop;
         
@@ -101,6 +112,7 @@ const storeForecast = async (weeklyForecast, cityId) => {
 
 const fetchForecast = async (cityId, dateList = [0]) => {
   const city = await City.findByPk(cityId);
+
   if (!city) throw new Error('City id not found');
 
   const log = await ForecastLog.findOne({ where: { cityId: cityId }});
@@ -133,6 +145,7 @@ const fetchForecast = async (cityId, dateList = [0]) => {
 
 const getForecast = async (req, res) => {
   let dateList;
+
   // separate the parameters, convert the strings to numbers ("2" -> 2),
   // remove the falsy elements and check 0>=j<=6
   if (req.params.dateOffset) {

@@ -19,6 +19,7 @@ const Help = () => {
   return (
     <div className="help">
       <div className="help__icon" onClick={ toggleModal }></div>
+
       <ModalWindow active={ modalActive } closeAction={ closeModal }>
         <div className="help__modal">
           <div className="modal__left">

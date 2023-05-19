@@ -6,8 +6,9 @@ const Location = (props) => {
   const intl = useIntl();
 
   const keyPressedDown = (e) => {
-    if ((e.key === 'ArrowUp') || (e.key === 'ArrowDown'))
+    if ((e.key === 'ArrowUp') || (e.key === 'ArrowDown')) {
       props.keyPressed(e.key);
+    }
   }
 
   const inputHasChanged = (e) => {

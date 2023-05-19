@@ -15,7 +15,7 @@ const Search = (props) => {
   const {locale} = useIntl();
 
   useEffect(() => {
-    let list = [];
+    const list = [];
     let currentDay = DateTime.local().setLocale(locale);
 
     for (let i = 0; i < 7; i++) {
@@ -34,11 +34,15 @@ const Search = (props) => {
   useEffect(() => {
     if (props.storedData) {
       props.setLoadingData(true);
-      let restoredData = [];
+      const restoredData = [];
 
       for (const [cityId, dates] of Object.entries(props.storedData)) {
         const list = dates
-          .map(date => Math.abs(Math.ceil(DateTime.fromFormat(date, 'yyyy-MM-dd').toUTC().diffNow('days').days)))
+          .map(date => {
+            const diff = DateTime.fromFormat(date, 'yyyy-MM-dd').toUTC().diffNow('days').days;
+
+            return Math.abs(Math.ceil(diff));
+          })
           .filter(i => (i > -1) && (i <= 6))
           .join(';');
        
@@ -64,16 +68,22 @@ const Search = (props) => {
     setCollapsed(true);
     setLocationActive(false);
 
-    if (dates === undefined) dates = dateList.filter((date) => date.active).map((date) => date.dateOffset).join(';');
+    if (!dates) {
+      dates = dateList
+        .filter((date) => date.active)
+        .map((date) => date.dateOffset)
+        .join(';');
+    }
 
     const res = await fetch(`${props.endpoint}/forecast/${cityId}/${dates}`);
     const data = await res.json();
+
     return data;
   }
 
-  const findCityName = (value) => {
-    if (value.length >= 3) {
-      fetch(`${props.endpoint}/city/search/${value}`)
+  const findCityName = (cityName) => {
+    if (cityName.length >= 3) {
+      fetch(`${props.endpoint}/city/search/${cityName}`)
       .then(res => res.json())
       .then(data => {
         if (data.length > 0) {

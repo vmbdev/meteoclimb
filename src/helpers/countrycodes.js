@@ -262,10 +262,11 @@ const getLanguageData = (lang) => {
   const cLang = Intl.getCanonicalLocales(lang)[0];
   const name = new Intl.DisplayNames([cLang], {type: 'language'});
 
-  const langObj = {};
-  langObj.langDesc = name.of(cLang);
-  langObj.locale = cLang;
-  langObj.flag = countryCodes[cLang.slice(-2).toUpperCase()].flag;
+  const langObj = {
+    langDesc: name.of(cLang),
+    locale: cLang,
+    flag: countryCodes[cLang.slice(-2).toUpperCase()].flag,
+  }
 
   return langObj;
 }

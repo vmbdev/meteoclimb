@@ -57,6 +57,7 @@ class City extends Sequelize.Model {
     const whereCondition = {};
 
     whereCondition.flatName = { [Sequelize.Op.like]: Sequelize.fn('unaccent', cityName.toLowerCase() + '%') };
+
     if (cityCountry) whereCondition.country = cityCountry.toUpperCase();
 
     const params = {

@@ -16,16 +16,16 @@
   }
 
   &__nav {
-    @include t.themify {
-      background-color: t.theme(location_background);
-      border-color: t.theme(main_color);
-    }
     border: solid;
     border-width: 1px 14px 4px 1px;
     padding: 10px;
     position: relative;
-
     width: 520px;
+    
+    @include t.themify {
+      background-color: t.theme(location_background);
+      border-color: t.theme(main_color);
+    }
   }
 }
 

@@ -13,6 +13,7 @@ body {
 
 .main-content {
   flex: 1;
+
   @include t.themify {
     background-color: t.theme(main_background);
   }

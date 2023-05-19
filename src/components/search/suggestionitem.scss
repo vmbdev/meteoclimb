@@ -1,40 +1,46 @@
 @use '../../layout/theming.scss' as t;
 @use '../../layout/media.scss' as media;
 
-.search__city {
-  align-items: flex-end;
-  @include t.themify {
-    border-bottom: 1px solid t.theme(main_color);
-  }
-  box-sizing: border-box;
-  color: black;
-  cursor: default;
-  display: flex;
-  padding: 8px;
-
-  &--active {
-    color: white;
+.search {
+  &__city {
+    align-items: flex-end;
+    box-sizing: border-box;
+    color: black;
+    cursor: default;
+    display: flex;
+    padding: 8px;
+  
     @include t.themify {
-      background-color: t.theme(main_color);
+      border-bottom: 1px solid t.theme(main_color);
+    }
+    
+    &--active {
+      color: white;
+      @include t.themify {
+        background-color: t.theme(main_color);
+      }
     }
   }
-}
-
-.search__station {
-  font-size: 10pt;
-  margin-left: auto;
-}
-
-.search__flag {
-  width: 25px;
+  
+  &__station {
+    font-size: 10pt;
+    margin-left: auto;
+  }
+  
+  &__flag {
+    width: 25px;
+    margin-right: 10px;
+  }
 }
 
 @include media.device('sm') {
-  .search__city {
-    display: block;
-  }
+  .search {
+    &__city {
+      display: block;
+    }
 
-  .search__station {
-    padding-top: 6px;
+    &__station {
+      padding-top: 6px;
+    }
   }
 }

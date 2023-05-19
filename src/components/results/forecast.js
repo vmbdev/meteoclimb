@@ -8,7 +8,13 @@ import './forecast-sprites.scss';
 
 const Forecast = (props) => {
   const [country, setCountry] = useState({ flag: '', name: '' });
-  const [stateClasses, setStateClasses] = useState({ main: null, temp: null, wind: null, pop: null, humidity: null});
+  const [stateClasses, setStateClasses] = useState({
+    main: null,
+    temp: null,
+    wind: null,
+    pop: null,
+    humidity: null
+  });
   const intl = useIntl();
 
   useEffect(() => {
@@ -61,12 +67,16 @@ const Forecast = (props) => {
     if (pop.chance > 0) {
       return (
         <>
-          <FormattedMessage 
+          <FormattedMessage
             id="forecast.pop"
             defaultMessage="{chance}% of {type} expected {amount}"
             values={{
               chance: Math.trunc(pop.chance * 100),
-              type: pop.snow > 0 ? intl.formatMessage({id: 'forecast.snow', defaultMessage: 'snow'}) : intl.formatMessage({id: 'forecast.rain', defaultMessage: 'rain'}),
+              type: intl.formatMessage(
+                pop.snow > 0
+                ? { id: 'forecast.snow', defaultMessage: 'snow' }
+                : { id: 'forecast.rain', defaultMessage: 'rain' }
+              ),
               amount: amount > 0 ? `(${amount}l)` : '',
             }}
           />
@@ -93,6 +103,7 @@ const Forecast = (props) => {
   return (
     <div className={ `forecast ${ stateClasses.main }` }>
       <CloseButton closeAction={ () => { props.remove(props.index) } }/>
+
       <div className="forecast__row forecast__title">
         <img className="forecast__flag" src={ country.flag } alt={ country.name } />
         <FormattedMessage
@@ -105,11 +116,13 @@ const Forecast = (props) => {
           }}
         />
       </div>
+
       <div className="forecast__row--centered">
         <div>{ DateTime.fromSeconds(props.conditions.sunrise).toFormat('HH:mm') }</div>
         <div className="forecast__icon--daynight"></div>
         <div>{ DateTime.fromSeconds(props.conditions.sunset).toFormat('HH:mm') }</div>
       </div>
+
       <div className={ `forecast__row ${ stateClasses.temp }` }>
         <div className="forecast__icon--temperature" />
         <div>
@@ -123,6 +136,7 @@ const Forecast = (props) => {
           />
         </div>
       </div>
+
       <div className={ `forecast__row ${ stateClasses.wind }` }>
         <div className="forecast__icon--arrow" style={{ transform: `rotate(${ props.conditions.wind.degrees + 180 }deg)` }} />
         <div>
@@ -135,13 +149,15 @@ const Forecast = (props) => {
               unit: 'km/h'
             }}
           />
-          
+
         </div>
       </div>
+
       <div className={ `forecast__row ${ stateClasses.pop }` }>
         <div className="forecast__icon--rain" />
         <div>{ getPrecipitation() }</div>
       </div>
+
       <div className={ `forecast__row ${ stateClasses.humidity }` }>
         <div className="forecast__icon--humidity"></div>
         <div>

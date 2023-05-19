@@ -12,14 +12,17 @@ const Suggestions = (props) => {
 
 
   useEffect(() => {
-    if (props.locationKeyPressed !== false) {
+    if (props.locationKeyPressed) {
       let nextActiveIndex;
 
-      if (props.locationKeyPressed === 'ArrowUp')
-        nextActiveIndex = (activeIndex === 0) ? props.suggestionList.length-1 : activeIndex - 1;
+      if (props.locationKeyPressed === 'ArrowUp') {
+        if (activeIndex === 0) nextActiveIndex = props.suggestionList.length-1;
+        else nextActiveIndex = activeIndex - 1;
+      }
       
       else if (props.locationKeyPressed === 'ArrowDown')
-        nextActiveIndex = (activeIndex === props.suggestionList.length-1) ? 0 : activeIndex + 1;
+        if (activeIndex === props.suggestionList.length-1) nextActiveIndex = 0;
+        else nextActiveIndex = activeIndex + 1;
         
       setActiveIndex(nextActiveIndex);
     }
@@ -33,7 +36,8 @@ const Suggestions = (props) => {
   }
 
   const getSuggestionList = () => {
-    let items = [];
+    const items = [];
+
     for (let i = 0; i < props.suggestionList.length; i++) {
       items.push(
         <SuggestionItem

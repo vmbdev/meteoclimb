@@ -16,9 +16,12 @@ const Results = (props) => {
   useEffect(() => {
     if (results && results.length > 0) {
       let storableResults = {};
+
       for (let item of results) {
         let id = item.city.id;
+
         if (!storableResults[id]) storableResults[id] = [];
+
         storableResults[id].push(item.date);
       }
       props.save(storableResults);
@@ -27,7 +30,8 @@ const Results = (props) => {
   }, [results]);
 
   const remove = (index) => {
-    let newResults = [...results];
+    const newResults = [...results];
+
     newResults.splice(index, 1);
     setResults(newResults);
     
@@ -37,6 +41,7 @@ const Results = (props) => {
 
   const scrollResults = (event) => {
     let amount;
+
     if (event.deltaY > 0) amount = 100;
     else amount = -100;
 
@@ -48,16 +53,16 @@ const Results = (props) => {
       <div className={ `results__list ${results.length === 0 ? 'results--collapsed' : ''}` } onWheel={ scrollResults }>
       {
         results.map((data, index) =>
-        <Forecast
+          <Forecast
             index={ index }
             date={ data.date }
             city={ data.city }
             conditions={ data.conditions }
             remove={ remove }
             key={ `${data.city.id}+${data.date}` }
-            />
-            )
-          }
+          />
+        )
+      }
       </div>
     </div>
   );

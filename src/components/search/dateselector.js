@@ -5,7 +5,8 @@ const DateSelector = (props) => {
 
   const updateDateList = (index) => {
     if (index >= 0 && index < props.children.length) {
-      let list = [...props.children];
+      const list = [...props.children];
+
       list[index].active = !list[index].active;
       props.updateDateList(list)
     }

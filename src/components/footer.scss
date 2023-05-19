@@ -1,13 +1,14 @@
 @use '../layout/theming.scss' as t;
 
 .footer {
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  
   @include t.themify {
     background-color: t.theme(footer_background);
     color: t.theme(footer_text);;
   }
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
 
   > a {
     @include t.themify {

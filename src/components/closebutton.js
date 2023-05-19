@@ -4,9 +4,8 @@ import './closebutton.scss';
 const CloseButton = (props) => {
 
   return (
-    <button
-      className="closebutton"
-      onClick={ props.closeAction }>&#10006;
+    <button className="closebutton" onClick={ props.closeAction }>
+      &#10006;
     </button>
   );
 }

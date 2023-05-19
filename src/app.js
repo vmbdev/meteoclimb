@@ -24,13 +24,19 @@ function App(props) {
   useEffect(() => {
       // load theme from localstorage
       const storedTheme = localStorage.getItem('theme');
+
       if (storedTheme) setTheme(storedTheme);
       
       // Tries to load an stored language in localStorage.
       // If it can't, then tries to load user's browser language
       const storedLang = localStorage.getItem('lang');
-      if (storedLang && settings.availableTranslations.includes(storedLang)) changeLang(storedLang);
-      else if (settings.availableTranslations.includes(navigator.language)) changeLang(navigator.language);
+
+      if (storedLang && settings.availableTranslations.includes(storedLang)) {
+        changeLang(storedLang);
+      }
+      else if (settings.availableTranslations.includes(navigator.language)) {
+        changeLang(navigator.language);
+      }
 
       // load previous searches from localstorage
       const storableResults = JSON.parse(localStorage.getItem('resultList'));
@@ -40,7 +46,9 @@ function App(props) {
   }, []);
 
   const save = (storableResults) => {
-    if (!loadingData) localStorage.setItem('resultList', JSON.stringify(storableResults));
+    if (!loadingData) {
+      localStorage.setItem('resultList', JSON.stringify(storableResults));
+    }
   }
 
   const awaitSearchResults = async (results) => {
@@ -51,6 +59,7 @@ function App(props) {
   const changeLang = async (newLang) => {
     if (settings.availableTranslations.includes(newLang)) {
       const { default: newMessages } = await import(`./locales/${newLang}.json`);
+
       setLang(newLang);
       setMessages(newMessages);
       localStorage.setItem('lang', newLang);
@@ -59,6 +68,7 @@ function App(props) {
 
   const switchTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
+
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
   }

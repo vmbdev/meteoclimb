@@ -12,13 +12,16 @@ export default class OpenWeather extends WeatherProvider {
 
   getPath(lon, lat, exclude = null) {
     if ((lon >= -180 && lon <= 180) && (lat >= -90 && lat <= 90)) {
-      return this.host + this.path + `&lon=${lon}&lat=${lat}${exclude ? `&exclude=${exclude}` : ''}`;
+      const query = `&lon=${lon}&lat=${lat}${exclude ? `&exclude=${exclude}` : ''}`;
+
+      return this.host + this.path + query;
     }
 
     return null;
   }
 
-  getWeatherData(lon, lat, exclude = null) {
-    return got(this.getPath(lon, lat, exclude), {responseType: 'json'}).then(res => res.body);
+  async getWeatherData(lon, lat, exclude = null) {
+    const res = await got(this.getPath(lon, lat, exclude), { responseType: 'json' });
+    return res.body;
   }
 }
