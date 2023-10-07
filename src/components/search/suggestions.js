@@ -26,13 +26,13 @@ const Suggestions = (props) => {
         
       setActiveIndex(nextActiveIndex);
     }
-  // we don't want to re-render when activeIndex or props.suggestionList are updated
+  // we don't want to re-render when activeIndex or props.suggestionList change
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.locationKeyPressed]);
 
 
-  const getClassName = () => {
-    return `search__suggestions search__suggestions--${visible ? 'visible' : 'hidden'}`;
+  const isVisible = () => {
+    return `search__suggestions--${visible ? 'visible' : 'hidden'}`;
   }
 
   const getSuggestionList = () => {
@@ -54,7 +54,12 @@ const Suggestions = (props) => {
   }
 
   return (
-    <div className={ getClassName() } id="search-suggestions">{ getSuggestionList() }</div>
+    <div
+      className={ `search__suggestions ${isVisible()}` }
+      id="search-suggestions"
+    >
+      { getSuggestionList() }
+    </div>
   )
 }
 

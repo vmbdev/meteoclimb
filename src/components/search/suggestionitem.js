@@ -23,7 +23,11 @@ const SuggestionItem = (props) => {
       onClick={ () => { props.findForecast(props.city.id) } }
     >
       <div className="search__cityname">
-        <img className="search__flag" src={ country.flag } alt={ country.name } />
+        <img
+          className="search__flag"
+          src={ country.flag }
+          alt={ country.name }
+        />
         { props.city.name }, { country.name }
       </div>
       <div className="search__station">

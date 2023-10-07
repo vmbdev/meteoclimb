@@ -58,7 +58,8 @@ function App(props) {
 
   const changeLang = async (newLang) => {
     if (settings.availableTranslations.includes(newLang)) {
-      const { default: newMessages } = await import(`./locales/${newLang}.json`);
+      const { default: newMessages } =
+        await import(`./locales/${newLang}.json`);
 
       setLang(newLang);
       setMessages(newMessages);

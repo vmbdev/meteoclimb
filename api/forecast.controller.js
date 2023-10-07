@@ -157,9 +157,12 @@ const getForecast = async (req, res) => {
   }
   else dateList = [0];
 
-  fetchForecast(req.params.cityId, dateList)
-    .then(forecast => { res.json(forecast) })
-    .catch(err => { res.json({ error: err }) });
+  try {
+    const forecast = await fetchForecast(req.params.cityId, dateList);
+    res.json(forecast);
+  } catch (err) {
+    res.json({ error: err });
+  }
 }
 
 const ForecastController = { getForecast }

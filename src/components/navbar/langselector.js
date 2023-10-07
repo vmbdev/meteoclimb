@@ -13,15 +13,28 @@ const LangSelector = (props) => {
   const showLanguageList = () => {
     setActive(active ? false : true);
   }
+
+  const showSelector = () => {
+    return `langselector__list--${active ? 'visible' : 'hidden'}`;
+  }
+
+  const capitalise = (text) => {
+    return text[0].toUpperCase() + text.slice(1);
+  }
   
   return (
-    <div className={ `langselector ${active ? 'langselector--active' : ''}` }>
+    <div className="langselector">
       <div className="langselector__selection" onClick={ showLanguageList }>
-        <img className="langselector__flag" src={ currentLang.flag } alt={ currentLang.langDesc } />
+        <img
+          className="langselector__flag"
+          src={ currentLang.flag }
+          alt={ currentLang.langDesc }
+        />
       </div>
-      <div className={ `langselector__list langselector__list--${active ? 'visible' : 'hidden'}` }>
+      <div className={ `langselector__list ${showSelector()}` }>
         { props.availableTranslations.map(translation => {
           const t = getLanguageData(translation);
+
           return (
             <div
               key={ t.locale }
@@ -29,8 +42,7 @@ const LangSelector = (props) => {
               onClick={ () => { props.changeLang(t.locale) } }
             >
               <img src={ t.flag } alt={ t.langDesc } />
-              {/* capitalise the first letter} */}
-              { t.langDesc[0].toUpperCase() + t.langDesc.slice(1) }
+              { capitalise(t.langDesc) }
             </div>
           )
         })}

@@ -16,10 +16,9 @@ const getCity = (req, res) => {
 /**
  * Given a partial City name, lists objects matching results
  */
-const getCityNameList = (req, res) => {
-  City.findByName(req.params.name).then(cities => {
-    res.json(cities);
-  });
+const getCityNameList = async (req, res) => {
+  const cities = await City.findByName(req.params.name);
+  res.json(cities);
 }
 
 const CityController = { getCity, getCityNameList };

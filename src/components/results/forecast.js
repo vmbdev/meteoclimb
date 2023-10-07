@@ -64,6 +64,7 @@ const Forecast = (props) => {
   const getPrecipitation = () => {
     const pop = props.conditions.pop;
     const amount = pop.rain + pop.snow;
+
     if (pop.chance > 0) {
       return (
         <>
@@ -85,7 +86,9 @@ const Forecast = (props) => {
             <FormattedMessage
               id="forecast.from"
               defaultMessage="from {time}"
-              values={{time: DateTime.fromSeconds(pop.from).setLocale(intl.locale).toFormat('HH:mm')}}
+              values={ {
+                time: DateTime.fromSeconds(pop.from).setLocale(intl.locale).toFormat('HH:mm')
+              } }
             />
           }
         </>

@@ -39,7 +39,12 @@ const Search = (props) => {
       for (const [cityId, dates] of Object.entries(props.storedData)) {
         const list = dates
           .map(date => {
-            const diff = DateTime.fromFormat(date, 'yyyy-MM-dd').toUTC().diffNow('days').days;
+            const diff = (
+              DateTime.fromFormat(date, 'yyyy-MM-dd')
+                .toUTC()
+                .diffNow('days')
+                .days
+            );
 
             return Math.abs(Math.ceil(diff));
           })
@@ -81,20 +86,19 @@ const Search = (props) => {
     return data;
   }
 
-  const findCityName = (cityName) => {
+  const findCityName = async (cityName) => {
     if (cityName.length >= 3) {
-      fetch(`${props.endpoint}/city/search/${cityName}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.length > 0) {
-          setSuggestionList(data)
-          setLocationActive(true);
-        }
-        else {
-          setSuggestionList([])
-          setLocationActive(false);
-        }
-      });
+      const res = await fetch(`${props.endpoint}/city/search/${cityName}`);
+      const cities = await res.json();
+
+      if (cities.length > 0) {
+        setSuggestionList(cities)
+        setLocationActive(true);
+      }
+      else {
+        setSuggestionList([])
+        setLocationActive(false);
+      }
     }
     else setLocationActive(false);
   }
