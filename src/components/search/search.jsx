@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
-import Location from './location.js';
-import Suggestions from './suggestions.js';
-import DateSelector from './dateselector.js';
+import Location from './location.jsx';
+import Suggestions from './suggestions.jsx';
+import DateSelector from './dateselector.jsx';
+import { api } from '../../services/api.js';
 import './search.scss';
 
 const Search = (props) => {
@@ -80,16 +81,14 @@ const Search = (props) => {
         .join(';');
     }
 
-    const res = await fetch(`${props.endpoint}/forecast/${cityId}/${dates}`);
-    const data = await res.json();
+    const data = await api.getForecast(cityId, dates);
 
     return data;
   }
 
   const findCityName = async (cityName) => {
     if (cityName.length >= 3) {
-      const res = await fetch(`${props.endpoint}/city/search/${cityName}`);
-      const cities = await res.json();
+      const cities = await api.getCities(cityName);
 
       if (cities.length > 0) {
         setSuggestionList(cities)

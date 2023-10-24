@@ -1,5 +1,5 @@
 import React from 'react';
-import Brand from './brand.js';
+import Brand from './brand.jsx';
 import './navbar.scss';
 
 const Navbar = (props) => {

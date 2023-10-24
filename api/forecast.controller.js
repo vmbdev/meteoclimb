@@ -119,6 +119,7 @@ const fetchForecast = async (cityId, dateList = [0]) => {
   
   if (!log || !updatedLastDay(log.updatedAt)) {
     const weatherData = await weatherProvider.getWeatherData(city.lon, city.lat);
+
     await storeForecast(parseData(weatherData), cityId);
     await ForecastLog.upsert({
       id: log ? log.id : null,

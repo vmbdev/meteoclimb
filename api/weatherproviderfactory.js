@@ -3,7 +3,11 @@ import OpenWeather from './providers/openweather.js';
 
 // factory class to generate provider objects
 class WeatherProviderFactory {
-  static create(provider = config.weather.provider, key = config.weather.apikey, units = config.weather.units) {
+  static create(
+    provider = config.weather.provider,
+    key = config.weather.apikey,
+    units = config.weather.units
+  ) {
     let newProvider;
 
     switch (provider) {

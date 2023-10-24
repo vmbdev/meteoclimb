@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SuggestionItem from './suggestionitem.js';
+import SuggestionItem from './suggestionitem.jsx';
 import './suggestions.scss';
 
 const Suggestions = (props) => {

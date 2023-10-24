@@ -1,5 +1,5 @@
 import React from 'react'
-import CloseButton from './closebutton.js';
+import CloseButton from './closebutton.jsx';
 import './modalwindow.scss';
 
 const ModalWindow = (props) => {

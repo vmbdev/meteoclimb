@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 
 // Components
-import Search from './components/search/search.js';
-import Results from './components/results/results.js';
-import Footer from './components/footer.js';
-import Navbar from './components/navbar/navbar.js';
-import Help from './components/navbar/help.js';
-import LangSelector from './components/navbar/langselector.js';
-import ThemeSwitcher from './components/navbar/themeswitcher.js';
+import Search from './components/search/search.jsx';
+import Results from './components/results/results.jsx';
+import Footer from './components/footer.jsx';
+import Navbar from './components/navbar/navbar.jsx';
+import Help from './components/navbar/help.jsx';
+import LangSelector from './components/navbar/langselector.jsx';
+import ThemeSwitcher from './components/navbar/themeswitcher.jsx';
 
 import settings from './settings.js';
 import './layout/main.scss';

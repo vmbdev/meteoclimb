@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Forecast from './forecast.js';
+import Forecast from './forecast.jsx';
 import './results.scss';
 
 const Results = (props) => {
