@@ -3,10 +3,9 @@
   "type": "module",
   "version": "0.9a",
   "scripts": {
-    "react-start": "react-scripts start",
-    "react-build": "react-scripts build",
-    "react-test": "react-scripts test",
-    "react-eject": "react-scripts eject",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
     "server-dev": "nodemon --ext js --exec node ./api/server.js --watch ./api",
     "server-prod": "NODE_ENV=production node ./api/server.js",
     "docs": "jsdoc -c ./jsdoc.json",
@@ -27,12 +26,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intl": "^6.2.1",
-    "react-scripts": "^5.0.1",
     "sass": "^1.56.1",
     "sequelize": "^6.31.0"
   },
   "devDependencies": {
-    "@formatjs/cli": "^6.1.1"
+    "@formatjs/cli": "^6.1.1",
+    "@vitejs/plugin-react": "^4.1.0",
+    "vite": "^4.5.0"
   },
   "eslintConfig": {
     "extends": [

@@ -17,11 +17,11 @@
     background-color: white;
     z-index: 1000;
 
-    &--hidden {
+    &-hidden {
       visibility: hidden;
     }
     
-    &--visible {
+    &-visible {
       visibility: visible;
     }
   }

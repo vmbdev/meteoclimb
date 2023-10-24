@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SuggestionItem from './suggestionitem.jsx';
+import SuggestionItem from '../suggestionitem/suggestionitem.jsx';
 import './suggestions.scss';
 
 const Suggestions = (props) => {
@@ -7,20 +7,20 @@ const Suggestions = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   
   useEffect(() => {
-    setVisibility(props.isLocationActive);
-  }, [props.isLocationActive]);
+    setVisibility(props.isSearchBoxActive);
+  }, [props.isSearchBoxActive]);
 
 
   useEffect(() => {
-    if (props.locationKeyPressed) {
+    if (props.searchBoxKeyPressed) {
       let nextActiveIndex;
 
-      if (props.locationKeyPressed === 'ArrowUp') {
+      if (props.searchBoxKeyPressed === 'ArrowUp') {
         if (activeIndex === 0) nextActiveIndex = props.suggestionList.length-1;
         else nextActiveIndex = activeIndex - 1;
       }
       
-      else if (props.locationKeyPressed === 'ArrowDown')
+      else if (props.searchBoxKeyPressed === 'ArrowDown')
         if (activeIndex === props.suggestionList.length-1) nextActiveIndex = 0;
         else nextActiveIndex = activeIndex + 1;
         
@@ -28,11 +28,11 @@ const Suggestions = (props) => {
     }
   // we don't want to re-render when activeIndex or props.suggestionList change
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.locationKeyPressed]);
+  }, [props.searchBoxKeyPressed]);
 
 
   const isVisible = () => {
-    return `search__suggestions--${visible ? 'visible' : 'hidden'}`;
+    return `suggestions-${visible ? 'visible' : 'hidden'}`;
   }
 
   const getSuggestionList = () => {
@@ -55,7 +55,7 @@ const Suggestions = (props) => {
 
   return (
     <div
-      className={ `search__suggestions ${isVisible()}` }
+      className={ `suggestions ${isVisible()}` }
       id="search-suggestions"
     >
       { getSuggestionList() }

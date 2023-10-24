@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-import ModalWindow from '../modalwindow.jsx';
-import helpImage from '../../images/help/help.png';
+import ModalWindow from '../../modalwindow/modalwindow.jsx';
+import helpImage from './help.png';
 import './help.scss';
 
 const Help = () => {

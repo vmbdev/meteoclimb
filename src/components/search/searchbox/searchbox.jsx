@@ -1,8 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import './location.scss';
+import './searchbox.scss';
 
-const Location = (props) => {
+const SearchBox = (props) => {
   const intl = useIntl();
 
   const keyPressedDown = (e) => {
@@ -12,16 +12,16 @@ const Location = (props) => {
   }
 
   const inputHasChanged = (e) => {
-    props.findCityName(e.target.value)
+    props.findCityName(e.target.value);
   }
 
   return (
     <input
-      className="search__location"
+      className="searchbox"
       type="text"
       placeholder={
         intl.formatMessage({
-          id: 'location.placeholder',
+          id: 'searchbox.placeholder',
           defaultMessage: 'City, Country (i.e. London, GB)'
         })
       }
@@ -34,4 +34,4 @@ const Location = (props) => {
   )
 }
 
-export default Location;
+export default SearchBox;

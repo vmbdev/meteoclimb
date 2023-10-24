@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
-import Location from './location.jsx';
-import Suggestions from './suggestions.jsx';
-import DateSelector from './dateselector.jsx';
+import SearchBox from './searchbox/searchbox.jsx';
+import Suggestions from './suggestions/suggestions.jsx';
+import DateSelector from '../dateselector/dateselector.jsx';
 import { api } from '../../services/api.js';
 import './search.scss';
 
 const Search = (props) => {
-  const [isLocationActive, setLocationActive] = useState(false);
-  const [locationKeyPressed, setLocationKeyPressed] = useState(false);
+  const [isSearchBoxActive, setSearchBoxActive] = useState(false);
+  const [searchBoxKeyPressed, setSearchBoxKeyPressed] = useState(false);
   const [isCollapsed, setCollapsed] = useState(false);
   const [suggestionList, setSuggestionList] = useState([]);
   const [dateList, setDateList] = useState([]);
@@ -72,7 +72,7 @@ const Search = (props) => {
 
   const fetchForecast = async (cityId, dates) => {
     setCollapsed(true);
-    setLocationActive(false);
+    setSearchBoxActive(false);
 
     if (!dates) {
       dates = dateList
@@ -92,14 +92,14 @@ const Search = (props) => {
 
       if (cities.length > 0) {
         setSuggestionList(cities)
-        setLocationActive(true);
+        setSearchBoxActive(true);
       }
       else {
         setSuggestionList([])
-        setLocationActive(false);
+        setSearchBoxActive(false);
       }
     }
-    else setLocationActive(false);
+    else setSearchBoxActive(false);
   }
 
   return (
@@ -108,13 +108,13 @@ const Search = (props) => {
         { dateList }
       </DateSelector>
       <div className="search__nav">
-        <Location
+        <SearchBox
           findCityName={ findCityName }
-          keyPressed={ setLocationKeyPressed }
+          keyPressed={ setSearchBoxKeyPressed }
         />
         <Suggestions
-          isLocationActive={ isLocationActive }
-          locationKeyPressed={ locationKeyPressed }
+          isSearchBoxActive={ isSearchBoxActive }
+          searchBoxKeyPressed={ searchBoxKeyPressed }
           findForecast={ findForecast }
           suggestionList={ suggestionList }
         />

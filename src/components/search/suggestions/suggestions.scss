@@ -1,7 +1,7 @@
-@use '../../layout/theming.scss' as t;
-@use '../../layout/media.scss' as media;
+@use 'src/layout/theming.scss' as t;
+@use 'src/layout/media.scss' as media;
 
-.search__suggestions {
+.suggestions {
   background: white;
   border-top: 0;
   position: absolute;
@@ -14,17 +14,17 @@
     border: 1px solid t.theme(main_color);
   }
 
-  &--hidden {
+  &-hidden {
     visibility: hidden;
   }
   
-  &--visible {
+  &-visible {
     visibility: visible;
   }
 }
 
 @include media.device('sm') {
-  .search__suggestions {
+  .suggestions {
     margin-left: 0;
     left: 0;
     width: 100%;

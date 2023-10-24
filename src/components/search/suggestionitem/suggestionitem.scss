@@ -1,7 +1,7 @@
-@use '../../layout/theming.scss' as t;
-@use '../../layout/media.scss' as media;
+@use 'src/layout/theming.scss' as t;
+@use 'src/layout/media.scss' as media;
 
-.search {
+.item {
   &__city {
     align-items: flex-end;
     box-sizing: border-box;
@@ -14,7 +14,7 @@
       border-bottom: 1px solid t.theme(main_color);
     }
     
-    &--active {
+    &-active {
       color: white;
       @include t.themify {
         background-color: t.theme(main_color);
@@ -34,7 +34,7 @@
 }
 
 @include media.device('sm') {
-  .search {
+  .item {
     &__city {
       display: block;
     }

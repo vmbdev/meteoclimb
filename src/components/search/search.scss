@@ -1,5 +1,5 @@
-@use '../../layout/theming.scss' as t;
-@use '../../layout/media.scss' as media;
+@use 'src/layout/theming.scss' as t;
+@use 'src/layout/media.scss' as media;
 
 .search {
   align-items: center;
@@ -23,7 +23,7 @@
     width: 520px;
     
     @include t.themify {
-      background-color: t.theme(location_background);
+      background-color: t.theme(searchbox_background);
       border-color: t.theme(main_color);
     }
   }

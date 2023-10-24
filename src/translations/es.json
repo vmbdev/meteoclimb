@@ -56,7 +56,7 @@
   "item.station": {
     "defaultMessage": "Estación en ({lat}, {lon})"
   },
-  "location.placeholder": {
+  "searchbox.placeholder": {
     "defaultMessage": "Ciudad, país (ej: Madrid, ES)"
   },
   "forecast.status.great": {

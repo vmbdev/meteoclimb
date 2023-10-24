@@ -1,10 +1,10 @@
 import React from 'react'
-import CloseButton from './closebutton.jsx';
+import CloseButton from '../closebutton/closebutton.jsx';
 import './modalwindow.scss';
 
 const ModalWindow = (props) => {
   const isActive = () => {
-    return `${props.active ? 'modalwindow--active' : ''}`;
+    return `${props.active ? 'modalwindow-active' : ''}`;
   }
 
   return (

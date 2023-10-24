@@ -1,6 +1,6 @@
-@use '../../layout/theming.scss' as t;
+@use 'src/layout/theming.scss' as t;
 
-.search__location {
+.searchbox {
   border: 0;
   font-size: 18px;
   height: 52px;
@@ -8,7 +8,7 @@
   width: 100%;
 
   @include t.themify {
-    background-color: t.theme(location_background);
+    background-color: t.theme(searchbox_background);
   }
 
   &:focus {

@@ -56,7 +56,7 @@
   "item.station": {
     "defaultMessage": "Station @ ({lat}, {lon})"
   },
-  "location.placeholder": {
+  "searchbox.placeholder": {
     "defaultMessage": "City, Country (i.e. London, GB)"
   },
   "forecast.status.great": {

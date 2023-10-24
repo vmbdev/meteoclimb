@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getLanguageData } from '../../helpers/countrycodes.js';
+import { getLanguageData } from '../../../helpers/countrycodes.js';
 import './langselector.scss';
 
 const LangSelector = (props) => {
@@ -15,7 +15,7 @@ const LangSelector = (props) => {
   }
 
   const showSelector = () => {
-    return `langselector__list--${active ? 'visible' : 'hidden'}`;
+    return `langselector__list-${active ? 'visible' : 'hidden'}`;
   }
 
   const capitalise = (text) => {

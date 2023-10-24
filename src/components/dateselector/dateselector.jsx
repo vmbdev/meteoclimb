@@ -13,16 +13,16 @@ const DateSelector = (props) => {
   }
 
   const isActive = (item) => {
-    return `${(item.active ? 'search__dateitem--active' : '')}`
+    return `${(item.active ? 'dateitem-active' : '')}`
   }
 
   return (
     <div>
-      <div className="search__datelist">
+      <div className="datelist">
         {
           props.children.map((item, i) =>
             <div
-              className={ `search__dateitem ${isActive(item)}` }
+              className={ `dateitem ${isActive(item)}` }
               key={ item.day }
               data-dateoffset={ item.dateOffset }
               onClick={ () => { updateDateList(i) }}

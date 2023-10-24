@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { toDMS } from '../../helpers/geocoords.js';
-import { getCountry } from '../../helpers/countrycodes.js';
+import { toDMS } from '../../../helpers/geocoords.js';
+import { getCountry } from '../../../helpers/countrycodes.js';
 import './suggestionitem.scss';
 
 const SuggestionItem = (props) => {
   const [country, setCountry] = useState({ flag: '', name: '' });
 
   const getClassName = () => {
-    return `search__city ${(props.active ? 'search__city--active' : '')}`;
+    return `item__city ${(props.active ? 'item__city-active' : '')}`;
   }
 
   useEffect(() => {
@@ -22,15 +22,15 @@ const SuggestionItem = (props) => {
       onMouseEnter={ () => { props.setActiveIndex(props.id) } }
       onClick={ () => { props.findForecast(props.city.id) } }
     >
-      <div className="search__cityname">
+      <div className="item__cityname">
         <img
-          className="search__flag"
+          className="item__flag"
           src={ country.flag }
           alt={ country.name }
         />
         { props.city.name }, { country.name }
       </div>
-      <div className="search__station">
+      <div className="item__station">
         <FormattedMessage 
           id="item.station"
           defaultMessage="Station @ ({lat}, {lon})"
