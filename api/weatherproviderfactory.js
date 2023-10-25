@@ -1,4 +1,4 @@
-import { config } from '../meteo.config.js';
+import { config } from './config/meteo.config.js';
 import OpenWeather from './providers/openweather.js';
 
 // factory class to generate provider objects

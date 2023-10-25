@@ -1,3 +1,5 @@
+import databaseConfig from '../database/config.json' assert { type: "json" };
+
 export const config = {
   server: {
     // if changed, remember to update it in src/config.js
@@ -6,13 +8,9 @@ export const config = {
     cors_origin: 'http://localhost:5173'
   },
 
-  database: {
-    name: 'database',
-    user: 'user',
-    password: 'password',
-    host: 'localhost',
-    dialect: 'postgres' // comply with Sequelize dialects
-  },
+  database: process.env.NODE_ENV === 'production' ?
+    databaseConfig.production :
+    databaseConfig.development,
 
   weather: {
     provider: 'OpenWeather',

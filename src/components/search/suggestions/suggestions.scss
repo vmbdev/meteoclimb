@@ -14,11 +14,11 @@
     border: 1px solid t.theme(main_color);
   }
 
-  &-hidden {
+  &--hidden {
     visibility: hidden;
   }
   
-  &-visible {
+  &--visible {
     visibility: visible;
   }
 }

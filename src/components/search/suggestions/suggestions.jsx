@@ -15,16 +15,34 @@ const Suggestions = (props) => {
     if (props.searchBoxKeyPressed) {
       let nextActiveIndex;
 
-      if (props.searchBoxKeyPressed === 'ArrowUp') {
-        if (activeIndex === 0) nextActiveIndex = props.suggestionList.length-1;
-        else nextActiveIndex = activeIndex - 1;
+      switch(props.searchBoxKeyPressed) {
+        case 'ArrowUp': {
+          if (activeIndex === 0) nextActiveIndex = props.suggestionList.length-1;
+          else nextActiveIndex = activeIndex - 1;
+          
+          setActiveIndex(nextActiveIndex);
+          break;
+        }
+        case 'ArrowDown': {
+          if (activeIndex === props.suggestionList.length-1) nextActiveIndex = 0;
+          else nextActiveIndex = activeIndex + 1;
+
+          setActiveIndex(nextActiveIndex);
+          break;
+        }
+        case 'Enter': {
+          // don't process if the suggestion list is not active
+          if (visible) {
+            const item = props.suggestionList[activeIndex]
+
+            if (item) {
+              props.findForecast(item.id);
+            }
+          }
+        }
+
       }
-      
-      else if (props.searchBoxKeyPressed === 'ArrowDown')
-        if (activeIndex === props.suggestionList.length-1) nextActiveIndex = 0;
-        else nextActiveIndex = activeIndex + 1;
         
-      setActiveIndex(nextActiveIndex);
     }
   // we don't want to re-render when activeIndex or props.suggestionList change
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,7 +50,7 @@ const Suggestions = (props) => {
 
 
   const isVisible = () => {
-    return `suggestions-${visible ? 'visible' : 'hidden'}`;
+    return `suggestions--${visible ? 'visible' : 'hidden'}`;
   }
 
   const getSuggestionList = () => {

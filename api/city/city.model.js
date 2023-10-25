@@ -1,14 +1,14 @@
 /**
  * @module model/city
  */
-import { Sequelize, DataTypes } from 'sequelize';
+import { Sequelize, DataTypes, Model } from 'sequelize';
 
 /**
  * Represents a City from the database.
  * @class
  * @extends Sequelize.Model
  */
-class City extends Sequelize.Model {
+class City extends Model {
   /**
    * Initialises the model with the database connection.
    * @param {Sequelize} - Sequelize object with initiated database.
@@ -16,15 +16,15 @@ class City extends Sequelize.Model {
   static init(sequelize) {
     super.init({
       name: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false
       },
       flatName: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false
       },
       state: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: true
       },
       country: {
@@ -41,7 +41,7 @@ class City extends Sequelize.Model {
       }
     }, {
       sequelize,
-      modelName: 'cities'
+      modelName: 'City'
     });
   }
 

@@ -18,7 +18,7 @@ const Results = (props) => {
       let storableResults = {};
 
       for (let item of results) {
-        let id = item.city.id;
+        let id = item.City.id;
 
         if (!storableResults[id]) storableResults[id] = [];
 
@@ -56,10 +56,10 @@ const Results = (props) => {
           <Forecast
             index={ index }
             date={ data.date }
-            city={ data.city }
+            city={ data.City }
             conditions={ data.conditions }
             remove={ remove }
-            key={ `${data.city.id}+${data.date}` }
+            key={ `${data.City.id}+${data.date}` }
           />
         )
       }

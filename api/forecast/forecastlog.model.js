@@ -3,7 +3,7 @@
  * @requires model/city
  */
 import { Sequelize, DataTypes } from 'sequelize';
-import City from './city.model.js';
+import City from '../city/city.model.js';
 
 /**
  * Represents the last time the forecast of a city was updated
@@ -21,12 +21,15 @@ class ForecastLog extends Sequelize.Model {
       },
       {
         sequelize,
-        modelName: 'forecastlogs'
+        modelName: 'ForecastLog'
       }
     );
 
     this.belongsTo(City, {
-      foreignKey: { unique: true },
+      foreignKey: { 
+        name: 'cityId',
+        unique: true
+      },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',
     });

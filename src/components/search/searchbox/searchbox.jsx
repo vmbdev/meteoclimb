@@ -6,7 +6,11 @@ const SearchBox = (props) => {
   const intl = useIntl();
 
   const keyPressedDown = (e) => {
-    if ((e.key === 'ArrowUp') || (e.key === 'ArrowDown')) {
+    if (
+      e.key === 'ArrowUp'
+      || e.key === 'ArrowDown'
+      || e.key === 'Enter'
+    ) {
       props.keyPressed(e.key);
     }
   }

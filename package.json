@@ -1,17 +1,19 @@
 {
   "name": "meteoclimb",
   "type": "module",
-  "version": "0.9a",
+  "version": "1.0.0",
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
+    "ui-start": "vite",
+    "ui-build": "vite build",
+    "ui-serve": "vite preview",
     "server-dev": "nodemon --ext js --exec node ./api/server.js --watch ./api",
     "server-prod": "NODE_ENV=production node ./api/server.js",
-    "docs": "jsdoc -c ./jsdoc.json",
+    "generate-docs": "jsdoc -c ./jsdoc.json",
     "formatjs-extract": "formatjs extract",
     "formatjs-compile": "formatjs compile",
-    "formatjs-compile-all": "formatjs compile-folder ./src/translations ./src/locales"
+    "formatjs-compile-all": "formatjs compile-folder ./src/translations ./src/locales",
+    "db-migrate": "sequelize-cli db:migrate",
+    "db-seed": "sequelize-cli db:seed:all"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -32,24 +34,13 @@
   "devDependencies": {
     "@formatjs/cli": "^6.1.1",
     "@vitejs/plugin-react": "^4.1.0",
+    "sequelize-cli": "^6.6.1",
     "vite": "^4.5.0"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
   }
 }

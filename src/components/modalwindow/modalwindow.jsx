@@ -4,7 +4,7 @@ import './modalwindow.scss';
 
 const ModalWindow = (props) => {
   const isActive = () => {
-    return `${props.active ? 'modalwindow-active' : ''}`;
+    return `${props.active ? 'modalwindow--active' : ''}`;
   }
 
   return (

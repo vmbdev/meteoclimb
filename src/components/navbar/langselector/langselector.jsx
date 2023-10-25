@@ -15,7 +15,7 @@ const LangSelector = (props) => {
   }
 
   const showSelector = () => {
-    return `langselector__list-${active ? 'visible' : 'hidden'}`;
+    return `langselector__list--${active ? 'visible' : 'hidden'}`;
   }
 
   const capitalise = (text) => {

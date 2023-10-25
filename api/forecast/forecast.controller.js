@@ -8,10 +8,10 @@
 import { Op } from 'sequelize';
 import { DateTime } from 'luxon';
 
-import City from './city.model.js';
+import City from '../city/city.model.js';
 import Forecast from './forecast.model.js';
 import ForecastLog from './forecastlog.model.js';
-import WeatherProviderFactory from './weatherproviderfactory.js';
+import WeatherProviderFactory from '../weatherproviderfactory.js';
 
 const weatherProvider = WeatherProviderFactory.create()
 
@@ -115,8 +115,8 @@ const fetchForecast = async (cityId, dateList = [0]) => {
 
   if (!city) throw new Error('City id not found');
 
-  const log = await ForecastLog.findOne({ where: { cityId: cityId }});
-  
+  const log = await ForecastLog.findOne({ where: { cityId }});
+
   if (!log || !updatedLastDay(log.updatedAt)) {
     const weatherData = await weatherProvider.getWeatherData(city.lon, city.lat);
 
@@ -135,8 +135,10 @@ const fetchForecast = async (cityId, dateList = [0]) => {
         attributes: { exclude: ['updatedAt', 'createdAt'] }
       },
       where: {
-        cityId: cityId,
-        date: { [Op.or]: dateList.map(i => DateTime.now().plus({ days: i }).toJSDate()) }
+        cityId,
+        date: {
+          [Op.or]: dateList.map(i => DateTime.now().plus({ days: i }).toJSDate())
+        }
       },
     }
   );
@@ -146,7 +148,7 @@ const fetchForecast = async (cityId, dateList = [0]) => {
 
 const getForecast = async (req, res) => {
   let dateList;
-
+  
   // separate the parameters, convert the strings to numbers ("2" -> 2),
   // remove the falsy elements and check 0>=j<=6
   if (req.params.dateOffset) {

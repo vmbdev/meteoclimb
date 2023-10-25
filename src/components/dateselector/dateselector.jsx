@@ -13,7 +13,7 @@ const DateSelector = (props) => {
   }
 
   const isActive = (item) => {
-    return `${(item.active ? 'dateitem-active' : '')}`
+    return `${(item.active ? 'dateitem--active' : '')}`
   }
 
   return (

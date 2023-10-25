@@ -32,7 +32,7 @@
     }
   }
 
-  &-active {
+  &--active {
     color: white;
 
     @include t.themify {

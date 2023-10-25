@@ -10,16 +10,16 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 // routes
-import cityRoutes from './city.routes.js';
-import forecastRoutes from './forecast.routes.js';
+import cityRoutes from './city/city.routes.js';
+import forecastRoutes from './forecast/forecast.routes.js';
 
 // models
-import City from './city.model.js';
-import Forecast from './forecast.model.js';
-import ForecastLog from './forecastlog.model.js';
+import City from './city/city.model.js';
+import Forecast from './forecast/forecast.model.js';
+import ForecastLog from './forecast/forecastlog.model.js';
 
 import db from './database.js';
-import { config } from '../meteo.config.js';
+import { config } from './config/meteo.config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

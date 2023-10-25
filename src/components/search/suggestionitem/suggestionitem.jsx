@@ -8,7 +8,7 @@ const SuggestionItem = (props) => {
   const [country, setCountry] = useState({ flag: '', name: '' });
 
   const getClassName = () => {
-    return `item__city ${(props.active ? 'item__city-active' : '')}`;
+    return `item__city ${(props.active ? 'item__city--active' : '')}`;
   }
 
   useEffect(() => {

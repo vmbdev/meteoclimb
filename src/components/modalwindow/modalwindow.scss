@@ -19,7 +19,7 @@
   visibility: hidden;
   display: none;
 
-  &-active {
+  &--active {
     display: block;
     visibility: visible !important;
   }
