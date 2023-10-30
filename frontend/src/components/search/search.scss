@@ -1,0 +1,46 @@
+@use 'frontend/src/layout/theming.scss' as t;
+@use 'frontend/src/layout/media.scss' as media;
+
+.search {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  height: 80vh;
+  justify-content: center;
+  position: relative;
+  transition-duration: 250ms;
+
+  &--collapsed {
+    height: 170px;
+  }
+
+  &__nav {
+    border: solid;
+    border-width: 1px 14px 4px 1px;
+    padding: 10px;
+    position: relative;
+    width: 520px;
+    
+    @include t.themify {
+      background-color: t.theme(searchbox_background);
+      border-color: t.theme(main_color);
+    }
+  }
+}
+
+@include media.device('hd') {
+  .search__nav {
+    width: 80%;
+  }
+}
+
+@include media.device('sm') {
+  .search {
+    height: 20vh;
+
+    &__nav {
+      width: 70%;
+    }
+  }
+}

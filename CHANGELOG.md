@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.2] - 2023-10-30
+
+### Changed
+
+- [UI] Whole React UI moved to /frontend.
+- [General] React dependencies moved to development dependencies to avoid
+having to install them when only running the backend.
+
+### Fixed
+
+- [General] Duplicated /database and /sequelize.
+
 ## [1.0.1] - 2023-10-30
 
 ### Added

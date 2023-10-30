@@ -2,7 +2,7 @@ import databaseConfig from './database.json' assert { type: "json" };
 
 export const config = {
   server: {
-    // if changed, remember to update it in src/config.js
+    // if changed, remember to update it in frontend/config.js
     port: 5005,
     enable_cors: true,
     cors_origin: 'http://localhost:5173'

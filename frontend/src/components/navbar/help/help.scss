@@ -1,0 +1,89 @@
+@use 'frontend/src/layout/theming.scss' as t;
+@use 'frontend/src/layout/media.scss' as media;
+
+@mixin forecastState($state) {
+  &--#{$state}:before {
+    @include t.themify {
+      background-color: t.theme(forecast_#{$state});
+    }
+  }
+}
+
+.help {
+  &__icon {
+    background: url('/help.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    min-height: 32px;
+    min-width: 32px;
+  }
+
+  &__modal {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+
+    .modal__right {
+      padding: 5px 10px;
+      text-align: justify;
+    }
+  }
+
+  &__title {
+    font-size: 16pt;
+  }
+  
+  &__color {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 25px;
+  
+    &:before {
+      @include t.themify {
+        border: 1px solid t.theme(main_textcolor);
+      }
+      content: "";
+      display: inline-block;
+      height: 25px;
+      margin-right: 5px;
+      width: 25px;
+    }
+  
+    @include forecastState('great');
+    @include forecastState('good');
+    @include forecastState('bad');
+    @include forecastState('terrible');
+  }
+}
+
+@include media.device('md') {
+  .help__modal {
+    width: 50%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+
+    &__color {
+      margin-right: 0;
+
+      &:before {
+        margin-right: 0;
+      }
+    }
+
+    .modal__left {
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+  
+}

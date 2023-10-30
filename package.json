@@ -1,7 +1,7 @@
 {
   "name": "meteoclimb",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "scripts": {
     "ui-start": "vite",
     "ui-build": "vite build",
@@ -11,14 +11,11 @@
     "generate-docs": "jsdoc -c ./jsdoc.json",
     "formatjs-extract": "formatjs extract",
     "formatjs-compile": "formatjs compile",
-    "formatjs-compile-all": "formatjs compile-folder ./src/translations ./src/locales",
+    "formatjs-compile-all": "formatjs compile-folder ./frontend/src/translations ./frontend/src/locales",
     "db-migrate": "sequelize-cli db:migrate",
     "db-seed": "sequelize-cli db:seed:all"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.4.3",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
@@ -26,15 +23,18 @@
     "luxon": "^3.2.1",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-intl": "^6.2.1",
-    "sass": "^1.56.1",
     "sequelize": "^6.31.0"
   },
   "devDependencies": {
     "@formatjs/cli": "^6.1.1",
     "@vitejs/plugin-react": "^4.1.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-intl": "^6.2.1",
+    "sass": "^1.56.1",
     "sequelize-cli": "^6.6.1",
     "vite": "^4.5.0"
   },
