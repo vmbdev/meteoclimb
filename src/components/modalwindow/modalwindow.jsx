@@ -1,17 +1,29 @@
+/**
+ * @module ModalWindow
+ */
 import React from 'react'
 import CloseButton from '../closebutton/closebutton.jsx';
 import './modalwindow.scss';
 
-const ModalWindow = (props) => {
+/**
+ * JSX Component representing a modal window.
+ * @param {Object} props
+ * @param {boolean} props.active  The modal window is active and visible.
+ * @param {JSX.Element} props.children
+ * @param {Function} props.closeAction  Event emitted when the user closes the
+ *     modal.
+ * @returns The rendered JSX Component.
+ */
+const ModalWindow = ({ active, children, closeAction}) => {
   const isActive = () => {
-    return `${props.active ? 'modalwindow--active' : ''}`;
+    return `${active ? 'modalwindow--active' : ''}`;
   }
 
   return (
     <div className={ `modalwindow ${isActive()}` }>
-      <CloseButton closeAction={ props.closeAction } />
+      <CloseButton closeAction={ closeAction } />
       <div className="modalWindow__content">
-        { props.children }
+        { children }
       </div>
     </div>
   );

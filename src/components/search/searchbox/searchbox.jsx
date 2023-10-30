@@ -1,8 +1,18 @@
+/**
+ * @module SearchBox
+ */
 import React from 'react';
 import { useIntl } from 'react-intl';
 import './searchbox.scss';
 
-const SearchBox = (props) => {
+/**
+ * JSX Component representing an input for searching.
+ * @param {Object} props
+ * @param {Function} props.keyPressed  Called when a relevant key is pressed.
+ * @param {Function} props.inputChanged  Called when the search input changes.
+ * @returns The rendered JSX Component.
+ */
+const SearchBox = ({ keyPressed, inputChanged }) => {
   const intl = useIntl();
 
   const keyPressedDown = (e) => {
@@ -11,12 +21,12 @@ const SearchBox = (props) => {
       || e.key === 'ArrowDown'
       || e.key === 'Enter'
     ) {
-      props.keyPressed(e.key);
+      keyPressed(e.key);
     }
   }
 
   const inputHasChanged = (e) => {
-    props.findCityName(e.target.value);
+    inputChanged(e.target.value);
   }
 
   return (
@@ -33,7 +43,7 @@ const SearchBox = (props) => {
       autoComplete="off"
       onChange={ inputHasChanged }
       onKeyDown={ keyPressedDown }
-      onKeyUp={ () => { props.keyPressed(false) } }
+      onKeyUp={ () => { keyPressed(false) } }
     />
   )
 }

@@ -5,14 +5,16 @@
 **meteoclimb** is a React/Nodejs application to visualize the forecast for
 outdoors activities (mainly focused on rock climbing).
 
-You can access the live app on [meteoclimb](https://meteoclimb.hippolyta.one).
-
-## Setup
+You can access the live app on [https://meteoclimb.hippolyta.one](https://meteoclimb.hippolyta.one).
 
 meteoclimb contains both a server (running on ExpressJS) and a front-end (made
 with React).
 
-### User Interface
+## User Interface
+
+The UI is made with React, FormatJS (React Intl) and SASS.
+
+### Setup
 
 In the first run, you'll need to compile the language files into locales that
 the application can use. Using FormatJS'
@@ -42,7 +44,12 @@ the parameters as you need.
 The resulting build will be available in the **build** directory. The backend
 server will automatically detect it at the start and serve it in the root URL.
 
-### Backend Server
+## Backend Server
+
+The backend runs on Express 4 and uses Sequelize for connecting to the
+database.
+
+### Setup
 
 First of all, you'll need an OpenWeather API key (currently the only provider
 available). You can get one from [here](https://openweathermap.org/appid).
@@ -51,7 +58,7 @@ Rename /api/config/**meteo.config.example.js** to
 /api/config/**meteo.config.js**, and edit it to match your set up. For example:
 
 ```javascript
-import databaseConfig from '../database/config.json' assert { type: "json" };
+import databaseConfig from './database.json' assert { type: "json" };
 
 export const config = {
   server: {
@@ -73,8 +80,35 @@ export const config = {
 }
 ```
 
-Don't touch the **database** part; instead, do it in the
-**/database/config.json** file.
+Don't touch the **database** part; instead, rename
+**/api/config/database.example.json** to **/api/config/database.json** and
+edit your database information there. For example:
+
+```json
+{
+  "development": {
+    "database": "meteoclimb",
+    "username": "meteoclimb",
+    "password": "password",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "database": "meteoclimb",
+    "username": "meteoclimb",
+    "password": "password",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "database": "meteoclimb",
+    "username": "meteoclimb",
+    "password": "password",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
+```
 
 Once our database parameters are set, we'll need to build it. At the moment,
 only PostgreSQL is supported, though more are planned in future updates.

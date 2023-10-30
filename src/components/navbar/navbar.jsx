@@ -1,8 +1,17 @@
+/**
+ * @module Navbar
+ */
 import React from 'react';
 import Brand from './brand/brand.jsx';
 import './navbar.scss';
 
-const Navbar = (props) => {
+/**
+ * JSX Component representing a navigation bar with horizontal elements.
+ * @param {Object} props
+ * @param {Object[]} props.children
+ * @returns The rendered JSX Component.
+ */
+const Navbar = ({ children }) => {
 
   return ( 
     <nav className="navbar">
@@ -10,7 +19,7 @@ const Navbar = (props) => {
         <Brand />
       </div>
       <div className="navbar__right">
-        { props.children }
+        { children }
       </div>
     </nav>
   );

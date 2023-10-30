@@ -1,42 +1,63 @@
+/**
+ * @module Suggestions
+ */
 import React, { useEffect, useState } from 'react';
 import SuggestionItem from '../suggestionitem/suggestionitem.jsx';
 import './suggestions.scss';
 
-const Suggestions = (props) => {
+/**
+ * JSX Component representing the suggested values as the search input receives
+ * new text.
+ * @param {Object} props
+ * @param {boolean} props.isSearchBoxActive  True if the search box is focused.
+ * @param {Function} props.searchBoxKeyPressed  Called when the search box has
+ *     received a key input, to enable navigation with keyboard.
+ * @param {Object[]} props.suggestionList  The list of suggestions for the
+ *     current input
+ * @param {Function} props.findForecast  Called when an item from the list is
+ *     selected.
+ * @returns 
+ */
+const Suggestions = ({
+  isSearchBoxActive,
+  searchBoxKeyPressed,
+  suggestionList,
+  findForecast
+}) => {
   const [visible, setVisibility] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeItem, setActiveItem] = useState(0);
   
   useEffect(() => {
-    setVisibility(props.isSearchBoxActive);
-  }, [props.isSearchBoxActive]);
+    setVisibility(isSearchBoxActive);
+  }, [isSearchBoxActive]);
 
 
   useEffect(() => {
-    if (props.searchBoxKeyPressed) {
-      let nextActiveIndex;
+    if (searchBoxKeyPressed) {
+      let nextActiveItem;
 
-      switch(props.searchBoxKeyPressed) {
+      switch(searchBoxKeyPressed) {
         case 'ArrowUp': {
-          if (activeIndex === 0) nextActiveIndex = props.suggestionList.length-1;
-          else nextActiveIndex = activeIndex - 1;
+          if (activeItem === 0) nextActiveItem = suggestionList.length-1;
+          else nextActiveItem = activeItem - 1;
           
-          setActiveIndex(nextActiveIndex);
+          setActiveItem(nextActiveItem);
           break;
         }
         case 'ArrowDown': {
-          if (activeIndex === props.suggestionList.length-1) nextActiveIndex = 0;
-          else nextActiveIndex = activeIndex + 1;
+          if (activeItem === suggestionList.length-1) nextActiveItem = 0;
+          else nextActiveItem = activeItem + 1;
 
-          setActiveIndex(nextActiveIndex);
+          setActiveItem(nextActiveItem);
           break;
         }
         case 'Enter': {
           // don't process if the suggestion list is not active
           if (visible) {
-            const item = props.suggestionList[activeIndex]
+            const item = suggestionList[activeItem]
 
             if (item) {
-              props.findForecast(item.id);
+              findForecast(item.id);
             }
           }
         }
@@ -44,9 +65,9 @@ const Suggestions = (props) => {
       }
         
     }
-  // we don't want to re-render when activeIndex or props.suggestionList change
+  // we don't want to re-render when activeItem or suggestionList change
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.searchBoxKeyPressed]);
+  }, [searchBoxKeyPressed]);
 
 
   const isVisible = () => {
@@ -56,15 +77,15 @@ const Suggestions = (props) => {
   const getSuggestionList = () => {
     const items = [];
 
-    for (let i = 0; i < props.suggestionList.length; i++) {
+    for (let i = 0; i < suggestionList.length; i++) {
       items.push(
         <SuggestionItem
           key={ i }
           id={ i }
-          active={ (i === activeIndex) ? true : false }
-          city={ props.suggestionList[i] }
-          setActiveIndex={ setActiveIndex }
-          findForecast={ props.findForecast }
+          active={ (i === activeItem) ? true : false }
+          city={ suggestionList[i] }
+          setActive={ setActiveItem }
+          findForecast={ findForecast }
         />
       );
     }

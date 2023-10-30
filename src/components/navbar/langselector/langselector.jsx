@@ -1,14 +1,25 @@
+/**
+ * @module LangSelector
+ */
 import React, { useState, useEffect } from 'react';
 import { getLanguageData } from '../../../helpers/countrycodes.js';
 import './langselector.scss';
 
-const LangSelector = (props) => {
+/**
+ * JSX Component representing the language selector.
+ * @param {Object} props
+ * @param {string} props.lang  Locale representing a language.
+ * @param {string[]} props.availableTranslations  List of avaliable languages.
+ * @param {Function} props.changeLang  Function called when the locale changes.
+ * @returns The rendered JSX Component.
+ */
+const LangSelector = ({ lang, availableTranslations, changeLang }) => {
   const [currentLang, setCurrentLang] = useState({ name:'', flag:'' });
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    setCurrentLang(getLanguageData(props.lang));
-  }, [props.lang])
+    setCurrentLang(getLanguageData(lang));
+  }, [lang])
 
   const showLanguageList = () => {
     setActive(active ? false : true);
@@ -32,14 +43,14 @@ const LangSelector = (props) => {
         />
       </div>
       <div className={ `langselector__list ${showSelector()}` }>
-        { props.availableTranslations.map(translation => {
+        { availableTranslations.map(translation => {
           const t = getLanguageData(translation);
 
           return (
             <div
               key={ t.locale }
               className="langselector__translation"
-              onClick={ () => { props.changeLang(t.locale) } }
+              onClick={ () => { changeLang(t.locale) } }
             >
               <img src={ t.flag } alt={ t.langDesc } />
               { capitalise(t.langDesc) }

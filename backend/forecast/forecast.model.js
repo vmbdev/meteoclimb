@@ -1,7 +1,3 @@
-/**
- * @module model/forecast
- * @requires model/city
- */
 import { Sequelize, DataTypes } from 'sequelize';
 import City from '../city/city.model.js';
 
@@ -11,6 +7,10 @@ import City from '../city/city.model.js';
  * @extends Sequelize.Model
  */
 class Forecast extends Sequelize.Model {
+  /**
+   * Initialises the model with the database connection.
+   * @param {Sequelize} - Sequelize object with initiated database.
+   */
   static init(sequelize) {
     super.init(
       {

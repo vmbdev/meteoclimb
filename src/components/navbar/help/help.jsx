@@ -1,9 +1,16 @@
+/**
+ * @module Help
+ */
 import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import ModalWindow from '../../modalwindow/modalwindow.jsx';
 import helpImage from './help.png';
 import './help.scss';
 
+/**
+ * JSX Component displaying the information about the usage of meteoclimb.
+ * @returns The rendered JSX Component.
+ */
 const Help = () => {
   const [modalActive, setModalActive] = useState(false);
   const intl = useIntl();
@@ -37,7 +44,10 @@ const Help = () => {
               <p>
                 <FormattedMessage
                   id="help.desc.params"
-                  defaultMessage="Four parameters are observed: {temperature}, {wind}, {precipitation} and {humidity}."
+                  defaultMessage="
+                    Four parameters are observed: {temperature}, {wind},
+                    {precipitation} and {humidity}.
+                  "
                   values={{
                     temperature: (
                       <strong>
@@ -105,16 +115,28 @@ const Help = () => {
             </div>
             <div className="help__legend">
               <div className="help__color help__color--great">
-                <FormattedMessage id="forecast.status.great" defaultMessage="Great" />
+                <FormattedMessage
+                  id="forecast.status.great"
+                  defaultMessage="Great"
+                />
               </div>
               <div className="help__color help__color--good">
-                <FormattedMessage id="forecast.status.good" defaultMessage="Good" />
+                <FormattedMessage
+                  id="forecast.status.good"
+                  defaultMessage="Good"
+                />
               </div>
               <div className="help__color help__color--bad">
-                <FormattedMessage id="forecast.status.bad" defaultMessage="Bad" />
+                <FormattedMessage
+                  id="forecast.status.bad"
+                  defaultMessage="Bad"
+                />
               </div>
               <div className="help__color help__color--terrible">
-                <FormattedMessage id="forecast.status.terrible" defaultMessage="Terrible" />
+                <FormattedMessage
+                  id="forecast.status.terrible"
+                  defaultMessage="Terrible"
+                />
               </div>
             </div>
           </div>

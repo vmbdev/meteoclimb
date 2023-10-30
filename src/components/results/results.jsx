@@ -1,44 +1,59 @@
+/**
+ * @module Results
+ */
 import React, { useEffect, useState } from 'react';
 import Forecast from '../forecast/forecast.jsx';
 import './results.scss';
 
-const Results = (props) => {
+/**
+ * JSX Component displaying the results of a weather search.
+ * @param {Object} props
+ * @param {Object[]} props.searchResults  The results to be displayed.
+ * @param {Function} props.save  A function to store the results somewhere
+ *    (i.e. local storage).
+ * @returns The rendered JSX component.
+ */
+const Results = ({ searchResults, save }) => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    if (props.searchResults && props.searchResults.length > 0) {
-      setResults(props.searchResults.concat(results));
+    if (searchResults && searchResults.length > 0) {
+      setResults(searchResults.concat(results));
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.searchResults]);
+  }, [searchResults]);
 
   useEffect(() => {
     if (results && results.length > 0) {
-      let storableResults = {};
+      const storableResults = {};
 
       for (let item of results) {
-        let id = item.City.id;
+        const id = item.City.id;
 
         if (!storableResults[id]) storableResults[id] = [];
 
         storableResults[id].push(item.date);
       }
-      props.save(storableResults);
+      save(storableResults);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [results]);
 
+  /**
+   * Removes an object from the results.
+   * @param {number} index  The index of the object to be removed.
+   */
   const remove = (index) => {
     const newResults = [...results];
 
     newResults.splice(index, 1);
     setResults(newResults);
     
-    if (newResults.length === 0)
-      props.save([]);
+    if (newResults.length === 0) save([]);
   }
 
+  /**
+   * Function to scroll the results horizontally.
+   * @param {Event} event  The event triggering the function (i.e. onWheel)
+   */
   const scrollResults = (event) => {
     let amount;
 
@@ -52,14 +67,13 @@ const Results = (props) => {
     <div className="">
       <div className={ `results__list ${results.length === 0 ? 'results--collapsed' : ''}` } onWheel={ scrollResults }>
       {
-        results.map((data, index) =>
+        results.map((forecast, index) =>
           <Forecast
-            index={ index }
-            date={ data.date }
-            city={ data.City }
-            conditions={ data.conditions }
-            remove={ remove }
-            key={ `${data.City.id}+${data.date}` }
+            date={ forecast.date }
+            city={ forecast.City }
+            conditions={ forecast.conditions }
+            remove={ () => { remove(index) } }
+            key={ `${forecast.City.id}+${forecast.date}` }
           />
         )
       }

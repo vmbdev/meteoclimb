@@ -23,8 +23,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-meteo.config.js
-city.list.json
+# avoid pushing user's config files
+/backend/config/meteo.config.js
+/backend/config/database.json
+
+/city.list.json
 /src/locales/*
 /assets
-TODO
+/TODO.md

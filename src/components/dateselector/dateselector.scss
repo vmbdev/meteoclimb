@@ -32,7 +32,7 @@
     }
   }
 
-  &--active {
+  &--selected {
     color: white;
 
     @include t.themify {

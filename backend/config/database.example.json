@@ -1,0 +1,23 @@
+{
+  "development": {
+    "database": "meteoclimb",
+    "username": "meteoclimb",
+    "password": "password",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "database": "meteoclimb",
+    "username": "meteoclimb",
+    "password": "password",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "database": "meteoclimb",
+    "username": "meteoclimb",
+    "password": "password",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

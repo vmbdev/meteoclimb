@@ -1,3 +1,6 @@
+/**
+ * @module App
+ */
 import React, { useState, useEffect } from 'react';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 
@@ -23,13 +26,13 @@ function App(props) {
 
   useEffect(() => {
       // load theme from localstorage
-      const storedTheme = localStorage.getItem('theme');
+      const storedTheme = localStorage.getItem('METEO_theme');
 
       if (storedTheme) setTheme(storedTheme);
       
       // Tries to load an stored language in localStorage.
-      // If it can't, then tries to load user's browser language
-      const storedLang = localStorage.getItem('lang');
+      // If there's none, then tries to load user's browser language
+      const storedLang = localStorage.getItem('METEO_lang');
 
       if (storedLang && settings.availableTranslations.includes(storedLang)) {
         changeLang(storedLang);
@@ -39,20 +42,20 @@ function App(props) {
       }
 
       // load previous searches from localstorage
-      const storableResults = JSON.parse(localStorage.getItem('resultList'));
+      const storableResults = JSON.parse(localStorage.getItem('METEO_resultList'));
       setStoredData(storableResults);
     // });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const save = (storableResults) => {
+  const saveIntoLocalStorage = (storableResults) => {
     if (!loadingData) {
-      localStorage.setItem('resultList', JSON.stringify(storableResults));
+      localStorage.setItem('METEO_resultList', JSON.stringify(storableResults));
     }
   }
 
   const awaitSearchResults = async (results) => {
-    let resolvedResults = (await Promise.all(results)).flat();
+    const resolvedResults = (await Promise.all(results)).flat();
     setSearchResults(resolvedResults);
   }
 
@@ -63,7 +66,7 @@ function App(props) {
 
       setLang(newLang);
       setMessages(newMessages);
-      localStorage.setItem('lang', newLang);
+      localStorage.setItem('METEO_lang', newLang);
     }
   }
 
@@ -71,7 +74,7 @@ function App(props) {
     const newTheme = theme === 'light' ? 'dark' : 'light';
 
     setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
+    localStorage.setItem('METEO_theme', newTheme);
   }
 
   return (
@@ -93,16 +96,24 @@ function App(props) {
             storedData={ storedData }
             awaitSearchResults={ awaitSearchResults }
             setLoadingData={ setLoadingData }
-            endpoint={ settings.endpoint }
           />
-          <Results save={ save } searchResults={ searchResults } />
+          <Results
+            save={ saveIntoLocalStorage }
+            searchResults={ searchResults }
+          />
         </div>
         <Footer>
           <FormattedMessage
             id="footer.msg"
             defaultMessage="© 2022 meteoclimb - Source code at {link}"
             values={{
-              link: <a href="https://github.com/vmbdev/meteoclimb" rel="noreferrer" target="_blank">GitHub</a>
+              link:
+                <a
+                  href="https://github.com/vmbdev/meteoclimb"
+                  target="_blank"
+                >
+                  GitHub
+                </a>
             }}
           />
         </Footer>

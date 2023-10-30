@@ -1,31 +1,47 @@
+/**
+ * @module DateSelector
+ */
 import React from 'react';
 import './dateselector.scss';
 
-const DateSelector = (props) => {
+/**
+ * JSX Component representing a selector for a list of seven days starting the
+ * current day.
+ * @param {Object} props
+ * @param {Object[]} props.children
+ * @param {Function} props.setDateList  Function called with the list of dates.
+ * @returns The rendered JSX Component.
+ */
+const DateSelector = ({ children, setDateList }) => {
 
-  const updateDateList = (index) => {
-    if (index >= 0 && index < props.children.length) {
-      const list = [...props.children];
+  /**
+   * Toggles a day from active to inactive or
+   * @function
+   * @param {*} index 
+   */
+  const toggleDate = (index) => {
+    if (index >= 0 && index < children.length) {
+      const list = [...children];
 
-      list[index].active = !list[index].active;
-      props.updateDateList(list)
+      list[index].selected = !list[index].selected;
+      setDateList(list)
     }
   }
 
-  const isActive = (item) => {
-    return `${(item.active ? 'dateitem--active' : '')}`
+  const getSelectedClass = (item) => {
+    return `${(item.selected ? 'dateitem--selected' : '')}`
   }
 
   return (
     <div>
       <div className="datelist">
         {
-          props.children.map((item, i) =>
+          children.map((item, i) =>
             <div
-              className={ `dateitem ${isActive(item)}` }
+              className={ `dateitem ${getSelectedClass(item)}` }
               key={ item.day }
               data-dateoffset={ item.dateOffset }
-              onClick={ () => { updateDateList(i) }}
+              onClick={ () => { toggleDate(i) }}
             >
               { item.day }
             </div>

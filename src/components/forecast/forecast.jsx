@@ -1,3 +1,6 @@
+/**
+ * @module Forecast
+ */
 import React, { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -6,7 +9,17 @@ import { getCountry } from '../../helpers/countrycodes.js';
 import './forecast.scss';
 import './forecast-sprites.scss';
 
-const Forecast = (props) => {
+/**
+ * JSX Component depicting the forecast for a given day.
+ * @param {Object} props
+ * @param {Object} props.conditions  Object representing the weather.
+ * @param {Date} props.date  Date of the forecast prediction.
+ * @param {City} props.city  Object representing a city in the database.
+ * @param {Function} props.remove  Function to remove the forecast from the
+ *     results.
+ * @returns The rendered JSX Component.
+ */
+const Forecast = ({ conditions, date, city, remove }) => {
   const [country, setCountry] = useState({ flag: '', name: '' });
   const [stateClasses, setStateClasses] = useState({
     main: null,
@@ -23,10 +36,10 @@ const Forecast = (props) => {
     }
 
     let states = {};
-    const temp = props.conditions.temp.max;
-    const wind = props.conditions.wind.speed;
-    const pop = props.conditions.pop.chance;
-    const humidity = props.conditions.humidity;
+    const temp = conditions.temp.max;
+    const wind = conditions.wind.speed;
+    const pop = conditions.pop.chance;
+    const humidity = conditions.humidity;
 
     const classNames = {
       0: 'forecast--terrible',
@@ -56,13 +69,17 @@ const Forecast = (props) => {
     states.main = Math.min(...Object.values(states));
 
     setStateClasses(
-      Object.fromEntries(Object.entries(states).map(([k,v]) => [k, classNames[v]]))
+      Object.fromEntries(
+        Object
+          .entries(states)
+          .map(([k,v]) => [k, classNames[v]])
+      )
     );
-    setCountry(getCountry(props.city.country));
-  }, [props.conditions, props.city.country]);
+    setCountry(getCountry(city.country));
+  }, [conditions, city.country]);
 
   const getPrecipitation = () => {
-    const pop = props.conditions.pop;
+    const pop = conditions.pop;
     const amount = pop.rain + pop.snow;
 
     if (pop.chance > 0) {
@@ -87,7 +104,11 @@ const Forecast = (props) => {
               id="forecast.from"
               defaultMessage="from {time}"
               values={ {
-                time: DateTime.fromSeconds(pop.from).setLocale(intl.locale).toFormat('HH:mm')
+                time: 
+                  DateTime
+                    .fromSeconds(pop.from)
+                    .setLocale(intl.locale)
+                    .toFormat('HH:mm')
               } }
             />
           }
@@ -105,25 +126,33 @@ const Forecast = (props) => {
 
   return (
     <div className={ `forecast ${ stateClasses.main }` }>
-      <CloseButton closeAction={ () => { props.remove(props.index) } }/>
+      <CloseButton closeAction={ remove }/>
 
       <div className="forecast__row forecast__title">
-        <img className="forecast__flag" src={ country.flag } alt={ country.name } />
+        <img
+          className="forecast__flag"
+          src={ country.flag }
+          alt={ country.name }
+        />
         <FormattedMessage
           id="forecast.title"
           defaultMessage="{city}, {country} on {weekday}"
           values={{
-            city: props.city.name,
+            city: city.name,
             country: country.name,
-            weekday: DateTime.fromISO(props.date).setLocale(intl.locale).weekdayLong
+            weekday: DateTime.fromISO(date).setLocale(intl.locale).weekdayLong
           }}
         />
       </div>
 
       <div className="forecast__row--centered">
-        <div>{ DateTime.fromSeconds(props.conditions.sunrise).toFormat('HH:mm') }</div>
+        <div>
+          { DateTime.fromSeconds(conditions.sunrise).toFormat('HH:mm') }
+        </div>
         <div className="forecast__icon--daynight"></div>
-        <div>{ DateTime.fromSeconds(props.conditions.sunset).toFormat('HH:mm') }</div>
+        <div>
+          { DateTime.fromSeconds(conditions.sunset).toFormat('HH:mm') }
+        </div>
       </div>
 
       <div className={ `forecast__row ${ stateClasses.temp }` }>
@@ -133,21 +162,24 @@ const Forecast = (props) => {
             id="forecast.temperature"
             defaultMessage="{temp}º (feels like {feel}º)"
             values={{
-              temp: props.conditions.temp.max,
-              feel: props.conditions.temp.feel
+              temp: conditions.temp.max,
+              feel: conditions.temp.feel
             }}
           />
         </div>
       </div>
 
       <div className={ `forecast__row ${ stateClasses.wind }` }>
-        <div className="forecast__icon--arrow" style={{ transform: `rotate(${ props.conditions.wind.degrees + 180 }deg)` }} />
+        <div
+          className="forecast__icon--arrow"
+          style={{ transform: `rotate(${ conditions.wind.degrees + 180 }deg)` }}
+        />
         <div>
         <FormattedMessage
             id="forecast.wind"
             defaultMessage="Wind: {speed} {unit}"
             values={{
-              speed: props.conditions.wind.speed,
+              speed: conditions.wind.speed,
               // TODO variable unit system
               unit: 'km/h'
             }}
@@ -167,7 +199,7 @@ const Forecast = (props) => {
           <FormattedMessage
             id="forecast.humidity"
             defaultMessage="{humidity}% humidity"
-            values={{humidity: props.conditions.humidity}}
+            values={{humidity: conditions.humidity}}
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import databaseConfig from '../database/config.json' assert { type: "json" };
+import databaseConfig from './database.json' assert { type: "json" };
 
 export const config = {
   server: {

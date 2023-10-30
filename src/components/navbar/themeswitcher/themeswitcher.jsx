@@ -1,7 +1,17 @@
+/**
+ * @module ThemeSwitcher
+ */
 import React from 'react';
 import './themeswitcher.scss';
 
-const ThemeSwitcher = (props) => {
+/**
+ * JSX Component that allows switching the theme.
+ * @param {Object} props
+ * @param {Function} props.switchTheme  Toggles the current active theme.
+ * @param {string} props.theme  The current active theme.
+ * @returns The rendered. JSX Component.
+ */
+const ThemeSwitcher = ({ switchTheme, theme }) => {
 
   return (
     <div className="themeswitcher">
@@ -9,8 +19,8 @@ const ThemeSwitcher = (props) => {
         <input
           type="checkbox"
           className="checkbox"
-          onChange={ props.switchTheme }
-          checked={ props.theme === 'light'}
+          onChange={ switchTheme }
+          checked={ theme === 'light' }
         />
         <div className="knobs"></div>
         <div className="layer"></div>

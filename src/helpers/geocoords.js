@@ -1,15 +1,12 @@
 /**
- * @module helpers/geocoords
- */
-
-/**
- * 
+ * Converts the coordinate to DMS (Degrees, Minutes, Seconds)
+ * @function
  * @param {*} coord 
- * @param {*} type 
- * @returns 
+ * @param {*} type  Longitude ('lon') or latitude ('lat')
+ * @returns  The coordinate in DMS
  */
 const toDMS = (coord, type) => {
-  const points = type === "lon" ? ['E', 'W'] : ['N', 'S'];
+  const points = type === 'lon' ? ['E', 'W'] : ['N', 'S'];
 
   const absValue = Math.abs(coord);
   const degrees = Math.trunc(absValue);
