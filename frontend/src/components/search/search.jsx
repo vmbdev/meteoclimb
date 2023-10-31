@@ -4,17 +4,21 @@
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { DateTime } from 'luxon';
-import SearchBox from './searchbox/searchbox.jsx';
-import Suggestions from './suggestions/suggestions.jsx';
-import DateSelector from '../dateselector/dateselector.jsx';
+
+import SearchBox from './search-box/search-box.jsx';
+import SuggestionList from './suggestion-list/suggestion-list.jsx';
+import DateSelector from '../date-selector/date-selector.jsx';
+
 import { api } from '../../services/api.js';
+import { toaster } from '../../services/toaster.js';
+
 import './search.scss';
 
 /**
  * JSX Component that allows searching.
  * @param {Object} props
- * @param {Object} props.storedData  List of locations and dates stored from previous
- *     searches.
+ * @param {Object} props.storedData  List of locations and dates stored from
+ *     previous searches.
  * @param {Function} props.awaitSearchResults  Called when the stored data is
  *     restored.
  * @param {Function} props.setLoadingData  Called when the search starts and
@@ -29,7 +33,7 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
   const [dateList, setDateList] = useState([]);
   const {locale} = useIntl();
 
-  // create the date bar above the search box
+  // populate the date selector above the search box
   useEffect(() => {
     const list = [];
     let day = DateTime.local().setLocale(locale);
@@ -48,32 +52,39 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
 
   // if the user has previously done a search and it's in LocalStorage
   useEffect(() => {
-    (async () => {
-      if (storedData) {
-        setLoadingData(true);
-        const restoredData = [];
-  
-        for (const [cityId, dates] of Object.entries(storedData)) {
-          const forecast = await fetchForecast(cityId, dates);
-          restoredData.push(forecast);
-        }
+    if (storedData) {
+      setLoadingData(true);
+      const restoredData = [];
 
-        awaitSearchResults(restoredData);
-        setLoadingData(false);
+      for (const [cityId, dates] of Object.entries(storedData)) {
+        const forecast = fetchForecast(cityId, dates);
+        restoredData.push(forecast);
       }
-    })();
+
+      awaitSearchResults(restoredData);
+      setLoadingData(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storedData]);
 
-  const getClassName = () => {
-    return `search ${isCollapsed ? 'search--collapsed' : ''}`;
-  }
+  /**
+   * Fetches the weather forecast for the location and dates given and provides
+   * them to the parent component through awaitSearchResults().
+   * @param {number} cityId  The ID of the location.
+   * @param {Object} dates  The days of the requested weather forecast.
+   */
+  const findForecast = (cityId, dates) => {
+    const forecast = fetchForecast(cityId, dates);
 
-  const findForecast = async (cityId, dates) => {
-    const forecast = await fetchForecast(cityId, dates);
     awaitSearchResults([forecast]);
   }
 
+  /**
+   * Fetches the weather forecast for the location and dates given.
+   * @param {number} cityId  The ID of the location.
+   * @param {Object} dates  The days of the requested weather forecast.
+   * @returns {Promise<Forecast>}  A promise containing the forecast.
+   */
   const fetchForecast = async (cityId, dates) => {
     setCollapsed(true);
     setSearchBoxActive(false);
@@ -87,37 +98,45 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
     return api.getForecast(cityId, dates);
   }
 
-  const findCityName = async (cityName) => {
+  const fetchCitiesByName = async (cityName) => {
     if (cityName.length >= 3) {
-      const cities = await api.getCities(cityName);
+      try {
+        const cities = await api.getCities(cityName);
 
-      if (cities.length > 0) {
-        setSuggestionList(cities)
-        setSearchBoxActive(true);
-      }
-      else {
-        setSuggestionList([])
-        setSearchBoxActive(false);
+        if (cities.length > 0) {
+          setSuggestionList(cities)
+          setSearchBoxActive(true);
+        }
+        else {
+          setSuggestionList([])
+          setSearchBoxActive(false);
+        }
+      } catch (err) {
+        toaster.error('Error getting the suggestions.', 'city-error');
       }
     }
     else setSearchBoxActive(false);
   }
 
+  const getCollapsedClassName = () => {
+    return isCollapsed ? 'search--collapsed' : '';
+  }
+
   return (
-    <div className={ getClassName() }>
+    <div className={ `search ${getCollapsedClassName()}` }>
       <DateSelector setDateList={ setDateList }>
         { dateList }
       </DateSelector>
       <div className="search__nav">
         <SearchBox
-          inputChanged={ findCityName }
+          inputChanged={ fetchCitiesByName }
           keyPressed={ setSearchBoxKeyPressed }
         />
-        <Suggestions
+        <SuggestionList
           isSearchBoxActive={ isSearchBoxActive }
           searchBoxKeyPressed={ searchBoxKeyPressed }
           findForecast={ findForecast }
-          suggestionList={ suggestionList }
+          list={ suggestionList }
         />
       </div>
     </div>

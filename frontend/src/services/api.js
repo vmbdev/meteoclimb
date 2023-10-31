@@ -2,6 +2,7 @@
  * @module ApiService
  */
 import { DateTime } from "luxon";
+import ky from 'ky';
 import settings from "../settings.js";
 
 /**
@@ -10,7 +11,7 @@ import settings from "../settings.js";
  */
 export class ApiService {
   constructor(endpoint) {
-    this.endpoint = endpoint;
+    this.endpoint = ky.create({ prefixUrl: endpoint })
   }
 
   /**
@@ -32,13 +33,11 @@ export class ApiService {
       .filter(i => {
         // filter out past dates (i.e. user searched for the then current day,
         // but it was 5 days ago)
-        return (i > -1) && (i <= 6)
+        return (i > -1 && i <= 6)
       })
       .join(';');
 
-    const res = await fetch(`${this.endpoint}/forecast/${cityId}/${procDates}`);
-
-    return res.json();
+    return this.endpoint.get(`forecast/${cityId}/${procDates}`).json();
   }
 
   /**
@@ -47,9 +46,7 @@ export class ApiService {
    * @returns {Promise<City[]>}  A promise with the list of matching cities.
    */
   async getCities(name) {
-    const res = await fetch(`${this.endpoint}/city/search/${name}`);
-
-    return res.json();
+    return this.endpoint.get(`city/search/${name}`).json();
   }
 }
 

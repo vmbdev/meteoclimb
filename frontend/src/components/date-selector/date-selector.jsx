@@ -2,7 +2,7 @@
  * @module DateSelector
  */
 import React from 'react';
-import './dateselector.scss';
+import './date-selector.scss';
 
 /**
  * JSX Component representing a selector for a list of seven days starting the

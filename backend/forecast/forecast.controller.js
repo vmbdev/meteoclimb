@@ -26,7 +26,9 @@ const getForecast = async (req, res, next) => {
   else dateList = [0];
 
   try {
-    const forecast = await forecastService.fetchForecast(req.params.cityId, dateList);
+    const forecast =
+      await forecastService.fetchForecast(req.params.cityId, dateList);
+
     res.json(forecast);
   } catch (err) {
     return next(err)

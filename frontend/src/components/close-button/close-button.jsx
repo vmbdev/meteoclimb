@@ -2,7 +2,7 @@
  * @module CloseButton
  */
 import React from 'react'
-import './closebutton.scss';
+import './close-button.scss';
 
 /**
  * JSX Component representing a close button.

@@ -1,6 +1,6 @@
 # meteoclimb
 
-![meteoclimb](https://raw.githubusercontent.com/vmbdev/meteoclimb/main/public/ogmeteoclimb.png)
+![meteoclimb](https://raw.githubusercontent.com/vmbdev/meteoclimb/main/frontend/public/ogmeteoclimb.png)
 
 **meteoclimb** is a React/Nodejs application to visualize the forecast for
 outdoors activities (mainly focused on rock climbing).
@@ -54,15 +54,15 @@ database.
 First of all, you'll need an OpenWeather API key (currently the only provider
 available). You can get one from [here](https://openweathermap.org/appid).
 
-Rename /api/config/**meteo.config.example.js** to
-/api/config/**meteo.config.js**, and edit it to match your set up. For example:
+Rename /backend/config/**meteo.config.example.js** to
+/backend/config/**meteo.config.js**, and edit it to match your set up. For example:
 
 ```javascript
 import databaseConfig from './database.json' assert { type: "json" };
 
 export const config = {
   server: {
-    // if changed, remember to update it in src/config.js
+    // if changed, remember to update it in frontend/src/config.js
     port: 5005,
     enable_cors: true,
     cors_origin: 'http://localhost:5173'
@@ -81,8 +81,8 @@ export const config = {
 ```
 
 Don't touch the **database** part; instead, rename
-**/api/config/database.example.json** to **/api/config/database.json** and
-edit your database information there. For example:
+**/backend/config/database.example.json** to **/backend/config/database.json**
+and edit your database information there. For example:
 
 ```json
 {

@@ -3,7 +3,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import { getLanguageData } from '../../../helpers/countrycodes.js';
-import './langselector.scss';
+import './lang-selector.scss';
 
 /**
  * JSX Component representing the language selector.
@@ -25,7 +25,7 @@ const LangSelector = ({ lang, availableTranslations, changeLang }) => {
     setActive(active ? false : true);
   }
 
-  const showSelector = () => {
+  const isSelectorVisible = () => {
     return `langselector__list--${active ? 'visible' : 'hidden'}`;
   }
 
@@ -42,7 +42,7 @@ const LangSelector = ({ lang, availableTranslations, changeLang }) => {
           alt={ currentLang.langDesc }
         />
       </div>
-      <div className={ `langselector__list ${showSelector()}` }>
+      <div className={ `langselector__list ${isSelectorVisible()}` }>
         { availableTranslations.map(translation => {
           const t = getLanguageData(translation);
 

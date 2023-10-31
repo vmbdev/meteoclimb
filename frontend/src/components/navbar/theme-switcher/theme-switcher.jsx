@@ -2,7 +2,7 @@
  * @module ThemeSwitcher
  */
 import React from 'react';
-import './themeswitcher.scss';
+import './theme-switcher.scss';
 
 /**
  * JSX Component that allows switching the theme.

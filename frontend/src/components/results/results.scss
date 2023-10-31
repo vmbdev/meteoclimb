@@ -8,8 +8,9 @@
     flex-wrap: nowrap;
     overflow-x: auto;
 
-    &--collapsed {
-      height: 0;
-    }
+  }
+
+  &--collapsed {
+    height: 0;
   }
 }

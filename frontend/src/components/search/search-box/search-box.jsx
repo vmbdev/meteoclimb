@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { useIntl } from 'react-intl';
-import './searchbox.scss';
+import './search-box.scss';
 
 /**
  * JSX Component representing an input for searching.

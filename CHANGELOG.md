@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.3] - 2023-10-31
+
+### Added
+
+- [UI] Using Ky to simplify error management.
+- [UI] Better error management.
+- [UI] Implementation of a Toast system with React-Toastify (mainly for errors).
+
+### Changed
+
+- [UI] File structure now matches kebab-case.
+- [UI] Some code cleanup.
+
+### Fixed
+
+- [General] Fixed README.md and the example config files after last update.
+
 ## [1.0.2] - 2023-10-30
 
 ### Changed

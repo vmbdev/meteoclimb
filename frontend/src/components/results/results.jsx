@@ -26,10 +26,12 @@ const Results = ({ searchResults, save }) => {
     if (results && results.length > 0) {
       const storableResults = {};
 
-      for (let item of results) {
+      for (const item of results) {
         const id = item.City.id;
 
-        if (!storableResults[id]) storableResults[id] = [];
+        if (!storableResults[id]) {
+          storableResults[id] = [];
+        }
 
         storableResults[id].push(item.date);
       }
@@ -63,21 +65,26 @@ const Results = ({ searchResults, save }) => {
     event.currentTarget.scrollBy(amount, 0);
   }
 
+  const getNoResultsClassName = () => {
+    return results.length === 0 ? 'results--collapsed' : '';
+  }
+
   return (
-    <div className="">
-      <div className={ `results__list ${results.length === 0 ? 'results--collapsed' : ''}` } onWheel={ scrollResults }>
-      {
-        results.map((forecast, index) =>
-          <Forecast
-            date={ forecast.date }
-            city={ forecast.City }
-            conditions={ forecast.conditions }
-            remove={ () => { remove(index) } }
-            key={ `${forecast.City.id}+${forecast.date}` }
-          />
-        )
-      }
-      </div>
+    <div
+      className={ `results__list ${getNoResultsClassName()}` }
+      onWheel={ scrollResults }
+    >
+    {
+      results.map((forecast, index) =>
+        <Forecast
+          date={ forecast.date }
+          city={ forecast.City }
+          conditions={ forecast.conditions }
+          remove={ () => { remove(index) } }
+          key={ `${forecast.City.id}+${forecast.date}` }
+        />
+      )
+    }
     </div>
   );
 }

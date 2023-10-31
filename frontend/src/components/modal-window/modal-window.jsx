@@ -2,8 +2,8 @@
  * @module ModalWindow
  */
 import React from 'react'
-import CloseButton from '../closebutton/closebutton.jsx';
-import './modalwindow.scss';
+import CloseButton from '../close-button/close-button.jsx';
+import './modal-window.scss';
 
 /**
  * JSX Component representing a modal window.

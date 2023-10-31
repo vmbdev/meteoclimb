@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { toDMS } from '../../../helpers/geocoords.js';
 import { getCountry } from '../../../helpers/countrycodes.js';
-import './suggestionitem.scss';
+import './suggestion-item.scss';
 
 /**
  * JSX Component representing an item from the list of search suggestions.

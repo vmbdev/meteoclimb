@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { FormattedMessage, useIntl } from 'react-intl';
-import CloseButton from '../closebutton/closebutton.jsx';
+import CloseButton from '../close-button/close-button.jsx';
 import { getCountry } from '../../helpers/countrycodes.js';
 import './forecast.scss';
 import './forecast-sprites.scss';
