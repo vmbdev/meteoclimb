@@ -1,7 +1,7 @@
 {
   "name": "meteoclimb",
   "type": "module",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "ui-start": "vite",
     "ui-build": "vite build",

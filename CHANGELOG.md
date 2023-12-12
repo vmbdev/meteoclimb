@@ -1,6 +1,14 @@
 # Changelog
 
+## [1.0.6] - 2023-12-12
+
+### Fixed
+
+- [UI] SettingsMenu background not showing on dark theme.
+
 ## [1.0.5] - 2023-12-12
+
+### Changes
 
 - [Backend] Removed got dependency, using instead Ky as it's already installed
 for the UI.
