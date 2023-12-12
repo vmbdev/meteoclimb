@@ -2,7 +2,7 @@
  * @module OpenWeather
  */
 
-import got from 'got';
+import ky from 'ky';
 import WeatherProvider from './../weatherprovider.js';
 
 /**
@@ -52,11 +52,9 @@ class OpenWeather extends WeatherProvider {
    * @returns {Object}  An object containing the forecast for seven days.
    */
   async getWeatherData(lon, lat, exclude = null) {
-    const res = await got(this.getPath(lon, lat, exclude), {
-      responseType: 'json',
-    });
+    const res = await ky.get(this.getPath(lon, lat, exclude)).json();
 
-    return res.body;
+    return res;
   }
 }
 

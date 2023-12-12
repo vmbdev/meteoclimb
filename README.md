@@ -10,6 +10,12 @@ You can access the live app on [https://meteoclimb.hippolyta.xyz](https://meteoc
 meteoclimb contains both a server (running on ExpressJS) and a front-end (made
 with React).
 
+
+## Prerequisites
+
+meteoclimb requires [Node.js](https://nodejs.org/) 18 or later installed on
+your system.
+
 ## User Interface
 
 The UI is made with React, FormatJS (React Intl) and SASS.
@@ -41,8 +47,42 @@ npm run ui-start
 The app runs with [Vite](https://vitejs.dev/guide/cli.html), so you can tweak
 the parameters as you need.
 
-The resulting build will be available in the **/frontend/build** directory. The backend
-server will automatically detect it at the start and serve it in the root URL.
+The resulting build will be available in the **/frontend/build** directory.
+The backend server will automatically detect it at the start and serve it in
+the root URL.
+
+### Settings
+
+We can tweak our interface through the **/frontend/src/settings.js** file.
+
+```js
+const settings = {
+  endpoint:
+    process.env.NODE_ENV === 'production'
+      ? '/api'
+      : 'http://localhost:5005/api',
+  lang: 'en',
+  availableTranslations: ['es', 'en'],
+  units: {
+    temp: 'celsius',
+    wind: 'km/h',
+  },
+  theme: 'light',
+};
+
+export default settings;
+```
+
+- **settings.endpoint**: The endpoint for making API calls.
+- **settings.lang**: The default language.
+- **settings.availableTranslations**: Array of strings containing the
+translations that are available for the language selector. Files must be in the
+**frontend/src/locales** location already compiled (use the FormatJS commands
+described above).
+- **settings.units**: The default units usead for measurement.
+  - **settings.units.temp**: 'fahrenheit' or 'celsius'.
+  - **settings.units.wind**: 'km/h', 'mph', 'm/s', 'ft/s' or 'knots'.
+- **settings.units.theme**: Default theme. 'light' or 'dark'.
 
 ## Backend Server
 
@@ -139,6 +179,24 @@ If you plan to make changes on the code, run it in development mode:
 ```bash
 npm run server-dev
 ```
+
+## Built with
+
+- [Node.js](https://nodejs.org/) - JavaScript runtime environment
+- [Ky](https://github.com/sindresorhus/ky) - HTTP client
+- [Express.js](https://expressjs.com/) - Web framework
+- [React](https://react.dev/) - UI library
+- [Sequelize](https://sequelize.org/) - ORM
+- [Luxon](https://moment.github.io/luxon/) - Date management library
+- [Nodemon](https://nodemon.io/) - Process monitoring
+- [React Toastify](https://github.com/fkhadra/react-toastify) - Toast library
+- [React Intl](https://formatjs.io/docs/react-intl/) - i18n library for React
+
+## License
+
+fetch-reddit-media is licensed under the MIT License - see the
+[LICENSE](https://github.com/vmbdev/meteoclimb/blob/main/LICENSE)
+file for more details.
 
 ## Credits
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.5] - 2023-12-12
+
+- [Backend] Removed got dependency, using instead Ky as it's already installed
+for the UI.
+- [General] Updated documentation.
+
 ## [1.0.4] - 2023-12-12
 
 ### Added

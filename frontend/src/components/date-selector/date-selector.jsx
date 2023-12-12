@@ -14,7 +14,7 @@ import './date-selector.scss';
  */
 const DateSelector = ({ children, setDateList }) => {
   /**
-   * Toggles a day from active to inactive or
+   * Toggles a date value between active and inactive
    * @function
    * @param {*} index
    */
