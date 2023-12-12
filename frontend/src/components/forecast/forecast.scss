@@ -11,10 +11,8 @@
 }
 
 .forecast {
-  border-radius: 22px;
-  min-width: 350px;
-  max-width: 350px;
-  padding: 15px;
+  min-width: 380px;
+  max-width: 380px;
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -25,6 +23,19 @@
   @include forecastState('good');
   @include forecastState('bad');
   @include forecastState('terrible');
+
+  &__title {
+    margin: 0 auto;
+    background-color: #205295;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  &__conditions {
+    padding: 15px;
+  }
 
   &__row {
     margin: 5px;
@@ -44,10 +55,6 @@
     margin: 4px;
   }
 
-  &__title {
-    margin: 0 auto;
-  }
-
   &__flag {
     border: 1px solid black;
     width: 25px;
@@ -57,8 +64,8 @@
 
 @include media.device('sm') {
   .forecast {
-    min-width: calc(100vw - 4.5rem);
-    max-width: calc(100vw - 4.5rem);
+    min-width: calc(100vw - 3rem);
+    max-width: calc(100vw - 3rem);
   }
 }
 

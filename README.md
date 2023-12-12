@@ -2,10 +2,10 @@
 
 ![meteoclimb](https://raw.githubusercontent.com/vmbdev/meteoclimb/main/frontend/public/ogmeteoclimb.png)
 
-**meteoclimb** is a React/Nodejs application to visualize the forecast for
+**meteoclimb** is a React/Node.js application to visualize the forecast for
 outdoors activities (mainly focused on rock climbing).
 
-You can access the live app on [https://meteoclimb.hippolyta.one](https://meteoclimb.hippolyta.one).
+You can access the live app on [https://meteoclimb.hippolyta.xyz](https://meteoclimb.hippolyta.xyz).
 
 meteoclimb contains both a server (running on ExpressJS) and a front-end (made
 with React).
@@ -41,7 +41,7 @@ npm run ui-start
 The app runs with [Vite](https://vitejs.dev/guide/cli.html), so you can tweak
 the parameters as you need.
 
-The resulting build will be available in the **build** directory. The backend
+The resulting build will be available in the **/frontend/build** directory. The backend
 server will automatically detect it at the start and serve it in the root URL.
 
 ## Backend Server
@@ -145,6 +145,6 @@ npm run server-dev
 Flag icons by [flag-icons](https://github.com/lipis/flag-icons)
 
 Humidity, Snow, Sun, Weather, Temperature, Arrows, Rain, Moon, Day and Night,
-Info icons created by Freepik - Flaticon
+Info and Setting icons created by [Freepik - Flaticon](https://www.flaticon.com/).
 
 [Toggle switch design](https://codepen.io/himalayasingh) by Himalaya Singh.

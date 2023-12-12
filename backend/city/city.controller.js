@@ -1,5 +1,5 @@
 /**
- * @module city/controller
+ * @module CityController
  */
 
 import City from './city.model.js';
@@ -14,7 +14,7 @@ import City from './city.model.js';
 const getCityNameList = async (req, res) => {
   const cities = await City.findByName(req.params.name);
   res.json(cities);
-}
+};
 
 const CityController = { getCityNameList };
 export default CityController;

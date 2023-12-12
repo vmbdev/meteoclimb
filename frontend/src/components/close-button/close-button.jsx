@@ -1,7 +1,7 @@
 /**
  * @module CloseButton
  */
-import React from 'react'
+import React from 'react';
 import './close-button.scss';
 
 /**
@@ -11,12 +11,11 @@ import './close-button.scss';
  * @returns The rendered JSX Component.
  */
 const CloseButton = ({ closeAction }) => {
-
   return (
-    <button className="closebutton" onClick={ closeAction }>
+    <button className="closebutton" onClick={closeAction}>
       &#10006;
     </button>
   );
-}
+};
 
 export default CloseButton;

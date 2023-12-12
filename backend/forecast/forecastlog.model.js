@@ -1,3 +1,7 @@
+/**
+ * @module ForecastLog
+ */
+
 import { Sequelize, DataTypes } from 'sequelize';
 import City from '../city/city.model.js';
 
@@ -21,14 +25,14 @@ class ForecastLog extends Sequelize.Model {
       },
       {
         sequelize,
-        modelName: 'ForecastLog'
+        modelName: 'ForecastLog',
       }
     );
 
     this.belongsTo(City, {
-      foreignKey: { 
+      foreignKey: {
         name: 'cityId',
-        unique: true
+        unique: true,
       },
       onDelete: 'CASCADE',
       onUpdate: 'CASCADE',

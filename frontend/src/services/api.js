@@ -1,9 +1,9 @@
 /**
  * @module ApiService
  */
-import { DateTime } from "luxon";
+import { DateTime } from 'luxon';
 import ky from 'ky';
-import settings from "../settings.js";
+import settings from '../settings.js';
 
 /**
  * Service unifying the access to the backend.
@@ -11,7 +11,7 @@ import settings from "../settings.js";
  */
 export class ApiService {
   constructor(endpoint) {
-    this.endpoint = ky.create({ prefixUrl: endpoint })
+    this.endpoint = ky.create({ prefixUrl: endpoint });
   }
 
   /**
@@ -23,17 +23,15 @@ export class ApiService {
    */
   async getForecast(cityId, dates) {
     const procDates = dates
-      .map((date) =>
-        DateTime.fromFormat(date, 'yyyy-MM-dd')
-          .toUTC()
-          .diffNow('days')
-          .days
+      .map(
+        (date) =>
+          DateTime.fromFormat(date, 'yyyy-MM-dd').toUTC().diffNow('days').days
       )
       .map((date) => Math.abs(Math.ceil(date)))
-      .filter(i => {
+      .filter((i) => {
         // filter out past dates (i.e. user searched for the then current day,
         // but it was 5 days ago)
-        return (i > -1 && i <= 6)
+        return i > -1 && i <= 6;
       })
       .join(';');
 

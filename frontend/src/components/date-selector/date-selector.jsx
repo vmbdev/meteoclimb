@@ -13,43 +13,42 @@ import './date-selector.scss';
  * @returns The rendered JSX Component.
  */
 const DateSelector = ({ children, setDateList }) => {
-
   /**
    * Toggles a day from active to inactive or
    * @function
-   * @param {*} index 
+   * @param {*} index
    */
   const toggleDate = (index) => {
     if (index >= 0 && index < children.length) {
       const list = [...children];
 
       list[index].selected = !list[index].selected;
-      setDateList(list)
+      setDateList(list);
     }
-  }
+  };
 
   const getSelectedClass = (item) => {
-    return `${(item.selected ? 'dateitem--selected' : '')}`
-  }
+    return `${item.selected ? 'dateitem--selected' : ''}`;
+  };
 
   return (
     <div>
       <div className="datelist">
-        {
-          children.map((item, i) =>
-            <div
-              className={ `dateitem ${getSelectedClass(item)}` }
-              key={ item.day }
-              data-dateoffset={ item.dateOffset }
-              onClick={ () => { toggleDate(i) }}
-            >
-              { item.day }
-            </div>
-          )
-        }
+        {children.map((item, i) => (
+          <div
+            className={`dateitem ${getSelectedClass(item)}`}
+            key={item.day}
+            data-dateoffset={item.dateOffset}
+            onClick={() => {
+              toggleDate(i);
+            }}
+          >
+            {item.day}
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
 
 export default DateSelector;

@@ -1,3 +1,7 @@
+/**
+ * @module ForecastService
+ */
+
 import { Op } from 'sequelize';
 import { DateTime } from 'luxon';
 
@@ -31,19 +35,19 @@ class ForecastService {
       humidity: 0,
       temp: {
         max: NaN,
-        feel: NaN
+        feel: NaN,
       },
       wind: {
         speed: 0,
-        degrees: NaN
+        degrees: NaN,
       },
       pop: {
         chance: 0,
         from: NaN,
         rain: 0,
-        snow: 0
-      }
-    }
+        snow: 0,
+      },
+    };
   }
 
   /**
@@ -57,14 +61,14 @@ class ForecastService {
     const startAfterTomorrow = DateTime.utc().plus({ days: 2 }).toUnixInteger();
 
     // data contains an object per day of the week
-    data.daily.forEach(day => {
+    data.daily.forEach((day) => {
       const current = this.createConditions();
 
       current.start_time = day.dt;
       current.sunrise = day.sunrise;
       current.sunset = day.sunset;
-      current.temp.max = day.temp.day;
-      current.temp.feel = day.feels_like.day;
+      current.temp.max = Math.round(day.temp.day);
+      current.temp.feel = Math.round(day.feels_like.day);
       current.wind.degrees = day.wind_deg;
 
       /**
@@ -72,9 +76,9 @@ class ForecastService {
        * startTomorrow and startAfterTomorrow to compute the data for what's
        * remaining of today and tomorrow.
        */
-      if ((day.dt < startTomorrow) || (day.dt < startAfterTomorrow)) {
-        const currentHourly = data.hourly.filter(hour =>
-          ((hour.dt > current.sunrise) && (hour.dt < current.sunset))
+      if (day.dt < startTomorrow || day.dt < startAfterTomorrow) {
+        const currentHourly = data.hourly.filter(
+          (hour) => hour.dt > current.sunrise && hour.dt < current.sunset
         );
 
         for (const hour of currentHourly) {
@@ -96,16 +100,15 @@ class ForecastService {
             }
           }
         }
-      }
-      else {
+      } else {
         current.wind.speed = day.wind_speed;
         current.humidity = day.humidity;
 
         if (day.pop > 0) {
           current.pop.chance = day.pop;
 
-          if (day.hasOwnProperty("rain")) current.pop.rain = day.rain;
-          if (day.hasOwnProperty("snow")) current.pop.snow = day.snow;
+          if (day.hasOwnProperty('rain')) current.pop.rain = day.rain;
+          if (day.hasOwnProperty('snow')) current.pop.snow = day.snow;
         }
       }
       weeklyForecast.push(current);
@@ -121,13 +124,13 @@ class ForecastService {
    * @param {number} cityId  The ID referencing the city in the database
    */
   async storeForecast(weeklyForecast, cityId) {
-    await Forecast.destroy({ where: { cityId }});
+    await Forecast.destroy({ where: { cityId } });
 
     for (const dailyForecast of weeklyForecast) {
       await Forecast.create({
         date: DateTime.fromSeconds(dailyForecast.start_time).toJSDate(),
         cityId,
-        conditions: dailyForecast
+        conditions: dailyForecast,
       });
     }
   }
@@ -140,7 +143,7 @@ class ForecastService {
    */
   updatedLastDay(lastUpdate) {
     const diff = DateTime.fromJSDate(lastUpdate).diffNow('days').days;
-    return (-1 <= diff);
+    return -1 <= diff;
   }
 
   /**
@@ -148,8 +151,8 @@ class ForecastService {
    * It will grab the data from the database if it was requested less than a
    * day ago, or it will fetch it from the provider if not.
    * @async
-   * @param {*} cityId 
-   * @param {*} dateList 
+   * @param {*} cityId
+   * @param {*} dateList
    * @returns {Array}  Array of forecasts.
    */
   async fetchForecast(cityId, dateList = [0]) {
@@ -157,16 +160,18 @@ class ForecastService {
 
     if (!city) throw new MeteoError('City ID not found');
 
-    const log = await ForecastLog.findOne({ where: { cityId }});
+    const log = await ForecastLog.findOne({ where: { cityId } });
 
     if (!log || !this.updatedLastDay(log.updatedAt)) {
-      const weatherData =
-        await this.weatherProvider.getWeatherData(city.lon, city.lat);
+      const weatherData = await this.weatherProvider.getWeatherData(
+        city.lon,
+        city.lat
+      );
 
       await this.storeForecast(this.parseData(weatherData), cityId);
       await ForecastLog.upsert({
         id: log ? log.id : null,
-        cityId
+        cityId,
       });
     }
 
@@ -174,17 +179,15 @@ class ForecastService {
       attributes: { exclude: ['id', 'cityId'] },
       include: {
         model: City,
-        attributes: { exclude: ['updatedAt', 'createdAt'] }
+        attributes: { exclude: ['updatedAt', 'createdAt'] },
       },
       where: {
         cityId,
         date: {
-          [Op.or]: dateList.map(i =>
-            DateTime.now()
-              .plus({ days: i })
-              .toJSDate()
-          )
-        }
+          [Op.or]: dateList.map((i) =>
+            DateTime.now().plus({ days: i }).toJSDate()
+          ),
+        },
       },
     });
 

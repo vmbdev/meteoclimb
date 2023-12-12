@@ -1,10 +1,14 @@
 const settings = {
   endpoint: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5005/api',
-  lang: 'en-GB',
+  lang: 'en',
   availableTranslations: [
     'es',
-    'en-GB'
+    'en'
   ],
+  units: {
+    temp: 'celsius',
+    wind: 'km/h',
+  },
   theme: 'light',
 }
 

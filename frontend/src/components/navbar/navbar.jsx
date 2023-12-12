@@ -12,14 +12,13 @@ import './navbar.scss';
  * @returns The rendered JSX Component.
  */
 const Navbar = ({ children }) => {
-
-  return ( 
+  return (
     <nav className="navbar">
       <div className="navbar__left">
         <Brand />
       </div>
       <div className="navbar__right">
-        { children }
+        {children}
       </div>
     </nav>
   );

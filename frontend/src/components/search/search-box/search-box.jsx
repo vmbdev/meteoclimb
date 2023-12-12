@@ -16,36 +16,32 @@ const SearchBox = ({ keyPressed, inputChanged }) => {
   const intl = useIntl();
 
   const keyPressedDown = (e) => {
-    if (
-      e.key === 'ArrowUp'
-      || e.key === 'ArrowDown'
-      || e.key === 'Enter'
-    ) {
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'Enter') {
       keyPressed(e.key);
     }
-  }
+  };
 
   const inputHasChanged = (e) => {
     inputChanged(e.target.value);
-  }
+  };
 
   return (
     <input
       className="searchbox"
       type="text"
-      placeholder={
-        intl.formatMessage({
-          id: 'searchbox.placeholder',
-          defaultMessage: 'City, Country (i.e. London, GB)'
-        })
-      }
+      placeholder={intl.formatMessage({
+        id: 'searchbox.placeholder',
+        defaultMessage: 'City, Country (i.e. London, GB)',
+      })}
       spellCheck="false"
       autoComplete="off"
-      onChange={ inputHasChanged }
-      onKeyDown={ keyPressedDown }
-      onKeyUp={ () => { keyPressed(false) } }
+      onChange={inputHasChanged}
+      onKeyDown={keyPressedDown}
+      onKeyUp={() => {
+        keyPressed(false);
+      }}
     />
-  )
-}
+  );
+};
 
 export default SearchBox;

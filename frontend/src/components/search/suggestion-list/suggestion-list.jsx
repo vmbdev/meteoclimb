@@ -21,30 +21,29 @@ const SuggestionList = ({
   isSearchBoxActive,
   searchBoxKeyPressed,
   list,
-  findForecast
+  findForecast,
 }) => {
   const [visible, setVisibility] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
-  
+
   useEffect(() => {
     setVisibility(isSearchBoxActive);
   }, [isSearchBoxActive]);
-
 
   useEffect(() => {
     if (searchBoxKeyPressed) {
       let nextActiveItem;
 
-      switch(searchBoxKeyPressed) {
+      switch (searchBoxKeyPressed) {
         case 'ArrowUp': {
-          if (activeItem === 0) nextActiveItem = list.length-1;
+          if (activeItem === 0) nextActiveItem = list.length - 1;
           else nextActiveItem = activeItem - 1;
-          
+
           setActiveItem(nextActiveItem);
           break;
         }
         case 'ArrowDown': {
-          if (activeItem === list.length-1) nextActiveItem = 0;
+          if (activeItem === list.length - 1) nextActiveItem = 0;
           else nextActiveItem = activeItem + 1;
 
           setActiveItem(nextActiveItem);
@@ -54,7 +53,7 @@ const SuggestionList = ({
           // don't process if the suggestion list is not active
           if (!visible) break;
 
-          const item = list[activeItem]
+          const item = list[activeItem];
 
           if (item) findForecast(item.id);
 
@@ -62,14 +61,13 @@ const SuggestionList = ({
         }
       }
     }
-  // we don't want to re-render when activeItem or list change
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // we don't want to re-render when activeItem or list change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchBoxKeyPressed]);
-
 
   const isVisible = () => {
     return `suggestions--${visible ? 'visible' : 'hidden'}`;
-  }
+  };
 
   const getList = () => {
     const items = [];
@@ -77,26 +75,23 @@ const SuggestionList = ({
     for (let i = 0; i < list.length; i++) {
       items.push(
         <SuggestionItem
-          key={ i }
-          id={ i }
-          active={ (i === activeItem) ? true : false }
-          city={ list[i] }
-          setActive={ setActiveItem }
-          findForecast={ findForecast }
+          key={i}
+          id={i}
+          active={i === activeItem ? true : false}
+          city={list[i]}
+          setActive={setActiveItem}
+          findForecast={findForecast}
         />
       );
     }
     return items;
-  }
+  };
 
   return (
-    <div
-      className={ `suggestions ${isVisible()}` }
-      id="search-suggestions"
-    >
-      { getList() }
+    <div className={`suggestions ${isVisible()}`} id="search-suggestions">
+      {getList()}
     </div>
-  )
-}
+  );
+};
 
 export default SuggestionList;

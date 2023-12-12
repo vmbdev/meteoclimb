@@ -1,3 +1,7 @@
+/**
+ * @module WeatherProviderFactory
+ */
+
 import OpenWeather from './providers/openweather.js';
 
 /**
@@ -9,7 +13,7 @@ class WeatherProviderFactory {
     let newProvider;
 
     switch (provider) {
-      case 'OpenWeather': 
+      case 'OpenWeather':
         newProvider = new OpenWeather(key, units);
         break;
       default:

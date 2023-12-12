@@ -31,24 +31,24 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
   const [isCollapsed, setCollapsed] = useState(false);
   const [suggestionList, setSuggestionList] = useState([]);
   const [dateList, setDateList] = useState([]);
-  const {locale} = useIntl();
+  const intl = useIntl();
 
   // populate the date selector above the search box
   useEffect(() => {
     const list = [];
-    let day = DateTime.local().setLocale(locale);
+    let day = DateTime.local().setLocale(intl.locale);
 
     for (let i = 0; i < 7; i++) {
       list.push({
         day: day.weekdayShort,
         fullDate: day.toFormat('yyyy-MM-dd'),
-        selected: (i === 0)
+        selected: i === 0,
       });
       day = day.plus({ days: 1 });
     }
 
     setDateList(list);
-  }, [locale]);
+  }, [intl.locale]);
 
   // if the user has previously done a search and it's in LocalStorage
   useEffect(() => {
@@ -77,7 +77,7 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
     const forecast = fetchForecast(cityId, dates);
 
     awaitSearchResults([forecast]);
-  }
+  };
 
   /**
    * Fetches the weather forecast for the location and dates given.
@@ -92,11 +92,11 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
     if (!dates) {
       dates = dateList
         .filter((date) => date.selected)
-        .map((date) => date.fullDate)
+        .map((date) => date.fullDate);
     }
 
     return api.getForecast(cityId, dates);
-  }
+  };
 
   const fetchCitiesByName = async (cityName) => {
     if (cityName.length >= 3) {
@@ -104,43 +104,45 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
         const cities = await api.getCities(cityName);
 
         if (cities.length > 0) {
-          setSuggestionList(cities)
+          setSuggestionList(cities);
           setSearchBoxActive(true);
-        }
-        else {
-          setSuggestionList([])
+        } else {
+          setSuggestionList([]);
           setSearchBoxActive(false);
         }
       } catch (err) {
-        toaster.error('Error getting the suggestions.', 'city-error');
+        toaster.error(
+          intl.formatMessage({
+            id: 'search.error.city',
+            defaultMessage: 'Error getting the suggestions.',
+          }),
+          'city-error'
+        );
       }
-    }
-    else setSearchBoxActive(false);
-  }
+    } else setSearchBoxActive(false);
+  };
 
   const getCollapsedClassName = () => {
     return isCollapsed ? 'search--collapsed' : '';
-  }
+  };
 
   return (
-    <div className={ `search ${getCollapsedClassName()}` }>
-      <DateSelector setDateList={ setDateList }>
-        { dateList }
-      </DateSelector>
+    <div className={`search ${getCollapsedClassName()}`}>
+      <DateSelector setDateList={setDateList}>{dateList}</DateSelector>
       <div className="search__nav">
         <SearchBox
-          inputChanged={ fetchCitiesByName }
-          keyPressed={ setSearchBoxKeyPressed }
+          inputChanged={fetchCitiesByName}
+          keyPressed={setSearchBoxKeyPressed}
         />
         <SuggestionList
-          isSearchBoxActive={ isSearchBoxActive }
-          searchBoxKeyPressed={ searchBoxKeyPressed }
-          findForecast={ findForecast }
-          list={ suggestionList }
+          isSearchBoxActive={isSearchBoxActive}
+          searchBoxKeyPressed={searchBoxKeyPressed}
+          findForecast={findForecast}
+          list={suggestionList}
         />
       </div>
     </div>
   );
-}
+};
 
 export default Search;

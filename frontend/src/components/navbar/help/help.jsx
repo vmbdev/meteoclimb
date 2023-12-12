@@ -17,20 +17,20 @@ const Help = () => {
 
   const toggleModal = () => {
     setModalActive(!modalActive);
-  }
+  };
 
   const closeModal = () => {
     setModalActive(false);
-  }
+  };
 
   return (
     <div className="help">
-      <div className="help__icon" onClick={ toggleModal }></div>
+      <div className="help__icon" onClick={toggleModal}></div>
 
-      <ModalWindow active={ modalActive } closeAction={ closeModal }>
+      <ModalWindow active={modalActive} closeAction={closeModal}>
         <div className="help__modal">
           <div className="modal__left">
-            <img src={ helpImage } alt="Forecast example" />
+            <img src={helpImage} alt="Forecast example" />
           </div>
 
           <div className="modal__right">
@@ -38,7 +38,7 @@ const Help = () => {
               <FormattedMessage
                 id="help.title"
                 defaultMessage="How does meteoclimb work?"
-                />
+              />
             </div>
             <div className="help__description">
               <p>
@@ -53,7 +53,7 @@ const Help = () => {
                       <strong>
                         {intl.formatMessage({
                           id: 'forecast.term.temperature',
-                          defaultMessage: 'temperature'
+                          defaultMessage: 'temperature',
                         })}
                       </strong>
                     ),
@@ -61,7 +61,7 @@ const Help = () => {
                       <strong>
                         {intl.formatMessage({
                           id: 'forecast.term.wind',
-                          defaultMessage: 'wind'
+                          defaultMessage: 'wind',
                         })}
                       </strong>
                     ),
@@ -69,7 +69,7 @@ const Help = () => {
                       <strong>
                         {intl.formatMessage({
                           id: 'forecast.term.precipitation',
-                          defaultMessage: 'precipitation'
+                          defaultMessage: 'precipitation',
                         })}
                       </strong>
                     ),
@@ -77,7 +77,7 @@ const Help = () => {
                       <strong>
                         {intl.formatMessage({
                           id: 'forecast.term.humidity',
-                          defaultMessage: 'humidity'
+                          defaultMessage: 'humidity',
                         })}
                       </strong>
                     ),
@@ -86,8 +86,8 @@ const Help = () => {
               </p>
               <p>
                 <FormattedMessage
-                id="help.desc.colours"
-                defaultMessage="
+                  id="help.desc.colours"
+                  defaultMessage="
                   Each parameter has a colour associated to its predicted
                   state, ranging from great (mild temperatures, little
                   wind, no rain/snow or low humidity) to terrible (too cold or
@@ -144,6 +144,6 @@ const Help = () => {
       </ModalWindow>
     </div>
   );
-}
+};
 
 export default Help;

@@ -1,0 +1,49 @@
+@use '../../../layout/theming.scss' as t;
+
+.settings-menu {
+  position: relative;
+
+  &__icon {
+    background: url('/setting.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    min-height: 32px;
+    min-width: 32px;
+  }
+
+  &__list {
+    position: absolute;
+    top: 35px;
+    padding: 9px;
+    width: 200px;
+    left: -184px;
+    z-index: 1000;
+
+    @include t.themify {
+      border: 1px solid t.theme(settings-menu-border);
+      background-color: t.theme(settings-menu-bg);
+    }
+
+    &--hidden {
+      visibility: hidden;
+    }
+    
+    &--visible {
+      visibility: visible;
+    }
+  }
+}
+
+.settings-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 0;
+
+  &:not(:last-child) {
+    @include t.themify {
+      border-bottom: 1px solid t.theme(settings-item-separator);
+    }
+  }
+}

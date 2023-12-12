@@ -1,7 +1,9 @@
 /**
  * @module ThemeSwitcher
  */
-import React from 'react';
+import React, { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { toaster } from '../../../services/toaster';
 import './theme-switcher.scss';
 
 /**
@@ -9,22 +11,28 @@ import './theme-switcher.scss';
  * @param {Object} props
  * @param {Function} props.switchTheme  Toggles the current active theme.
  * @param {string} props.theme  The current active theme.
- * @returns The rendered. JSX Component.
+ * @returns The rendered JSX Component.
  */
 const ThemeSwitcher = ({ switchTheme, theme }) => {
+  useEffect(() => {
+    toaster.setTheme(theme);
+  }, [theme]);
 
   return (
-    <div className="themeswitcher">
-      <div className="button r toggleswitch">
+    <div className={`theme-switcher theme-switcher--${theme}`}>
+      <label>
         <input
           type="checkbox"
-          className="checkbox"
-          onChange={ switchTheme }
-          checked={ theme === 'light' }
+          className="theme-switcher__checkbox"
+          onChange={switchTheme}
+          checked={theme === 'light'}
         />
-        <div className="knobs"></div>
-        <div className="layer"></div>
-      </div>
+        <FormattedMessage
+          id="theme-switcher.theme"
+          defaultMessage="{theme} theme"
+          values={{ theme }}
+        />
+      </label>
     </div>
   );
 };

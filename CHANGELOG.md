@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.0.4] - 2023-12-12
+
+### Added
+
+- [General] A LICENSE file for our MIT license. Can you believe I forgot it?
+
+### Changed
+
+- [General] JSDoc will now create two separate documentations
+(backend/frontend).
+- [UI] Updated to Vite 5.
+- [UI] Visual update.
+- [UI] Refactored some components to attend their responsibilities.
+- [UI] Updated translations.
+- [UI] Temperature degrees will now display rounded integer values.
+- [UI] New settings menu containing all possible user choices.
+- [UI] User can now choose the measurement units for temperature and wind.
+- [Backend] Updated to nodemon 3.
+
+### Fixed
+
+- [General] Fixed FormatJS script producing empty translation files.
+- [UI] Fixed search bar displaying an incorrect width with some devices.
+
 ## [1.0.3] - 2023-10-31
 
 ### Added

@@ -3,63 +3,50 @@
  */
 import React, { useState, useEffect } from 'react';
 import { getLanguageData } from '../../../helpers/countrycodes.js';
+import ButtonGroup from '../../button-group/button-group.jsx';
 import './lang-selector.scss';
 
 /**
  * JSX Component representing the language selector.
  * @param {Object} props
- * @param {string} props.lang  Locale representing a language.
- * @param {string[]} props.availableTranslations  List of avaliable languages.
- * @param {Function} props.changeLang  Function called when the locale changes.
+ * @param {string} props.lang Current language in use.
+ * @param {string[]} props.availableTranslations List of avaliable languages.
+ * @param {Function} props.changeLang Function called when the locale changes.
  * @returns The rendered JSX Component.
  */
 const LangSelector = ({ lang, availableTranslations, changeLang }) => {
-  const [currentLang, setCurrentLang] = useState({ name:'', flag:'' });
-  const [active, setActive] = useState(false);
+  const [buttons, setButtons] = useState([]);
+  const [currentLang, setCurrentLang] = useState();
 
   useEffect(() => {
-    setCurrentLang(getLanguageData(lang));
-  }, [lang])
+    const bts = availableTranslations.map((translation) => {
+      const languageData = getLanguageData(translation);
+      return {
+        icon: languageData.flag,
+        text: capitalise(languageData.langDesc),
+        val: languageData.locale,
+      };
+    });
 
-  const showLanguageList = () => {
-    setActive(active ? false : true);
-  }
+    setButtons(bts);
+  }, [availableTranslations]);
 
-  const isSelectorVisible = () => {
-    return `langselector__list--${active ? 'visible' : 'hidden'}`;
-  }
+  useEffect(() => {
+    setCurrentLang(lang);
+  }, [lang]);
 
   const capitalise = (text) => {
     return text[0].toUpperCase() + text.slice(1);
-  }
-  
-  return (
-    <div className="langselector">
-      <div className="langselector__selection" onClick={ showLanguageList }>
-        <img
-          className="langselector__flag"
-          src={ currentLang.flag }
-          alt={ currentLang.langDesc }
-        />
-      </div>
-      <div className={ `langselector__list ${isSelectorVisible()}` }>
-        { availableTranslations.map(translation => {
-          const t = getLanguageData(translation);
+  };
 
-          return (
-            <div
-              key={ t.locale }
-              className="langselector__translation"
-              onClick={ () => { changeLang(t.locale) } }
-            >
-              <img src={ t.flag } alt={ t.langDesc } />
-              { capitalise(t.langDesc) }
-            </div>
-          )
-        })}
-      </div>
-    </div>
+  return (
+    <ButtonGroup
+      selected={currentLang}
+      onChange={changeLang}
+      buttons={buttons}
+      showText={false}
+    />
   );
-}
+};
 
 export default LangSelector;

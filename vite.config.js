@@ -5,7 +5,7 @@ export default defineConfig(() => {
   return {
     root: 'frontend',
     build: {
-      outDir: '../build',
+      outDir: 'build',
     },
     plugins: [react()],
   };

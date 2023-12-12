@@ -2,42 +2,75 @@
  * @module Results
  */
 import React, { useEffect, useState } from 'react';
+import { useIntl } from 'react-intl';
+import { toaster } from '../../services/toaster';
 import Forecast from '../forecast/forecast.jsx';
 import './results.scss';
 
 /**
  * JSX Component displaying the results of a weather search.
  * @param {Object} props
- * @param {Object[]} props.searchResults  The results to be displayed.
- * @param {Function} props.save  A function to store the results somewhere
- *    (i.e. local storage).
+ * @param {Array<Promise<Object[]>>} props.searchResults  An array of Promises
+ *     with the results to be displayed.
+ * @param {Function} props.saveToStorage  A function to store the results
+ *     somewhere (i.e. local storage).
  * @returns The rendered JSX component.
  */
-const Results = ({ searchResults, save }) => {
+const Results = ({
+  searchResults,
+  saveToStorage,
+  units = { temp: 'celsius', wind: 'kmh' },
+}) => {
   const [results, setResults] = useState([]);
+  const intl = useIntl();
 
   useEffect(() => {
-    if (searchResults && searchResults.length > 0) {
-      setResults(searchResults.concat(results));
-    }
+    (async () => {
+      if (searchResults && searchResults.length > 0) {
+        const resolveProms = await Promise.allSettled(searchResults);
+
+        const validResults = resolveProms
+          .filter((res) => res.status === 'fulfilled')
+          .map((res) => res.value)
+          .flat();
+
+        if (resolveProms.some((res) => res.status === 'rejected')) {
+          toaster.error(
+            intl.formatMessage({
+              id: 'results.error.forecast',
+              defaultMessage: 'Error fetching forecast.',
+            }),
+            'forecast-error'
+          );
+        }
+
+        setResults((prevRes) => [...validResults, ...prevRes]);
+      }
+    })();
   }, [searchResults]);
 
   useEffect(() => {
+    save();
+  }, [results]);
+
+  /**
+   * Creates a storable summary of the current results and sends it to the
+   * parent throught props.save.
+   */
+  const save = () => {
     if (results && results.length > 0) {
       const storableResults = {};
 
       for (const item of results) {
         const id = item.City.id;
 
-        if (!storableResults[id]) {
-          storableResults[id] = [];
-        }
+        if (!storableResults[id]) storableResults[id] = [];
 
         storableResults[id].push(item.date);
       }
-      save(storableResults);
+      saveToStorage(storableResults);
     }
-  }, [results]);
+  };
 
   /**
    * Removes an object from the results.
@@ -48,45 +81,43 @@ const Results = ({ searchResults, save }) => {
 
     newResults.splice(index, 1);
     setResults(newResults);
-    
-    if (newResults.length === 0) save([]);
-  }
+
+    if (newResults.length === 0) saveToStorage([]);
+  };
 
   /**
    * Function to scroll the results horizontally.
    * @param {Event} event  The event triggering the function (i.e. onWheel)
    */
   const scrollResults = (event) => {
-    let amount;
-
-    if (event.deltaY > 0) amount = 100;
-    else amount = -100;
+    let amount = event.deltaY > 0 ? 100 : -100;
 
     event.currentTarget.scrollBy(amount, 0);
-  }
+  };
 
   const getNoResultsClassName = () => {
     return results.length === 0 ? 'results--collapsed' : '';
-  }
+  };
 
   return (
     <div
-      className={ `results__list ${getNoResultsClassName()}` }
-      onWheel={ scrollResults }
+      className={`results__list ${getNoResultsClassName()}`}
+      onWheel={scrollResults}
     >
-    {
-      results.map((forecast, index) =>
+      {results.map((forecast, index) => (
         <Forecast
-          date={ forecast.date }
-          city={ forecast.City }
-          conditions={ forecast.conditions }
-          remove={ () => { remove(index) } }
-          key={ `${forecast.City.id}+${forecast.date}` }
+          date={forecast.date}
+          city={forecast.City}
+          conditions={forecast.conditions}
+          units={units}
+          remove={() => {
+            remove(index);
+          }}
+          key={`${forecast.City.id}+${forecast.date}`}
         />
-      )
-    }
+      ))}
     </div>
   );
-}
+};
 
 export default Results;

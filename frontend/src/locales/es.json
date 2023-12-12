@@ -22,5 +22,8 @@
   "help.desc.params": "Se observan cuatro parámetros: {temperature}, {wind}, {precipitation} y {humidity}.",
   "help.title": "¿Cómo funciona meteoclimb?",
   "item.station": "Estación en ({lat}, {lon})",
-  "searchbox.placeholder": "Ciudad, país (ej: Madrid, ES)"
+  "results.error.forecast": "Error al obtener la predicción meteorológica.",
+  "search.error.city": "Error al obtener las sugerencias.",
+  "searchbox.placeholder": "Ciudad, país (ej: Madrid, ES)",
+  "theme-switcher.theme": "tema {theme}"
 }

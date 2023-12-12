@@ -29,12 +29,6 @@
   }
 }
 
-@include media.device('hd') {
-  .search__nav {
-    width: 80%;
-  }
-}
-
 @include media.device('sm') {
   .search {
     height: 20vh;

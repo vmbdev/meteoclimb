@@ -1,3 +1,7 @@
+/**
+ * @module OpenWeather
+ */
+
 import got from 'got';
 import WeatherProvider from './../weatherprovider.js';
 
@@ -16,19 +20,21 @@ class OpenWeather extends WeatherProvider {
 
     // lat={lat}&lon={lon}&exclude={part}
     this.host = 'https://api.openweathermap.org';
-    this.path = `/data/2.5/onecall?appid=${this.key}&units=${this.units}`
+    this.path = `/data/2.5/onecall?appid=${this.key}&units=${this.units}`;
   }
 
   /**
    * Generates the full URL to make a request.
    * @param {*} lon  Longitude
    * @param {*} lat  Latitude
-   * @param {*} exclude 
+   * @param {*} exclude
    * @returns {string}  The full path.
    */
   getPath(lon, lat, exclude = null) {
-    if ((lon >= -180 && lon <= 180) && (lat >= -90 && lat <= 90)) {
-      const query = `&lon=${lon}&lat=${lat}${exclude ? `&exclude=${exclude}` : ''}`;
+    if (lon >= -180 && lon <= 180 && lat >= -90 && lat <= 90) {
+      const query = `&lon=${lon}&lat=${lat}${
+        exclude ? `&exclude=${exclude}` : ''
+      }`;
 
       return this.host + this.path + query;
     }
@@ -42,11 +48,13 @@ class OpenWeather extends WeatherProvider {
    * @async
    * @param {*} lon  Longitude
    * @param {*} lat  Latitude
-   * @param {*} exclude 
+   * @param {*} exclude
    * @returns {Object}  An object containing the forecast for seven days.
    */
   async getWeatherData(lon, lat, exclude = null) {
-    const res = await got(this.getPath(lon, lat, exclude), { responseType: 'json' });
+    const res = await got(this.getPath(lon, lat, exclude), {
+      responseType: 'json',
+    });
 
     return res.body;
   }

@@ -5,6 +5,10 @@ body {
   margin: 0;
 }
 
+input, button {
+  font-family: 'Roboto', sans-serif;
+}
+
 .body-wrapper {
   display: flex;
   flex-direction: column;

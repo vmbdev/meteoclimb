@@ -1,0 +1,58 @@
+@use '../../layout/theming.scss' as t;
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+
+  @include t.themify {
+    border: 1px solid t.theme(button-group-border);
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    margin: 0;
+
+    width: 36px;
+    height: 36px;
+
+    @include t.themify {
+      color: t.theme(button-group-text);
+      background-color: t.theme(button-group-bg);
+    }
+
+    &:not(:last-child) {
+      border-right-width: 1px;
+      border-right-style: solid;
+
+      @include t.themify {
+        border-image: linear-gradient(
+          to bottom,
+          transparent 15%,
+          t.theme(button-group-separator),
+          t.theme(button-group-separator),
+          transparent 85%
+        ) 1 100%;
+      }
+    }
+
+    &--active {
+      @include t.themify {
+        color: t.theme(button-group-text-active);
+        background-color: t.theme(button-group-bg-active);
+      }
+    }
+  }
+
+  &__icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  &__divider {
+    margin-bottom: 5px;
+  }
+}

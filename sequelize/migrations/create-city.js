@@ -7,43 +7,43 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       flatName: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
       },
       state: {
         type: Sequelize.STRING,
-        allowNull: true
+        allowNull: true,
       },
       country: {
         type: Sequelize.STRING(2),
-        allowNull: false
+        allowNull: false,
       },
       lon: {
         type: Sequelize.DECIMAL(9, 6),
-        allowNull: false
+        allowNull: false,
       },
       lat: {
         type: Sequelize.DECIMAL(8, 6),
-        allowNull: false
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Cities');
-  }
+  },
 };

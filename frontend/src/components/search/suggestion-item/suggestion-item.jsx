@@ -18,50 +18,44 @@ import './suggestion-item.scss';
  * @param {Function} props.findForecast  Called when the item is selected.
  * @returns The rendered JSX Component.
  */
-const SuggestionItem = ({
-  id,
-  active,
-  city,
-  setActive,
-  findForecast
-}) => {
+const SuggestionItem = ({ id, active, city, setActive, findForecast }) => {
   const [country, setCountry] = useState({ flag: '', name: '' });
 
   const getClassName = () => {
-    return `item__city ${(active ? 'item__city--active' : '')}`;
-  }
+    return `item__city ${active ? 'item__city--active' : ''}`;
+  };
 
   useEffect(() => {
     setCountry(getCountry(city.country));
-  }, [city])
+  }, [city]);
 
   return (
     <div
-      className={ getClassName() }
-      data-id={ city.id }
-      onMouseEnter={ () => { setActive(id) } }
-      onClick={ () => { findForecast(city.id) } }
+      className={getClassName()}
+      data-id={city.id}
+      onMouseEnter={() => {
+        setActive(id);
+      }}
+      onClick={() => {
+        findForecast(city.id);
+      }}
     >
       <div className="item__cityname">
-        <img
-          className="item__flag"
-          src={ country.flag }
-          alt={ country.name }
-        />
-        { city.name }, { country.name }
+        <img className="item__flag" src={country.flag} alt={country.name} />
+        {city.name}, {country.name}
       </div>
       <div className="item__station">
-        <FormattedMessage 
+        <FormattedMessage
           id="item.station"
           defaultMessage="Station @ ({lat}, {lon})"
           values={{
             lat: toDMS(city.lat, 'lat'),
-            lon: toDMS(city.lon, 'lon')
+            lon: toDMS(city.lon, 'lon'),
           }}
         />
       </div>
     </div>
   );
-}
+};
 
 export default SuggestionItem;

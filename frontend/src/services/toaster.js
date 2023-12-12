@@ -1,10 +1,9 @@
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 class ToasterService {
-  theme = 'light';
-
-  constructor(defaultPosition = toast.POSITION.BOTTOM_CENTER) {
+  constructor(defaultPosition = toast.POSITION.BOTTOM_CENTER, theme = 'light') {
     this.defaultPosition = defaultPosition;
+    this.theme = theme;
   }
 
   setTheme(theme) {
@@ -15,7 +14,7 @@ class ToasterService {
     toast.error(message, {
       toastId,
       position: this.defaultPosition,
-      theme: this.theme
+      theme: this.theme,
     });
   }
 }

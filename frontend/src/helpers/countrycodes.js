@@ -57,7 +57,7 @@ const countryCodes = {
   CW: { name: 'Curaçao', flag: '/flags/cw.svg' },
   CY: { name: 'Cyprus', flag: '/flags/cy.svg' },
   CZ: { name: 'Czechia', flag: '/flags/cz.svg' },
-  CI: { name: 'Côte d\'Ivoire', flag: '/flags/ci.svg' },
+  CI: { name: "Côte d'Ivoire", flag: '/flags/ci.svg' },
   DK: { name: 'Denmark', flag: '/flags/dk.svg' },
   DJ: { name: 'Djibouti', flag: '/flags/dj.svg' },
   DM: { name: 'Dominica', flag: '/flags/dm.svg' },
@@ -116,11 +116,11 @@ const countryCodes = {
   KZ: { name: 'Kazakhstan', flag: '/flags/kz.svg' },
   KE: { name: 'Kenya', flag: '/flags/ke.svg' },
   KI: { name: 'Kiribati', flag: '/flags/ki.svg' },
-  KP: { name: 'Democratic People\'s Republic of Korea', flag: '/flags/kp.svg' },
+  KP: { name: "Democratic People's Republic of Korea", flag: '/flags/kp.svg' },
   KR: { name: 'Republic of Korea', flag: '/flags/kr.svg' },
   KW: { name: 'Kuwait', flag: '/flags/kw.svg' },
   KG: { name: 'Kyrgyzstan', flag: '/flags/kg.svg' },
-  LA: { name: 'Lao People\'s Democratic Republic', flag: '/flags/la.svg' },
+  LA: { name: "Lao People's Democratic Republic", flag: '/flags/la.svg' },
   LV: { name: 'Latvia', flag: '/flags/lv.svg' },
   LB: { name: 'Lebanon', flag: '/flags/lb.svg' },
   LS: { name: 'Lesotho', flag: '/flags/ls.svg' },
@@ -184,7 +184,10 @@ const countryCodes = {
   RW: { name: 'Rwanda', flag: '/flags/rw.svg' },
   RE: { name: 'Réunion', flag: '/flags/re.svg' },
   BL: { name: 'Saint Barthélemy', flag: '/flags/bl.svg' },
-  SH: { name: 'Saint Helena, Ascension and Tristan da Cunha', flag: '/flags/sh.svg' },
+  SH: {
+    name: 'Saint Helena, Ascension and Tristan da Cunha',
+    flag: '/flags/sh.svg',
+  },
   KN: { name: 'Saint Kitts and Nevis', flag: '/flags/kn.svg' },
   LC: { name: 'Saint Lucia', flag: '/flags/lc.svg' },
   MF: { name: 'Saint Martin (French part)', flag: '/flags/mf.svg' },
@@ -205,7 +208,10 @@ const countryCodes = {
   SB: { name: 'Solomon Islands', flag: '/flags/sb.svg' },
   SO: { name: 'Somalia', flag: '/flags/so.svg' },
   ZA: { name: 'South Africa', flag: '/flags/za.svg' },
-  GS: { name: 'South Georgia and the South Sandwich Islands', flag: '/flags/gs.svg' },
+  GS: {
+    name: 'South Georgia and the South Sandwich Islands',
+    flag: '/flags/gs.svg',
+  },
   SS: { name: 'South Sudan', flag: '/flags/ss.svg' },
   ES: { name: 'Spain', flag: '/flags/es.svg' },
   LK: { name: 'Sri Lanka', flag: '/flags/lk.svg' },
@@ -233,6 +239,7 @@ const countryCodes = {
   UA: { name: 'Ukraine', flag: '/flags/ua.svg' },
   AE: { name: 'United Arab Emirates', flag: '/flags/ae.svg' },
   GB: { name: 'United Kingdom', flag: '/flags/gb.svg' },
+  EN: { name: 'United Kingdom', flag: '/flags/gb.svg' },
   UM: { name: 'United States Minor Outlying Islands', flag: '/flags/um.svg' },
   US: { name: 'United States', flag: '/flags/us.svg' },
   UY: { name: 'Uruguay', flag: '/flags/uy.svg' },
@@ -252,23 +259,23 @@ const countryCodes = {
 
 const getCountry = (code) => {
   return countryCodes[code.toUpperCase()];
-}
+};
 
 const getCountryName = (code) => {
   return countryCodes[code.toUpperCase()].name;
-}
+};
 
 const getLanguageData = (lang) => {
   const cLang = Intl.getCanonicalLocales(lang)[0];
-  const name = new Intl.DisplayNames([cLang], {type: 'language'});
+  const name = new Intl.DisplayNames([cLang], { type: 'language' });
 
   const langObj = {
     langDesc: name.of(cLang),
     locale: cLang,
     flag: countryCodes[cLang.slice(-2).toUpperCase()].flag,
-  }
+  };
 
   return langObj;
-}
+};
 
 export { getCountry, getCountryName, getLanguageData };

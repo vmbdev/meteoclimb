@@ -1,7 +1,7 @@
 /**
  * @module Brand
  */
-import React from 'react'
+import React from 'react';
 import './brand.scss';
 
 /**
@@ -9,9 +9,7 @@ import './brand.scss';
  * @returns The JSX Component rendered.
  */
 const Brand = () => {
-  return (
-    <div className="brand">meteoclimb</div>
-  );
+  return <div className="brand">meteoclimb</div>;
 };
 
 export default Brand;

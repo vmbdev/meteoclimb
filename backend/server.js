@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path, { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { stat } from 'node:fs/promises';
 import 'express-async-errors';
 
 // routes
@@ -43,7 +44,18 @@ if (config.server.enable_cors === true && config.server.cors_origin) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', express.static(path.join(__dirname, '../build')));
+// check if the frontend is built under /frontend/build, and if so, route
+// everything statically from /
+try {
+  const frontendPath = path.join(__dirname, '../', 'frontend', 'build');
+  await stat(frontendPath);
+  app.use('/', express.static(frontendPath));
+
+  console.log('[Frontend] Enabled routing.');
+} catch (err) {
+  console.log('[Frontend] Routing not enabled because a build was not found.');
+}
+
 app.use('/api/city', cityRoutes);
 app.use('/api/forecast', forecastRoutes);
 app.use(errorHandler);

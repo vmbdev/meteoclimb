@@ -4,8 +4,6 @@
   "forecast.humidity": "{humidity}% humidity",
   "forecast.nopop": "No precipitations expected",
   "forecast.pop": "{chance}% of {type} expected {amount}",
-  "forecast.rain": "rain",
-  "forecast.snow": "snow",
   "forecast.status.bad": "Bad",
   "forecast.status.good": "Good",
   "forecast.status.great": "Great",
@@ -22,5 +20,8 @@
   "help.desc.params": "Four parameters are observed: {temperature}, {wind}, {precipitation} and {humidity}.",
   "help.title": "How does meteoclimb work?",
   "item.station": "Station @ ({lat}, {lon})",
-  "searchbox.placeholder": "City, Country (i.e. London, GB)"
+  "results.error.forecast": "Error fetching forecast.",
+  "search.error.city": "Error getting the suggestions.",
+  "searchbox.placeholder": "City, Country (i.e. London, GB)",
+  "theme-switcher.theme": "{theme} theme"
 }
