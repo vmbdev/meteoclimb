@@ -52,31 +52,32 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
 
   // if the user has previously done a search and it's in LocalStorage
   useEffect(() => {
-    if (storedData) {
-      setLoadingData(true);
-      const restoredData = [];
+    (async () => {
+      if (storedData) {
+        setLoadingData(true);
+  
+        for (const [cityId, dates] of Object.entries(storedData)) {
+          const city = await api.getCity(cityId);
+          const forecast = fetchForecast(cityId, dates);
 
-      for (const [cityId, dates] of Object.entries(storedData)) {
-        const forecast = fetchForecast(cityId, dates);
-        restoredData.push(forecast);
+          awaitSearchResults(city, forecast);
+        }
+
+        setLoadingData(false);
       }
-
-      awaitSearchResults(restoredData);
-      setLoadingData(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    })();
   }, [storedData]);
 
   /**
    * Fetches the weather forecast for the location and dates given and provides
    * them to the parent component through awaitSearchResults().
-   * @param {number} cityId  The ID of the location.
-   * @param {Object} dates  The days of the requested weather forecast.
+   * @param {number} cityId The ID of the location.
+   * @param {Object} dates The days of the requested weather forecast.
    */
-  const findForecast = (cityId, dates) => {
-    const forecast = fetchForecast(cityId, dates);
+  const findForecast = (city, dates) => {
+    const forecast = fetchForecast(city.id, dates);
 
-    awaitSearchResults([forecast]);
+    awaitSearchResults(city, forecast);
   };
 
   /**

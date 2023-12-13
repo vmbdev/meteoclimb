@@ -15,11 +15,13 @@ import Help from './components/navbar/help/help.jsx';
 import LangSelector from './components/navbar/lang-selector/lang-selector.jsx';
 import ThemeSwitcher from './components/navbar/theme-switcher/theme-switcher.jsx';
 import TempSelector from './components/navbar/temp-selector/temp-selector.jsx';
-import Settings, { SettingsItem } from './components/navbar/settings-menu/settings-menu.jsx';
+import WindSelector from './components/navbar/wind-selector/wind-selector.jsx';
+import Settings, {
+  SettingsItem,
+} from './components/navbar/settings-menu/settings-menu.jsx';
 
 import settings from './settings.js';
 import './layout/main.scss';
-import WindSelector from './components/navbar/wind-selector/wind-selector.jsx';
 
 function App(props) {
   const [searchResults, setSearchResults] = useState([]);
@@ -70,6 +72,10 @@ function App(props) {
     setStoredData(storableResults);
   };
 
+  const getSearchResults = (city, forecast) => {
+    setSearchResults({ city, forecast });
+  };
+
   const saveResultsIntoStorage = (storableResults) => {
     if (!loadingData) {
       localStorage.setItem('METEO_results', JSON.stringify(storableResults));
@@ -79,12 +85,12 @@ function App(props) {
   const changeTempUnits = async (unit) => {
     setTempUnit(unit);
     localStorage.setItem('METEO_tempUnit', unit);
-  }
+  };
 
   const changeWindUnits = async (unit) => {
     setWindUnit(unit);
     localStorage.setItem('METEO_windUnit', unit);
-  }
+  };
 
   const changeLang = async (newLang) => {
     if (settings.availableTranslations.includes(newLang)) {
@@ -134,7 +140,7 @@ function App(props) {
         <div className="main-content">
           <Search
             storedData={storedData}
-            awaitSearchResults={setSearchResults}
+            awaitSearchResults={getSearchResults}
             setLoadingData={setLoadingData}
           />
           <Results

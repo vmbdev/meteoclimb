@@ -177,10 +177,10 @@ class ForecastService {
 
     const forecast = Forecast.findAll({
       attributes: { exclude: ['id', 'cityId'] },
-      include: {
-        model: City,
-        attributes: { exclude: ['updatedAt', 'createdAt'] },
-      },
+      // include: {
+      //   model: City,
+      //   attributes: { exclude: ['updatedAt', 'createdAt'] },
+      // },
       where: {
         cityId,
         date: {

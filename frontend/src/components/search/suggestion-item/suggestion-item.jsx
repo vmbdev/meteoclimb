@@ -37,7 +37,7 @@ const SuggestionItem = ({ id, active, city, setActive, findForecast }) => {
         setActive(id);
       }}
       onClick={() => {
-        findForecast(city.id);
+        findForecast(city);
       }}
     >
       <div className="item__cityname">

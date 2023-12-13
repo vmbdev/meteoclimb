@@ -37,7 +37,7 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
       return value >= min && value <= max;
     };
 
-    let states = {};
+    const states = {};
     const temp = conditions.temp.max;
     const wind = conditions.wind.speed;
     const pop = conditions.pop.chance;

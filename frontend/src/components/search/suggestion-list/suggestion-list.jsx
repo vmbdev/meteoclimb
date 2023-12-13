@@ -55,7 +55,7 @@ const SuggestionList = ({
 
           const item = list[activeItem];
 
-          if (item) findForecast(item.id);
+          if (item) findForecast(item);
 
           break;
         }

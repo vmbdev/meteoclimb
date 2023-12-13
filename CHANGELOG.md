@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.7] - 2023-12-13
+
+### Changes
+
+- [UI and Backend] API is now a little bit more RESTful, and getting a
+Forecast object won't send anymore a City object too. A new API call
+(/api/city/:id) enables the user to grab the City, having a city Id.
+
 ## [1.0.6] - 2023-12-12
 
 ### Fixed

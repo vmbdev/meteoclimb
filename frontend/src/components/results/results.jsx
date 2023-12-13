@@ -26,15 +26,15 @@ const Results = ({
 
   useEffect(() => {
     (async () => {
-      if (searchResults && searchResults.length > 0) {
-        const resolveProms = await Promise.allSettled(searchResults);
+      if (searchResults.forecast) {
+        try {
+          const forecast = await searchResults.forecast;
 
-        const validResults = resolveProms
-          .filter((res) => res.status === 'fulfilled')
-          .map((res) => res.value)
-          .flat();
-
-        if (resolveProms.some((res) => res.status === 'rejected')) {
+          setResults((prevRes) => [
+            { city: searchResults.city, forecast },
+            ...prevRes,
+          ]);
+        } catch (err) {
           toaster.error(
             intl.formatMessage({
               id: 'results.error.forecast',
@@ -43,8 +43,6 @@ const Results = ({
             'forecast-error'
           );
         }
-
-        setResults((prevRes) => [...validResults, ...prevRes]);
       }
     })();
   }, [searchResults]);
@@ -62,11 +60,10 @@ const Results = ({
       const storableResults = {};
 
       for (const item of results) {
-        const id = item.City.id;
+        const id = item.city.id;
+        const dates = item.forecast.map((forecast) => forecast.date);
 
-        if (!storableResults[id]) storableResults[id] = [];
-
-        storableResults[id].push(item.date);
+        storableResults[id] = dates;
       }
       saveToStorage(storableResults);
     }
@@ -76,10 +73,15 @@ const Results = ({
    * Removes an object from the results.
    * @param {number} index  The index of the object to be removed.
    */
-  const remove = (index) => {
+  const remove = (indexCity, indexForecast) => {
     const newResults = [...results];
 
-    newResults.splice(index, 1);
+    newResults[indexCity].forecast.splice(indexForecast, 1);
+
+    if (newResults[indexCity].forecast.length === 0) {
+      newResults.splice(indexCity, 1);
+    }
+
     setResults(newResults);
 
     if (newResults.length === 0) saveToStorage([]);
@@ -90,7 +92,7 @@ const Results = ({
    * @param {Event} event  The event triggering the function (i.e. onWheel)
    */
   const scrollResults = (event) => {
-    let amount = event.deltaY > 0 ? 100 : -100;
+    const amount = event.deltaY > 0 ? 100 : -100;
 
     event.currentTarget.scrollBy(amount, 0);
   };
@@ -104,18 +106,20 @@ const Results = ({
       className={`results__list ${getNoResultsClassName()}`}
       onWheel={scrollResults}
     >
-      {results.map((forecast, index) => (
-        <Forecast
-          date={forecast.date}
-          city={forecast.City}
-          conditions={forecast.conditions}
-          units={units}
-          remove={() => {
-            remove(index);
-          }}
-          key={`${forecast.City.id}+${forecast.date}`}
-        />
-      ))}
+      {results.map(({ city, forecast }, indexCity) =>
+        forecast.map((res, indexForecast) => (
+          <Forecast
+            date={res.date}
+            city={city}
+            conditions={res.conditions}
+            units={units}
+            remove={() => {
+              remove(indexCity, indexForecast);
+            }}
+            key={`${city.id}+${res.date}`}
+          />
+        ))
+      )}
     </div>
   );
 };

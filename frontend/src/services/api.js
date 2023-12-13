@@ -21,7 +21,7 @@ export class ApiService {
    *     the current day (today = 0, tomorrow = 1, day after tomorrow = 2, ...)
    * @returns {Promise<Forecast[]>}  A promise with the forecast.
    */
-  async getForecast(cityId, dates) {
+  getForecast(cityId, dates) {
     const procDates = dates
       .map(
         (date) =>
@@ -43,8 +43,12 @@ export class ApiService {
    * @param {string} name  The name or part of it of the city.
    * @returns {Promise<City[]>}  A promise with the list of matching cities.
    */
-  async getCities(name) {
+  getCities(name) {
     return this.endpoint.get(`city/search/${name}`).json();
+  }
+
+  getCity(id) {
+    return this.endpoint.get(`city/${id}`).json();
   }
 }
 
