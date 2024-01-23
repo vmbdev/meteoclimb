@@ -1,14 +1,19 @@
-@use 'frontend/src/layout/theming.scss' as t;
-@use 'frontend/src/layout/media.scss' as media;
+@use 'frontend/src/styles/theming.scss' as t;
+@use 'frontend/src/styles/media.scss' as media;
 
 .suggestions {
   background: white;
   border-top: 0;
+  box-sizing: border-box;
   position: absolute;
-  width: 480px;
-  margin-left: 19px;
-  margin-top: 11px;
+  width: 100%;
+  left: 0;
+  top: 4.7rem;
   z-index: 1;
+
+  list-style: none;
+  padding-inline: 0;
+  margin-block: 0;
   
   @include t.themify {
     border: 1px solid t.theme(main_color);
@@ -20,13 +25,5 @@
   
   &--visible {
     visibility: visible;
-  }
-}
-
-@include media.device('sm') {
-  .suggestions {
-    margin-left: 0;
-    left: 0;
-    width: 100%;
   }
 }

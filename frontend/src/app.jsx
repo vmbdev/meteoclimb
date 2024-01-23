@@ -1,6 +1,3 @@
-/**
- * @module App
- */
 import React, { useState, useEffect } from 'react';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import { ToastContainer } from 'react-toastify';
@@ -21,7 +18,7 @@ import Settings, {
 } from './components/navbar/settings-menu/settings-menu.jsx';
 
 import settings from './settings.js';
-import './layout/main.scss';
+import './styles/main.scss';
 
 function App(props) {
   const [searchResults, setSearchResults] = useState([]);
@@ -137,7 +134,7 @@ function App(props) {
             </Settings>
           </Navbar>
         </header>
-        <div className="main-content">
+        <main role="main" className="main-content">
           <Search
             storedData={storedData}
             awaitSearchResults={getSearchResults}
@@ -149,7 +146,7 @@ function App(props) {
             units={{ temp: tempUnit, wind: windUnit }}
           />
           <ToastContainer />
-        </div>
+        </main>
         <Footer>
           <FormattedMessage
             id="footer.msg"

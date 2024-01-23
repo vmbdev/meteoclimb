@@ -1,7 +1,5 @@
-/**
- * @module SuggestionList
- */
 import React, { useEffect, useState } from 'react';
+
 import SuggestionItem from '../suggestion-item/suggestion-item.jsx';
 import './suggestion-list.scss';
 
@@ -74,23 +72,24 @@ const SuggestionList = ({
 
     for (let i = 0; i < list.length; i++) {
       items.push(
-        <SuggestionItem
-          key={i}
-          id={i}
-          active={i === activeItem ? true : false}
-          city={list[i]}
-          setActive={setActiveItem}
-          findForecast={findForecast}
-        />
+        <li key={i}>
+          <SuggestionItem
+            id={i}
+            active={i === activeItem ? true : false}
+            city={list[i]}
+            setActive={setActiveItem}
+            findForecast={findForecast}
+          />
+        </li>
       );
     }
     return items;
   };
 
   return (
-    <div className={`suggestions ${isVisible()}`} id="search-suggestions">
+    <ul className={`suggestions ${isVisible()}`} id="search-suggestions">
       {getList()}
-    </div>
+    </ul>
   );
 };
 

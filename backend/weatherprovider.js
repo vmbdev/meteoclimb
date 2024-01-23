@@ -1,8 +1,4 @@
 /**
- * @module WeatherProvider
- */
-
-/**
  * Generic class providing a common base for weather provider classes.
  * @class
  */

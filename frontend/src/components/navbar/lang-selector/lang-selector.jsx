@@ -1,10 +1,7 @@
-/**
- * @module LangSelector
- */
 import React, { useState, useEffect } from 'react';
+
 import { getLanguageData } from '../../../helpers/countrycodes.js';
 import ButtonGroup from '../../button-group/button-group.jsx';
-import './lang-selector.scss';
 
 /**
  * JSX Component representing the language selector.

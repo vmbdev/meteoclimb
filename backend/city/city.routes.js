@@ -1,7 +1,3 @@
-/**
- * @module CityRoutes
- */
-
 import express from 'express';
 import CityController from './city.controller.js';
 

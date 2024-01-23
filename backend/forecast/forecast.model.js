@@ -1,7 +1,3 @@
-/**
- * @module Forecast
- */
-
 import { Sequelize, DataTypes } from 'sequelize';
 import City from '../city/city.model.js';
 

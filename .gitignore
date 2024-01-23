@@ -1,5 +1,5 @@
 # dependencies
-/node_modules
+node_modules
 /.pnp
 .pnp.js
 
@@ -28,7 +28,8 @@ yarn-error.log*
 /backend/config/meteo.config.js
 /backend/config/database.json
 
+TODO.md
+assets
 /city.list.json
 /src/locales/*
-/assets
-/TODO.md
+tests

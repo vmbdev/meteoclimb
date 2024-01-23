@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
 class ToasterService {
-  constructor(defaultPosition = toast.POSITION.BOTTOM_CENTER, theme = 'light') {
+  constructor(defaultPosition = 'bottom-center', theme = 'light') {
     this.defaultPosition = defaultPosition;
     this.theme = theme;
   }

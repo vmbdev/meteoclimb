@@ -1,6 +1,3 @@
-/**
- * @module Forecast
- */
 import React, { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -9,7 +6,6 @@ import { getCountry } from '../../helpers/countrycodes.js';
 import { convertTemperature, convertWind } from '../../helpers/converters.js';
 import CloseButton from '../close-button/close-button.jsx';
 import './forecast.scss';
-import './forecast-sprites.scss';
 
 /**
  * JSX Component depicting the forecast for a given day.
@@ -82,7 +78,7 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
 
   const getPrecipitation = () => {
     const pop = conditions.pop;
-    const amount = pop.rain + pop.snow;
+    const amount = Math.round((pop.rain + pop.snow) * 100) / 100;
 
     if (pop.chance > 0) {
       return (
@@ -125,34 +121,44 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
   };
 
   return (
-    <div className={`forecast ${stateClasses.main}`}>
+    <section className={`forecast ${stateClasses.main}`}>
       <CloseButton closeAction={remove} />
 
       <div className="forecast__title">
         <img className="forecast__flag" src={country.flag} alt={country.name} />
-        <FormattedMessage
-          id="forecast.title"
-          defaultMessage="{city}, {country} on {weekday}"
-          values={{
-            city: city.name,
-            country: country.name,
-            weekday: DateTime.fromISO(date).setLocale(intl.locale).weekdayLong,
-          }}
-        />
+
+        <h1>
+          <FormattedMessage
+            id="forecast.title"
+            defaultMessage="{city}, {country} on {weekday}"
+            values={{
+              city: city.name,
+              country: country.name,
+              weekday: DateTime.fromISO(date).setLocale(intl.locale)
+                .weekdayLong,
+            }}
+          />
+        </h1>
       </div>
 
-      <div className="forecast__conditions">
-        <div className="forecast__row--centered">
-          <div>
+      <article className="forecast__conditions">
+        <article className="forecast__row--centered">
+          <span>
             {DateTime.fromSeconds(conditions.sunrise).toFormat('HH:mm')}
+          </span>
+          <div className="forecast__icon">
+            <img src="/forecast/daynight.png" />
           </div>
-          <div className="forecast__icon--daynight"></div>
-          <div>{DateTime.fromSeconds(conditions.sunset).toFormat('HH:mm')}</div>
-        </div>
+          <span>
+            {DateTime.fromSeconds(conditions.sunset).toFormat('HH:mm')}
+          </span>
+        </article>
 
-        <div className={`forecast__row ${stateClasses.temp}`}>
-          <div className="forecast__icon--temperature" />
-          <div>
+        <article className={`forecast__row ${stateClasses.temp}`}>
+          <div className="forecast__icon">
+            <img src="/forecast/temperature.png" />
+          </div>
+          <span>
             <FormattedMessage
               id="forecast.temperature"
               defaultMessage="{temp}º (feels like {feel}º)"
@@ -161,15 +167,19 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
                 feel: convertTemperature(conditions.temp.feel, units.temp),
               }}
             />
-          </div>
-        </div>
+          </span>
+        </article>
 
-        <div className={`forecast__row ${stateClasses.wind}`}>
-          <div
-            className="forecast__icon--arrow"
-            style={{ transform: `rotate(${conditions.wind.degrees + 180}deg)` }}
-          />
-          <div>
+        <article className={`forecast__row ${stateClasses.wind}`}>
+          <div className="forecast__icon">
+            <img
+              src="/forecast/arrow.png"
+              style={{
+                transform: `rotate(${conditions.wind.degrees + 180}deg)`,
+              }}
+            />
+          </div>
+          <span>
             <FormattedMessage
               id="forecast.wind"
               defaultMessage="Wind: {speed} {unit}"
@@ -178,26 +188,32 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
                 unit: units.wind,
               }}
             />
+          </span>
+        </article>
+
+        <article className={`forecast__row ${stateClasses.pop}`}>
+          <div className="forecast__icon">
+            <img
+              src={`/forecast/${conditions.pop.snow > 0 ? 'snow' : 'rain'}.png`}
+            />
           </div>
-        </div>
+          <span>{getPrecipitation()}</span>
+        </article>
 
-        <div className={`forecast__row ${stateClasses.pop}`}>
-          <div className="forecast__icon--rain" />
-          <div>{getPrecipitation()}</div>
-        </div>
-
-        <div className={`forecast__row ${stateClasses.humidity}`}>
-          <div className="forecast__icon--humidity"></div>
-          <div>
+        <article className={`forecast__row ${stateClasses.humidity}`}>
+          <div className="forecast__icon">
+            <img src="/forecast/humidity.png" />
+          </div>
+          <span>
             <FormattedMessage
               id="forecast.humidity"
               defaultMessage="{humidity}% humidity"
               values={{ humidity: conditions.humidity }}
             />
-          </div>
-        </div>
-      </div>
-    </div>
+          </span>
+        </article>
+      </article>
+    </section>
   );
 };
 

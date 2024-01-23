@@ -1,8 +1,6 @@
-/**
- * @module ApiService
- */
 import { DateTime } from 'luxon';
 import ky from 'ky';
+
 import settings from '../settings.js';
 
 /**

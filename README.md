@@ -10,7 +10,6 @@ You can access the live app on [https://meteoclimb.hippolyta.xyz](https://meteoc
 meteoclimb contains both a server (running on ExpressJS) and a front-end (made
 with React).
 
-
 ## Prerequisites
 
 meteoclimb requires [Node.js](https://nodejs.org/) 18 or later installed on
@@ -28,20 +27,20 @@ the application can use. Using FormatJS'
 following command:
 
 ```bash
-npm run formatjs-compile-all
+npm run formatjs:compile-all
 ```
 
 Once the translations are available, you can build the React application using
 the following command.
 
 ```bash
-npm run ui-build
+npm run ui:build
 ```
 
 Or if you prefer to run the app as a development server:
 
 ```bash
-npm run ui-start
+npm run ui:start
 ```
 
 The app runs with [Vite](https://vitejs.dev/guide/cli.html), so you can tweak
@@ -155,7 +154,7 @@ only PostgreSQL is supported, though more are planned in future updates.
 To create the tables, run:
 
 ```bash
-npm run db-migrate
+npm run db:migrate
 ```
 
 Now we need to fullfill the database with the list of supported locations. For
@@ -164,27 +163,27 @@ this, we'll need the city list from OpenWeather
 city.list.min.json are valid. Save it on the root of the project and run:
 
 ```bash
-npm run db-seed
+npm run db:seed
 ```
 
 Now that the database is ready, we can start the server with the following
 command:
 
 ```bash
-npm run server-prod
+npm run server:start
 ```
 
-If you plan to make changes on the code, run it in development mode:
+If you plan to make changes on the code, run it in watch mode:
 
 ```bash
-npm run server-dev
+npm run server:start:watch
 ```
 
 ## Built with
 
 - [Node.js](https://nodejs.org/) - JavaScript runtime environment
 - [Ky](https://github.com/sindresorhus/ky) - HTTP client
-- [Express.js](https://expressjs.com/) - Web framework
+- [Express](https://expressjs.com/) - Web framework
 - [React](https://react.dev/) - UI library
 - [Sequelize](https://sequelize.org/) - ORM
 - [Luxon](https://moment.github.io/luxon/) - Date management library
@@ -194,7 +193,7 @@ npm run server-dev
 
 ## License
 
-fetch-reddit-media is licensed under the MIT License - see the
+meteoclimb is licensed under the MIT License - see the
 [LICENSE](https://github.com/vmbdev/meteoclimb/blob/main/LICENSE)
 file for more details.
 
@@ -204,5 +203,3 @@ Flag icons by [flag-icons](https://github.com/lipis/flag-icons)
 
 Humidity, Snow, Sun, Weather, Temperature, Arrows, Rain, Moon, Day and Night,
 Info and Setting icons created by [Freepik - Flaticon](https://www.flaticon.com/).
-
-[Toggle switch design](https://codepen.io/himalayasingh) by Himalaya Singh.

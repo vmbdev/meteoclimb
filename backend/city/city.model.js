@@ -1,7 +1,3 @@
-/**
- * @module City
- */
-
 import { Sequelize, DataTypes, Model } from 'sequelize';
 
 /**

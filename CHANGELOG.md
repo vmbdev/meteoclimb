@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.0] - next
+
+### Changes
+
+- Migrated test framework to Vitest.
+- Updated styles to be more responsive.
+- Updated markup to be more semantic.
+- Updated dependencies.
+- Code cleanup.
+
+### Fixes
+
+- Fixed a bug in which the total precipitation could display a lot of decimals.
+
+
 ## [1.0.7] - 2023-12-13
 
 ### Changes
@@ -10,7 +25,7 @@ Forecast object won't send anymore a City object too. A new API call
 
 ## [1.0.6] - 2023-12-12
 
-### Fixed
+### Fixes
 
 - [UI] SettingsMenu background not showing on dark theme.
 
@@ -41,10 +56,10 @@ for the UI.
 - [UI] User can now choose the measurement units for temperature and wind.
 - [Backend] Updated to nodemon 3.
 
-### Fixed
+### Fixes
 
-- [General] Fixed FormatJS script producing empty translation files.
-- [UI] Fixed search bar displaying an incorrect width with some devices.
+- [General] Fixes FormatJS script producing empty translation files.
+- [UI] Fixes search bar displaying an incorrect width with some devices.
 
 ## [1.0.3] - 2023-10-31
 
@@ -59,9 +74,9 @@ for the UI.
 - [UI] File structure now matches kebab-case.
 - [UI] Some code cleanup.
 
-### Fixed
+### Fixes
 
-- [General] Fixed README.md and the example config files after last update.
+- [General] Fixes README.md and the example config files after last update.
 
 ## [1.0.2] - 2023-10-30
 
@@ -71,7 +86,7 @@ for the UI.
 - [General] React dependencies moved to development dependencies to avoid
 having to install them when only running the backend.
 
-### Fixed
+### Fixes
 
 - [General] Duplicated /database and /sequelize.
 
@@ -91,7 +106,7 @@ having to install them when only running the backend.
 - [Backend] Renamed /database to /sequelize, to avoid confusion.
 - [Backend] Moved the database config file to api/config/database.json.
 
-### Fixed
+### Fixes
 
 - [Backend] Location search will normalize the name in the server rather than
 in (Postgres) SQL. This helps reducing the dialect dependency.

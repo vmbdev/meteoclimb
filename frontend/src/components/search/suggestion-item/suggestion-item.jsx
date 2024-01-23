@@ -1,8 +1,6 @@
-/**
- * @module SuggestionItem
- */
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+
 import { toDMS } from '../../../helpers/geocoords.js';
 import { getCountry } from '../../../helpers/countrycodes.js';
 import './suggestion-item.scss';
@@ -30,7 +28,7 @@ const SuggestionItem = ({ id, active, city, setActive, findForecast }) => {
   }, [city]);
 
   return (
-    <div
+    <article
       className={getClassName()}
       data-id={city.id}
       onMouseEnter={() => {
@@ -42,7 +40,7 @@ const SuggestionItem = ({ id, active, city, setActive, findForecast }) => {
     >
       <div className="item__cityname">
         <img className="item__flag" src={country.flag} alt={country.name} />
-        {city.name}, {country.name}
+        <span>{city.name}, {country.name}</span>
       </div>
       <div className="item__station">
         <FormattedMessage
@@ -54,7 +52,7 @@ const SuggestionItem = ({ id, active, city, setActive, findForecast }) => {
           }}
         />
       </div>
-    </div>
+    </article>
   );
 };
 

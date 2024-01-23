@@ -1,7 +1,3 @@
-/**
- * @module WeatherProviderFactory
- */
-
 import OpenWeather from './providers/openweather.js';
 
 /**

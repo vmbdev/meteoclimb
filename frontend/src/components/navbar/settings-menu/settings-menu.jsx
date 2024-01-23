@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import './settings-menu.scss';
 
 const Settings = ({ children }) => {
@@ -13,21 +14,21 @@ const Settings = ({ children }) => {
   }
 
   return (
-    <div className="settings-menu">
+    <article className="settings-menu">
       <div className="settings-menu__icon" onClick={toggleMenu}></div>
 
       <div className={`settings-menu__list ${menuClass()}`}>
         {children}
       </div>
-    </div>
+    </article>
   )
 }
 
 export const SettingsItem = ({ children }) => {
   return (
-    <div className="settings-item">
+    <article className="settings-item">
       {children}
-    </div>
+    </article>
   )
 }
 

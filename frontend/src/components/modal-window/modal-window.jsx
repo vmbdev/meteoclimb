@@ -1,7 +1,5 @@
-/**
- * @module ModalWindow
- */
 import React from 'react';
+
 import CloseButton from '../close-button/close-button.jsx';
 import './modal-window.scss';
 
@@ -20,10 +18,10 @@ const ModalWindow = ({ active, children, closeAction }) => {
   };
 
   return (
-    <div className={`modalwindow ${isActive()}`}>
+    <article className={`modalwindow ${isActive()}`}>
       <CloseButton closeAction={closeAction} />
       <div className="modalWindow__content">{children}</div>
-    </div>
+    </article>
   );
 };
 

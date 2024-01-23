@@ -1,26 +1,25 @@
-@use 'frontend/src/layout/theming.scss' as t;
-@use 'frontend/src/layout/media.scss' as media;
+@use 'frontend/src/styles/theming.scss' as t;
+@use 'frontend/src/styles/media.scss' as media;
 
 .search {
   align-items: center;
   display: flex;
   flex-direction: column;
 
-  height: 80vh;
   justify-content: center;
   position: relative;
   transition-duration: 250ms;
 
   &--collapsed {
-    height: 170px;
+    height: 11rem;
   }
 
   &__nav {
     border: solid;
     border-width: 1px 14px 4px 1px;
-    padding: 10px;
+    padding: 0.6rem;
     position: relative;
-    width: 520px;
+    width: 33rem;
     
     @include t.themify {
       background-color: t.theme(searchbox_background);

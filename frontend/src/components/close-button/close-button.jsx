@@ -1,7 +1,5 @@
-/**
- * @module CloseButton
- */
 import React from 'react';
+
 import './close-button.scss';
 
 /**

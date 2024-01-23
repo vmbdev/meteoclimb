@@ -1,4 +1,4 @@
-@use '../../layout/theming.scss' as t;
+@use '../../styles/theming.scss' as t;
 
 .button-group {
   display: flex;
@@ -16,8 +16,8 @@
     border: 0;
     margin: 0;
 
-    width: 36px;
-    height: 36px;
+    width: 2.5rem;
+    height: 2.5rem;
 
     @include t.themify {
       color: t.theme(button-group-text);
@@ -48,11 +48,11 @@
   }
 
   &__icon {
-    width: 26px;
-    height: 26px;
+    width: 1.7rem;
+    height: 1.7rem;
   }
 
   &__divider {
-    margin-bottom: 5px;
+    margin-bottom: 0.3rem;
   }
 }

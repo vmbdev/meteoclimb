@@ -1,14 +1,11 @@
-/**
- * @module Search
- */
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
-import { DateTime } from 'luxon';
 
 import SearchBox from './search-box/search-box.jsx';
 import SuggestionList from './suggestion-list/suggestion-list.jsx';
 import DateSelector from '../date-selector/date-selector.jsx';
 
+import { dateListGen } from '../../helpers/datelistgen.js';
 import { api } from '../../services/api.js';
 import { toaster } from '../../services/toaster.js';
 
@@ -35,19 +32,7 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
 
   // populate the date selector above the search box
   useEffect(() => {
-    const list = [];
-    let day = DateTime.local().setLocale(intl.locale);
-
-    for (let i = 0; i < 7; i++) {
-      list.push({
-        day: day.weekdayShort,
-        fullDate: day.toFormat('yyyy-MM-dd'),
-        selected: i === 0,
-      });
-      day = day.plus({ days: 1 });
-    }
-
-    setDateList(list);
+    setDateList(dateListGen(7, intl.locale));
   }, [intl.locale]);
 
   // if the user has previously done a search and it's in LocalStorage
@@ -128,8 +113,8 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
   };
 
   return (
-    <div className={`search ${getCollapsedClassName()}`}>
-      <DateSelector setDateList={setDateList}>{dateList}</DateSelector>
+    <section className={`search ${getCollapsedClassName()}`}>
+      <DateSelector setDateList={setDateList} dates={dateList} />
       <div className="search__nav">
         <SearchBox
           inputChanged={fetchCitiesByName}
@@ -142,7 +127,7 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
           list={suggestionList}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

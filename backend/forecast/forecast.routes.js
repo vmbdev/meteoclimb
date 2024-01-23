@@ -1,6 +1,3 @@
-/**
- * @module ForecastRoutes
- */
 import express from 'express';
 import ForecastController from './forecast.controller.js';
 

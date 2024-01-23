@@ -1,6 +1,3 @@
-/**
- * @module ErrorHandler
- */
 import MeteoError from '../meteoerror.js';
 
 /**

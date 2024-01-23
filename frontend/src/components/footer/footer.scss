@@ -1,9 +1,8 @@
-@use 'frontend/src/layout/theming.scss' as t;
+@use 'frontend/src/styles/theming.scss' as t;
 
 .footer {
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 1.3rem 0;
   
   @include t.themify {
     background-color: t.theme(footer_background);

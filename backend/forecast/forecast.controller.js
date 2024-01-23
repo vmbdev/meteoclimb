@@ -1,7 +1,3 @@
-/**
- * @module ForecastController
- */
-
 import forecastService from './forecast.service.js';
 
 /**

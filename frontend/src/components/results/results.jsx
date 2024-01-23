@@ -1,8 +1,6 @@
-/**
- * @module Results
- */
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
+
 import { toaster } from '../../services/toaster';
 import Forecast from '../forecast/forecast.jsx';
 import './results.scss';
@@ -102,25 +100,26 @@ const Results = ({
   };
 
   return (
-    <div
+    <ul
       className={`results__list ${getNoResultsClassName()}`}
       onWheel={scrollResults}
     >
       {results.map(({ city, forecast }, indexCity) =>
         forecast.map((res, indexForecast) => (
-          <Forecast
-            date={res.date}
-            city={city}
-            conditions={res.conditions}
-            units={units}
-            remove={() => {
-              remove(indexCity, indexForecast);
-            }}
-            key={`${city.id}+${res.date}`}
-          />
+          <li key={`${city.id}+${res.date}`}>
+            <Forecast
+              date={res.date}
+              city={city}
+              conditions={res.conditions}
+              units={units}
+              remove={() => {
+                remove(indexCity, indexForecast);
+              }}
+            />
+          </li>
         ))
       )}
-    </div>
+    </ul>
   );
 };
 

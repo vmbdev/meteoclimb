@@ -1,8 +1,4 @@
 /**
- * @module MeteoError
- */
-
-/**
  * Error created and managed from meteoclimb backend.
  * Allows us to differentiate it from other sources (i.e. database).
  * @class

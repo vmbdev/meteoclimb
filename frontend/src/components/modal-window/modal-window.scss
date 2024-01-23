@@ -1,5 +1,5 @@
-@use 'frontend/src/layout/theming.scss' as t;
-@use 'frontend/src/layout/media.scss' as media;
+@use 'frontend/src/styles/theming.scss' as t;
+@use 'frontend/src/styles/media.scss' as media;
 
 .modalwindow {
   background-color: white;
@@ -8,9 +8,7 @@
   left: 0;
   right: 0;
   top: 5em;
-  // height: calc(100vh - 15px);
-  // width: calc(100vw - 10em);
-  max-width: 850px;
+  max-width: 80vw;
   margin-left: auto;
   margin-right: auto;
 
@@ -28,9 +26,9 @@
 
 @include media.device('md') {
   .modalwindow {
-    top: 5px;
-    left: 5px;
-    right: 5px;
+    top: 0.3rem;
+    left: 0.3rem;
+    right: 0.3rem;
     box-sizing: content-box;
   }
 }

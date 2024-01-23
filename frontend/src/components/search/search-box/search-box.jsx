@@ -1,6 +1,3 @@
-/**
- * @module SearchBox
- */
 import React from 'react';
 import { useIntl } from 'react-intl';
 import './search-box.scss';

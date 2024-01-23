@@ -1,14 +1,14 @@
-@use 'frontend/src/layout/theming.scss' as t;
-@use 'frontend/src/layout/media.scss' as media;
+@use 'frontend/src/styles/theming.scss' as t;
+@use 'frontend/src/styles/media.scss' as media;
 
 .item {
   &__city {
+    display: flex;
     align-items: flex-end;
     box-sizing: border-box;
+    padding: 0.5rem;
     color: black;
     cursor: default;
-    display: flex;
-    padding: 8px;
   
     @include t.themify {
       border-bottom: 1px solid t.theme(main_color);
@@ -16,6 +16,7 @@
     
     &--active {
       color: white;
+
       @include t.themify {
         background-color: t.theme(main_color);
       }
@@ -23,13 +24,13 @@
   }
   
   &__station {
-    font-size: 10pt;
+    font-size: 0.8rem;
     margin-left: auto;
   }
   
   &__flag {
-    width: 25px;
-    margin-right: 10px;
+    width: 1.6rem;
+    margin-right: 0.7rem;
   }
 }
 
@@ -40,7 +41,7 @@
     }
 
     &__station {
-      padding-top: 6px;
+      padding-top: 0.4rem;
     }
   }
 }

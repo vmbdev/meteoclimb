@@ -1,8 +1,6 @@
-/**
- * @module Help
- */
 import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+
 import ModalWindow from '../../modal-window/modal-window.jsx';
 import helpImage from './help.png';
 import './help.scss';
@@ -24,8 +22,8 @@ const Help = () => {
   };
 
   return (
-    <div className="help">
-      <div className="help__icon" onClick={toggleModal}></div>
+    <>
+      <article className="help__icon" onClick={toggleModal}></article>
 
       <ModalWindow active={modalActive} closeAction={closeModal}>
         <div className="help__modal">
@@ -33,14 +31,14 @@ const Help = () => {
             <img src={helpImage} alt="Forecast example" />
           </div>
 
-          <div className="modal__right">
-            <div className="help__title">
+          <section className="modal__right">
+            <h1 className="help__title">
               <FormattedMessage
                 id="help.title"
                 defaultMessage="How does meteoclimb work?"
               />
-            </div>
-            <div className="help__description">
+            </h1>
+            <article className="help__description">
               <p>
                 <FormattedMessage
                   id="help.desc.params"
@@ -112,37 +110,37 @@ const Help = () => {
                     "
                 />
               </p>
-            </div>
-            <div className="help__legend">
-              <div className="help__color help__color--great">
+            </article>
+            <article className="help__legend">
+              <span className="help__color help__color--great">
                 <FormattedMessage
                   id="forecast.status.great"
                   defaultMessage="Great"
                 />
-              </div>
-              <div className="help__color help__color--good">
+              </span>
+              <span className="help__color help__color--good">
                 <FormattedMessage
                   id="forecast.status.good"
                   defaultMessage="Good"
                 />
-              </div>
-              <div className="help__color help__color--bad">
+              </span>
+              <span className="help__color help__color--bad">
                 <FormattedMessage
                   id="forecast.status.bad"
                   defaultMessage="Bad"
                 />
-              </div>
-              <div className="help__color help__color--terrible">
+              </span>
+              <span className="help__color help__color--terrible">
                 <FormattedMessage
                   id="forecast.status.terrible"
                   defaultMessage="Terrible"
                 />
-              </div>
-            </div>
-          </div>
+              </span>
+            </article>
+          </section>
         </div>
       </ModalWindow>
-    </div>
+    </>
   );
 };
 

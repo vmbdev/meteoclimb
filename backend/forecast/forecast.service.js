@@ -1,7 +1,3 @@
-/**
- * @module ForecastService
- */
-
 import { Op } from 'sequelize';
 import { DateTime } from 'luxon';
 

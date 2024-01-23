@@ -1,5 +1,5 @@
-@use 'frontend/src/layout/theming.scss' as t;
-@use 'frontend/src/layout/media.scss' as media;
+@use 'frontend/src/styles/theming.scss' as t;
+@use 'frontend/src/styles/media.scss' as media;
 
 @mixin forecastState($state) {
   &--#{$state}:before {
@@ -15,25 +15,25 @@
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;
-    min-height: 32px;
-    min-width: 32px;
+    min-height: 2rem;
+    min-width: 2rem;
   }
 
   &__modal {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 0.7rem;
     width: 100%;
 
     .modal__right {
-      padding: 5px 10px;
+      padding: 0.3rem 0.7rem;
       text-align: justify;
     }
   }
 
   &__title {
-    font-size: 16pt;
+    font-size: 1.5rem;
   }
   
   &__color {
@@ -41,17 +41,16 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-right: 25px;
   
     &:before {
       @include t.themify {
         border: 1px solid t.theme(main_textcolor);
       }
-      content: "";
+      content: '';
       display: inline-block;
-      height: 25px;
-      margin-right: 5px;
-      width: 25px;
+      margin-right: 0.3rem;
+      height: 1.7rem;
+      width: 1.7rem;
     }
   
     @include forecastState('great');
@@ -63,11 +62,10 @@
 
 @include media.device('md') {
   .help__modal {
-    width: 50%;
     display: flex;
     flex-direction: column-reverse;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 0.7rem;
     width: 100%;
 
     &__color {

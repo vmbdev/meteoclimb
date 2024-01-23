@@ -1,6 +1,3 @@
-/**
- * @module Brand
- */
 import React from 'react';
 import './brand.scss';
 

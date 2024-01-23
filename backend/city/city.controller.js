@@ -1,7 +1,3 @@
-/**
- * @module CityController
- */
-
 import City from './city.model.js';
 
 /**

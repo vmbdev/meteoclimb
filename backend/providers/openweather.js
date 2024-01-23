@@ -1,7 +1,3 @@
-/**
- * @module OpenWeather
- */
-
 import ky from 'ky';
 import WeatherProvider from './../weatherprovider.js';
 

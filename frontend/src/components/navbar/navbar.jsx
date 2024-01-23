@@ -1,6 +1,3 @@
-/**
- * @module Navbar
- */
 import React from 'react';
 import Brand from './brand/brand.jsx';
 import './navbar.scss';

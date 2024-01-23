@@ -1,7 +1,5 @@
-/**
- * @module Footer
- */
 import React from 'react';
+
 import './footer.scss';
 
 /**

@@ -1,8 +1,6 @@
-/**
- * @module ThemeSwitcher
- */
 import React, { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
+
 import { toaster } from '../../../services/toaster';
 import './theme-switcher.scss';
 
@@ -19,7 +17,7 @@ const ThemeSwitcher = ({ switchTheme, theme }) => {
   }, [theme]);
 
   return (
-    <div className={`theme-switcher theme-switcher--${theme}`}>
+    <article className={`theme-switcher theme-switcher--${theme}`}>
       <label>
         <input
           type="checkbox"
@@ -33,7 +31,7 @@ const ThemeSwitcher = ({ switchTheme, theme }) => {
           values={{ theme }}
         />
       </label>
-    </div>
+    </article>
   );
 };
 
