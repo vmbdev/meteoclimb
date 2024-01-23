@@ -147,7 +147,13 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
             {DateTime.fromSeconds(conditions.sunrise).toFormat('HH:mm')}
           </span>
           <div className="forecast__icon">
-            <img src="/forecast/daynight.png" />
+            <img
+              src="/forecast/daynight.png"
+              alt={intl.formatMessage({
+                id: 'forecast.daynight',
+                defaultMessage: 'Sunrise and sunset',
+              })}
+            />
           </div>
           <span>
             {DateTime.fromSeconds(conditions.sunset).toFormat('HH:mm')}
@@ -156,7 +162,13 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
 
         <article className={`forecast__row ${stateClasses.temp}`}>
           <div className="forecast__icon">
-            <img src="/forecast/temperature.png" />
+            <img
+              src="/forecast/temperature.png"
+              alt={intl.formatMessage({
+                id: 'forecast.term.temperature',
+                defaultMessage: 'Temperature',
+              })}
+            />
           </div>
           <span>
             <FormattedMessage
@@ -174,6 +186,11 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
           <div className="forecast__icon">
             <img
               src="/forecast/arrow.png"
+              alt={intl.formatMessage({
+                id: 'forecast.term.wind',
+                defaultMessage: 'Wind',
+              })}
+              title={`${conditions.wind.degrees + 180}º`}
               style={{
                 transform: `rotate(${conditions.wind.degrees + 180}deg)`,
               }}
@@ -194,15 +211,27 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
         <article className={`forecast__row ${stateClasses.pop}`}>
           <div className="forecast__icon">
             <img
-              src={`/forecast/${conditions.pop.snow > 0 ? 'snow' : 'rain'}.png`}
-            />
+              src={`/forecast/${conditions.weather.name}.png`}
+              alt={intl.formatMessage({
+                id: `forecast.weather.${conditions.weather.name}`,
+              })}
+              title={intl.formatMessage({
+                id: `forecast.weather.${conditions.weather.name}`,
+              })}
+              />
           </div>
           <span>{getPrecipitation()}</span>
         </article>
 
         <article className={`forecast__row ${stateClasses.humidity}`}>
           <div className="forecast__icon">
-            <img src="/forecast/humidity.png" />
+            <img
+              src="/forecast/humidity.png"
+              alt={intl.formatMessage({
+                id: `forecast.term.humidity`,
+                defaultMessage: 'Humedad',
+              })}
+            />
           </div>
           <span>
             <FormattedMessage

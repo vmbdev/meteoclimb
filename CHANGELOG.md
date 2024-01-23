@@ -2,8 +2,14 @@
 
 ## [1.1.0] - next
 
+### Added
+
+- Air Pollution detection.
+
 ### Changes
 
+- Weather conditions (third row of forecast) will now show more icons depicting
+the weather (i.e. thunderstorms, clouds, clear...).
 - Migrated test framework to Vitest.
 - Updated styles to be more responsive.
 - Updated markup to be more semantic.

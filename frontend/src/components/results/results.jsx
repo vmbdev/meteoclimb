@@ -41,6 +41,7 @@ const Results = ({
             'forecast-error'
           );
         }
+
       }
     })();
   }, [searchResults]);

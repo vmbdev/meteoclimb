@@ -2,6 +2,9 @@
   "footer.msg": {
     "defaultMessage": "© 2022 meteoclimb - Código fuente en {link}"
   },
+  "forecast.daynight": {
+    "defaultMessage": "Amanecer y anochecer"
+  },
   "forecast.from": {
     "defaultMessage": "desde las {time}"
   },
@@ -36,19 +39,40 @@
     "defaultMessage": "{temp}º (sensación de {feel}º)"
   },
   "forecast.term.humidity": {
-    "defaultMessage": "humedad"
+    "defaultMessage": "Humedad"
   },
   "forecast.term.precipitation": {
     "defaultMessage": "precipitación"
   },
   "forecast.term.temperature": {
-    "defaultMessage": "temperatura"
+    "defaultMessage": "Temperatura"
   },
   "forecast.term.wind": {
-    "defaultMessage": "viento"
+    "defaultMessage": "Viento"
   },
   "forecast.title": {
     "defaultMessage": "{city}, {country} el {weekday}"
+  },
+  "forecast.weather.atmosphere": {
+    "defaultMessage": "Fenómeno atmosférico"
+  },
+  "forecast.weather.clear": {
+    "defaultMessage": "Despejado"
+  },
+  "forecast.weather.clouds": {
+    "defaultMessage": "Cubierto"
+  },
+  "forecast.weather.drizzle": {
+    "defaultMessage": "Llovizna"
+  },
+  "forecast.weather.rain": {
+    "defaultMessage": "Lluvia"
+  },
+  "forecast.weather.snow": {
+    "defaultMessage": "Nieve"
+  },
+  "forecast.weather.thunderstorm": {
+    "defaultMessage": "Tormenta"
   },
   "forecast.wind": {
     "defaultMessage": "Viento: {speed} {unit}"

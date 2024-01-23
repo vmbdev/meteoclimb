@@ -16,7 +16,8 @@ class OpenWeather extends WeatherProvider {
 
     // lat={lat}&lon={lon}&exclude={part}
     this.host = 'https://api.openweathermap.org';
-    this.path = `/data/2.5/onecall?appid=${this.key}&units=${this.units}`;
+    this.oneCallPath = `/data/2.5/onecall?appid=${this.key}&units=${this.units}`;
+    this.airPollutionPath = `/data/2.5/air_pollution?appid=${this.key}`;
   }
 
   /**
@@ -26,13 +27,26 @@ class OpenWeather extends WeatherProvider {
    * @param {*} exclude
    * @returns {string}  The full path.
    */
-  getPath(lon, lat, exclude = null) {
+  getPath(lon, lat, options = { exclude: null, call: 'forecast' }) {
     if (lon >= -180 && lon <= 180 && lat >= -90 && lat <= 90) {
+      let path;
       const query = `&lon=${lon}&lat=${lat}${
-        exclude ? `&exclude=${exclude}` : ''
+        options.exclude ? `&exclude=${exclude}` : ''
       }`;
 
-      return this.host + this.path + query;
+      switch (options.call) {
+        case 'airpollution': {
+          path = this.airPollutionPath;
+          break;
+        }
+        case 'forecast':
+        default: {
+          path = this.oneCallPath;
+          break;
+        }
+      }
+
+      return this.host + path + query;
     }
 
     return null;
@@ -41,17 +55,33 @@ class OpenWeather extends WeatherProvider {
   /**
    * Makes a request to OpenWeather to retrieve the forecast for a certain
    * coordenate set.
-   * @async
    * @param {*} lon  Longitude
    * @param {*} lat  Latitude
    * @param {*} exclude
-   * @returns {Object}  An object containing the forecast for seven days.
+   * @returns {Promise<Object>}  A promise containing the forecast for seven days.
    */
-  async getWeatherData(lon, lat, exclude = null) {
-    const res = await ky.get(this.getPath(lon, lat, exclude)).json();
+  getWeatherData(lon, lat, exclude = null) {
+    const res = ky
+      .get(this.getPath(lon, lat, { exclude, call: 'forecast' }))
+      .json();
 
     return res;
   }
+
+    /**
+   * Makes a request to OpenWeather to retrieve the air pollution for a certain
+   * coordenate set.
+   * @param {*} lon  Longitude
+   * @param {*} lat  Latitude
+   * @returns {Promise<Object>}  A promise containing the forecast for seven days.
+   */
+    getAirPollutionData(lon, lat) {
+      const res = ky
+        .get(this.getPath(lon, lat, { call: 'airpollution' }))
+        .json();
+  
+      return res;
+    }
 }
 
 export default OpenWeather;

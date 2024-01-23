@@ -66,6 +66,10 @@ class ForecastService {
       current.temp.max = Math.round(day.temp.day);
       current.temp.feel = Math.round(day.feels_like.day);
       current.wind.degrees = day.wind_deg;
+      current.weather = {
+        id: day.weather.id,
+        name: this.parseWeather(day.weather[0]),
+      }
 
       /**
        * the next 24 hours are represented hourly (data.hourly), so we use
@@ -189,6 +193,54 @@ class ForecastService {
 
     return forecast;
   }
+
+  async fetchAirPollution(cityId, dateList = [0]) {
+    const city = await City.findByPk(cityId);
+
+    if (!city) throw new MeteoError('City ID not found');
+
+    const airPollutionData = await this.weatherProvider.getAirPollutionData(
+      city.lon,
+      city.lat
+    );
+
+    return airPollutionData;
+  }
+
+  parseWeather(weather) {
+    const id = Math.trunc(weather.id / 100);
+    let value;
+  
+    switch (id) {
+      case 2: {
+        value = 'thunderstorm';
+        break;
+      }
+      case 3: {
+        value = 'drizzle';
+        break;
+      }
+      case 5: {
+        value = 'rain';
+        break;
+      }
+      case 6: {
+        value = 'snow';
+        break;
+      }
+      case 7: {
+        value = 'atmosphere';
+        break;
+      }
+      case 8: {
+        if (weather.id === 800) value = 'clear';
+        else value = 'clouds';
+        break;
+      }
+    }
+  
+    return value;
+  };
 }
 
 const forecastService = new ForecastService();

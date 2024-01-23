@@ -2,6 +2,9 @@
   "footer.msg": {
     "defaultMessage": "© 2022 meteoclimb - Source code at {link}"
   },
+  "forecast.daynight": {
+    "defaultMessage": "Sunrise and sunset"
+  },
   "forecast.from": {
     "defaultMessage": "from {time}"
   },
@@ -30,19 +33,40 @@
     "defaultMessage": "{temp}º (feels like {feel}º)"
   },
   "forecast.term.humidity": {
-    "defaultMessage": "humidity"
+    "defaultMessage": "Humidity"
   },
   "forecast.term.precipitation": {
     "defaultMessage": "precipitation"
   },
   "forecast.term.temperature": {
-    "defaultMessage": "temperature"
+    "defaultMessage": "Temperature"
   },
   "forecast.term.wind": {
-    "defaultMessage": "wind"
+    "defaultMessage": "Wind"
   },
   "forecast.title": {
     "defaultMessage": "{city}, {country} on {weekday}"
+  },
+  "forecast.weather.atmosphere": {
+    "defaultMessage": "Atmosphere"
+  },
+  "forecast.weather.clear": {
+    "defaultMessage": "Clear"
+  },
+  "forecast.weather.clouds": {
+    "defaultMessage": "Cloud"
+  },
+  "forecast.weather.drizzle": {
+    "defaultMessage": "Drizzle"
+  },
+  "forecast.weather.rain": {
+    "defaultMessage": "Rain"
+  },
+  "forecast.weather.snow": {
+    "defaultMessage": "Snow"
+  },
+  "forecast.weather.thunderstorm": {
+    "defaultMessage": "Thunderstorm"
   },
   "forecast.wind": {
     "defaultMessage": "Wind: {speed} {unit}"
