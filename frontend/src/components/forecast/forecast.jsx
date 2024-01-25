@@ -11,10 +11,11 @@ import './forecast.scss';
  * JSX Component depicting the forecast for a given day.
  * @param {Object} props
  * @param {Object} props.conditions  Object representing the weather.
- * @param {Date} props.date  Date of the forecast prediction.
+ * @param {string} props.date  Date of the forecast prediction in ISO format.
  * @param {City} props.city  Object representing a city in the database.
  * @param {Function} props.remove  Function to remove the forecast from the
  *     results.
+ * @param {Object} props.units  Temperature (temp) and wind (wind) units.
  * @returns The rendered JSX Component.
  */
 const Forecast = ({ conditions, date, city, remove, units }) => {
@@ -25,6 +26,7 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
     wind: null,
     pop: null,
     humidity: null,
+    pollution: null,
   });
   const intl = useIntl();
 
@@ -40,41 +42,47 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
     const humidity = conditions.humidity;
 
     const classNames = {
-      0: 'forecast--terrible',
-      1: 'forecast--bad',
+      5: 'forecast--dangerous',
+      4: 'forecast--terrible',
+      3: 'forecast--bad',
       2: 'forecast--good',
-      3: 'forecast--great',
+      1: 'forecast--great',
     };
 
-    if (temp <= 5 || temp >= 35) states.temp = 0;
+    if (temp <= 5 || temp >= 35) states.temp = 4;
     else if (inInterval(temp, 5, 10) || inInterval(temp, 32, 35))
-      states.temp = 1;
+      states.temp = 3;
     else if (inInterval(temp, 10, 15) || inInterval(temp, 26, 32))
       states.temp = 2;
-    else if (inInterval(temp, 15, 26)) states.temp = 3;
+    else if (inInterval(temp, 15, 26)) states.temp = 1;
 
-    if (wind > 25) states.wind = 0;
-    else if (inInterval(wind, 20, 25)) states.wind = 1;
+    if (wind > 25) states.wind = 4;
+    else if (inInterval(wind, 20, 25)) states.wind = 3;
     else if (inInterval(wind, 15, 20)) states.wind = 2;
-    else if (inInterval(wind, 0, 15)) states.wind = 3;
+    else if (inInterval(wind, 0, 15)) states.wind = 1;
 
-    if (pop > 0) states.pop = 0;
-    else states.pop = 3;
+    if (pop > 0) states.pop = 4;
+    else states.pop = 1;
 
-    if (humidity < 50) states.humidity = 3;
+    if (humidity < 50) states.humidity = 1;
     else if (inInterval(humidity, 50, 75)) states.humidity = 2;
-    else if (inInterval(humidity, 75, 90)) states.humidity = 1;
-    else if (inInterval(humidity, 90, 100)) states.humidity = 0;
+    else if (inInterval(humidity, 75, 90)) states.humidity = 3;
+    else if (inInterval(humidity, 90, 100)) states.humidity = 4;
 
-    states.main = Math.min(...Object.values(states));
+    states.pollution = conditions.aqi ?? 1;
+
+    states.main = Math.max(...Object.values(states));
 
     setStateClasses(
       Object.fromEntries(
         Object.entries(states).map(([k, v]) => [k, classNames[v]])
       )
     );
+  }, [conditions]);
+
+  useEffect(() => {
     setCountry(getCountry(city.country));
-  }, [conditions, city.country]);
+  }, [city.country]);
 
   const getPrecipitation = () => {
     const pop = conditions.pop;
@@ -122,7 +130,7 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
 
   return (
     <section className={`forecast ${stateClasses.main}`}>
-      <CloseButton closeAction={remove} />
+      { remove && <CloseButton closeAction={remove} /> }
 
       <div className="forecast__title">
         <img className="forecast__flag" src={country.flag} alt={country.name} />
@@ -218,7 +226,7 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
               title={intl.formatMessage({
                 id: `forecast.weather.${conditions.weather.name}`,
               })}
-              />
+            />
           </div>
           <span>{getPrecipitation()}</span>
         </article>
@@ -228,8 +236,8 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
             <img
               src="/forecast/humidity.png"
               alt={intl.formatMessage({
-                id: `forecast.term.humidity`,
-                defaultMessage: 'Humedad',
+                id: 'forecast.term.humidity',
+                defaultMessage: 'Humidity',
               })}
             />
           </div>
@@ -238,6 +246,31 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
               id="forecast.humidity"
               defaultMessage="{humidity}% humidity"
               values={{ humidity: conditions.humidity }}
+            />
+          </span>
+        </article>
+
+        <article className={`forecast__row ${stateClasses.pollution}`}>
+          <div className="forecast__icon">
+            <img
+              src="/forecast/air-pollution.png"
+              alt={intl.formatMessage({
+                id: 'forecast.term.pollution',
+                defaultMessage: 'Pollution',
+              })}
+            />
+          </div>
+          <span>
+            <FormattedMessage
+              id="forecast.pollution.aiq"
+              defaultMessage="Air quality: {quality}"
+              values={{
+                quality: intl.formatMessage({
+                  id: conditions.aqi
+                    ? `forecast.pollution.${conditions.aqi}`
+                    : 'forecast.pollution.noData'
+                }),
+              }}
             />
           </span>
         </article>

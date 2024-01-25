@@ -22,7 +22,8 @@
   @include forecastState('good');
   @include forecastState('bad');
   @include forecastState('terrible');
-
+  @include forecastState('dangerous');
+  
   &__title {
     margin: 0 auto;
     background-color: #205295;

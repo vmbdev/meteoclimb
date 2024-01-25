@@ -51,7 +51,7 @@ class ForecastService {
    * @param {Object} data  Object containing the provider's weather for a week.
    * @returns {Object}  Object containing the processed weather for a week.
    */
-  parseData(data) {
+  parseWeather(data) {
     const weeklyForecast = [];
     const startTomorrow = DateTime.utc().plus({ days: 1 }).toUnixInteger();
     const startAfterTomorrow = DateTime.utc().plus({ days: 2 }).toUnixInteger();
@@ -67,8 +67,8 @@ class ForecastService {
       current.temp.feel = Math.round(day.feels_like.day);
       current.wind.degrees = day.wind_deg;
       current.weather = {
-        id: day.weather.id,
-        name: this.parseWeather(day.weather[0]),
+        id: day.weather[0].id,
+        name: this.parseWeatherName(day.weather[0].id),
       }
 
       /**
@@ -118,19 +118,51 @@ class ForecastService {
   }
 
   /**
+   * Converts a 4-day air pollution forecast into an storable object.
+   * @param {Object} pollution  Object containing the pollution forecast from
+   *     the provider.
+   * @returns {Array}  The list of air quality indexes and their dates.
+   */
+  parseAirPollution(pollution) {
+    const forecast = [];
+
+    for (const item of pollution.list) {
+      const curDate = DateTime.fromSeconds(item.dt).toUTC();
+      const day = curDate.diffNow('days').days;
+
+      if (day >= 0) {
+        const index = Math.trunc(day);
+        if (forecast[index])
+          forecast[index].aqi = Math.max(forecast[index].aqi, item.main.aqi);
+        else
+          forecast[index] = {
+            aqi: item.main.aqi,
+            date: curDate.toJSDate(),
+          };
+      }
+    }
+
+    return forecast;
+  }
+
+  /**
    * Stores in the database the forecast objects.
    * @async
-   * @param {Object} weeklyForecast  The object to be stored
    * @param {number} cityId  The ID referencing the city in the database
+   * @param {Object} weather  The weather to be stored
+   * @param {Array} pollution  The air pollution to be stored
    */
-  async storeForecast(weeklyForecast, cityId) {
+  async storeForecast(cityId, weather, pollution) {
     await Forecast.destroy({ where: { cityId } });
 
-    for (const dailyForecast of weeklyForecast) {
+    for (let i = 0; i < weather.length; i++) {
       await Forecast.create({
-        date: DateTime.fromSeconds(dailyForecast.start_time).toJSDate(),
+        date: DateTime.fromSeconds(weather[i].start_time).toJSDate(),
         cityId,
-        conditions: dailyForecast,
+        conditions: {
+          ...weather[i],
+          aqi: pollution[i] ? pollution[i].aqi : null,
+        }
       });
     }
   }
@@ -163,12 +195,16 @@ class ForecastService {
     const log = await ForecastLog.findOne({ where: { cityId } });
 
     if (!log || !this.updatedLastDay(log.updatedAt)) {
-      const weatherData = await this.weatherProvider.getWeatherData(
-        city.lon,
-        city.lat
-      );
+      const [weatherData, pollutionData] = await Promise.all([
+        this.weatherProvider.getWeatherData(city.lon, city.lat),
+        this.weatherProvider.getAirPollutionData(city.lon, city.lat),
+      ]);
 
-      await this.storeForecast(this.parseData(weatherData), cityId);
+      await this.storeForecast(
+        cityId,
+        this.parseWeather(weatherData),
+        this.parseAirPollution(pollutionData),
+      );
       await ForecastLog.upsert({
         id: log ? log.id : null,
         cityId,
@@ -177,10 +213,6 @@ class ForecastService {
 
     const forecast = Forecast.findAll({
       attributes: { exclude: ['id', 'cityId'] },
-      // include: {
-      //   model: City,
-      //   attributes: { exclude: ['updatedAt', 'createdAt'] },
-      // },
       where: {
         cityId,
         date: {
@@ -194,7 +226,13 @@ class ForecastService {
     return forecast;
   }
 
-  async fetchAirPollution(cityId, dateList = [0]) {
+  /**
+   * Fetch the air quality forecast from the provider.
+   * @async
+   * @param {number} cityId  The city ID to look for.
+   * @returns {Array}  The air quality forecast.
+   */
+  async fetchAirPollution(cityId) {
     const city = await City.findByPk(cityId);
 
     if (!city) throw new MeteoError('City ID not found');
@@ -207,10 +245,18 @@ class ForecastService {
     return airPollutionData;
   }
 
-  parseWeather(weather) {
-    const id = Math.trunc(weather.id / 100);
+  /**
+   * OpenWeatherMap provides a set of three digit codes for multiple weather
+   * conditions. The first digit determines the kind of weather, and we don't
+   * get into much detail (if it rains, it rains, doesn't matter what kind).
+   * Here we provide a human legible form.
+   * @param {number} weatherId  The code identifiyng the weather.
+   * @returns {string}  The legible form of the weather.
+   */
+  parseWeatherName(weatherId) {
+    const id = Math.trunc(weatherId / 100);
     let value;
-  
+
     switch (id) {
       case 2: {
         value = 'thunderstorm';
@@ -233,14 +279,14 @@ class ForecastService {
         break;
       }
       case 8: {
-        if (weather.id === 800) value = 'clear';
+        if (weatherId === 800) value = 'clear';
         else value = 'clouds';
         break;
       }
     }
-  
+
     return value;
-  };
+  }
 }
 
 const forecastService = new ForecastService();

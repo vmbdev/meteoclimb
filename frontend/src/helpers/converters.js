@@ -4,26 +4,26 @@ export const convertTemperature = (temp, unit) => {
   return temp;
 }
 
-export const convertWind = (temp, unit) => {
-  if (unit === 'km/h') return temp;
+export const convertWind = (wind, unit) => {
+  if (unit === 'km/h') return wind;
 
   let res;
 
   switch (unit) {
     case 'mph': {
-      res = temp / 1.609;
+      res = wind / 1.609;
       break;
     }
     case 'knots': {
-      res = temp / 1.852;
+      res = wind / 1.852;
       break;
     }
     case 'm/s': {
-      res = temp / 3.6;
+      res = wind / 3.6;
       break;
     }
     case 'ft/s': {
-      res = temp / 1.097;
+      res = wind / 1.097;
       break;
     }
   }

@@ -14,8 +14,35 @@
   "forecast.nopop": {
     "defaultMessage": "No precipitations expected"
   },
+  "forecast.pollution.1": {
+    "defaultMessage": "Good"
+  },
+  "forecast.pollution.2": {
+    "defaultMessage": "Fair"
+  },
+  "forecast.pollution.3": {
+    "defaultMessage": "Moderate"
+  },
+  "forecast.pollution.4": {
+    "defaultMessage": "Poor"
+  },
+  "forecast.pollution.5": {
+    "defaultMessage": "Very poor"
+  },
+  "forecast.pollution.aiq": {
+    "defaultMessage": "Air quality: {quality}"
+  },
+  "forecast.pollution.noData": {
+    "defaultMessage": "No data yet"
+  },
   "forecast.pop": {
     "defaultMessage": "{chance}% of {type} expected {amount}"
+  },
+  "forecast.rain": {
+    "defaultMessage": "rain"
+  },
+  "forecast.snow": {
+    "defaultMessage": "snow"
   },
   "forecast.status.bad": {
     "defaultMessage": "Bad"
@@ -35,8 +62,11 @@
   "forecast.term.humidity": {
     "defaultMessage": "Humidity"
   },
+  "forecast.term.pollution": {
+    "defaultMessage": "Pollution"
+  },
   "forecast.term.precipitation": {
-    "defaultMessage": "precipitation"
+    "defaultMessage": "Precipitation"
   },
   "forecast.term.temperature": {
     "defaultMessage": "Temperature"
@@ -71,17 +101,50 @@
   "forecast.wind": {
     "defaultMessage": "Wind: {speed} {unit}"
   },
-  "help.desc.colours": {
-    "defaultMessage": "Each parameter has a colour associated to its predicted state, ranging from great (mild temperatures, little wind, no rain/snow or low humidity) to terrible (too cold or hot, strong wind currents, rain or snow predicted or extreme humidity). The box containing the forecast will inherit the colour of the worst situation possible (i.e. if there's rain, precipitation and the box will be red, independently of the rest of the parameters)."
+  "help.background": {
+    "defaultMessage": "The weather card will get the background color of the parameter with the worst score. In this case, worst scenario would be rain, so the card will be red."
   },
-  "help.desc.figure": {
-    "defaultMessage": "In the figure below, temperature is bad as it's too hot, wind speed is great, precipitation is terrible as it's going to rain and humidity is good. As precipitations are expected and it has the lowest quality score, the box color will be red. Also, the wind arrow points to the wind direction!"
+  "help.blue": {
+    "defaultMessage": "Blue means good."
+  },
+  "help.card": {
+    "defaultMessage": "Weather Card"
+  },
+  "help.cardDesc": {
+    "defaultMessage": "The figure here representing several colorful parameters of a given day in a given place is a {weathercard}."
+  },
+  "help.compare": {
+    "defaultMessage": "Ideally you should check for several places and compare, according to your preferences, which one offers the best weather possible to enjoy your trip as much as possible."
   },
   "help.desc.params": {
-    "defaultMessage": "Four parameters are observed: {temperature}, {wind}, {precipitation} and {humidity}."
+    "defaultMessage": "Five parameters are observed: {temperature}, {wind}, {precipitation}, {humidity} and {pollution}."
+  },
+  "help.green": {
+    "defaultMessage": "Green means great."
+  },
+  "help.humidity": {
+    "defaultMessage": "Humidity is decent at 52%. You won't sweat too much."
+  },
+  "help.pollution": {
+    "defaultMessage": "Air quality is poor, so it's red. It won't be too much conditioning when climbing but we don't go outside to breathe pollution, do we? This is the only property that can be black, when te highest level is reached."
+  },
+  "help.pop": {
+    "defaultMessage": "It's going to rain. Any kind of precipitation (rain or snow) can ruin your climbing day."
+  },
+  "help.purple": {
+    "defaultMessage": "Purple means bad."
+  },
+  "help.red": {
+    "defaultMessage": "Red means terrible."
+  },
+  "help.temperature": {
+    "defaultMessage": "Temperature of {temperature}º is not too hot, and not cold at all."
   },
   "help.title": {
     "defaultMessage": "How does meteoclimb work?"
+  },
+  "help.wind": {
+    "defaultMessage": "It's quite windy, with {wind}. It can be annoying when going outdoors if we're not protected."
   },
   "item.station": {
     "defaultMessage": "Station @ ({lat}, {lon})"

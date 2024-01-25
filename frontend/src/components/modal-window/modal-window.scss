@@ -1,34 +1,44 @@
 @use 'frontend/src/styles/theming.scss' as t;
 @use 'frontend/src/styles/media.scss' as media;
 
-.modalwindow {
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 80%);
+  height: 100vh;
+  width: 100vw;
+  z-index: 10000;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  visibility: visible !important;
+
+  &--hidden {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+.modal-window {
+  position: relative;
   background-color: white;
   border: 1px solid black;
-
-  left: 0;
-  right: 0;
-  top: 5em;
-  max-width: 80vw;
-  margin-left: auto;
-  margin-right: auto;
-
-  position: absolute;
-  z-index: 100;
-  visibility: hidden;
-  display: none;
-
-  &--active {
-    display: block;
-    visibility: visible !important;
+  max-height: 100vh;
+  width: 80%;
+  
+  &__content {
+    overflow: auto;
+    height: 100%;
   }
-
 }
 
 @include media.device('md') {
-  .modalwindow {
-    top: 0.3rem;
-    left: 0.3rem;
-    right: 0.3rem;
-    box-sizing: content-box;
+  .modal-window {
+    width: 100vw;
+    margin: 0.1rem;
   }
 }

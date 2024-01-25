@@ -17,7 +17,7 @@ class OpenWeather extends WeatherProvider {
     // lat={lat}&lon={lon}&exclude={part}
     this.host = 'https://api.openweathermap.org';
     this.oneCallPath = `/data/2.5/onecall?appid=${this.key}&units=${this.units}`;
-    this.airPollutionPath = `/data/2.5/air_pollution?appid=${this.key}`;
+    this.airPollutionPath = `/data/2.5/air_pollution/forecast?appid=${this.key}`;
   }
 
   /**
@@ -68,20 +68,18 @@ class OpenWeather extends WeatherProvider {
     return res;
   }
 
-    /**
+  /**
    * Makes a request to OpenWeather to retrieve the air pollution for a certain
    * coordenate set.
    * @param {*} lon  Longitude
    * @param {*} lat  Latitude
    * @returns {Promise<Object>}  A promise containing the forecast for seven days.
    */
-    getAirPollutionData(lon, lat) {
-      const res = ky
-        .get(this.getPath(lon, lat, { call: 'airpollution' }))
-        .json();
-  
-      return res;
-    }
+  getAirPollutionData(lon, lat) {
+    const res = ky.get(this.getPath(lon, lat, { call: 'airpollution' })).json();
+
+    return res;
+  }
 }
 
 export default OpenWeather;

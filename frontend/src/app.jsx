@@ -8,7 +8,7 @@ import Search from './components/search/search.jsx';
 import Results from './components/results/results.jsx';
 import Footer from './components/footer/footer.jsx';
 import Navbar from './components/navbar/navbar.jsx';
-import Help from './components/navbar/help/help.jsx';
+import Help from './components/help/help.jsx';
 import LangSelector from './components/navbar/lang-selector/lang-selector.jsx';
 import ThemeSwitcher from './components/navbar/theme-switcher/theme-switcher.jsx';
 import TempSelector from './components/navbar/temp-selector/temp-selector.jsx';
@@ -113,7 +113,7 @@ function App(props) {
       <div className={`body-wrapper theme-${theme}`}>
         <header>
           <Navbar>
-            <Help />
+            <Help units={{ temp: tempUnit, wind: windUnit }}/>
             <Settings>
               <SettingsItem>
                 <TempSelector selected={tempUnit} onChange={changeTempUnits} />

@@ -14,14 +14,18 @@ import './modal-window.scss';
  */
 const ModalWindow = ({ active, children, closeAction }) => {
   const isActive = () => {
-    return `${active ? 'modalwindow--active' : ''}`;
+    return `${!active ? 'modal-container--hidden' : ''}`;
   };
 
   return (
-    <article className={`modalwindow ${isActive()}`}>
-      <CloseButton closeAction={closeAction} />
-      <div className="modalWindow__content">{children}</div>
-    </article>
+    <div className={`modal-container ${isActive()}`}>
+      <article className="modal-window">
+        <CloseButton closeAction={closeAction} />
+        <div className="modal-window__content">
+          {children}
+        </div>
+      </article>
+    </div>
   );
 };
 

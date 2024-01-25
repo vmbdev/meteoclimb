@@ -4,22 +4,26 @@
 
 ### Added
 
-- Air Pollution detection.
+- [UI and Backend] Air Pollution detection.
 
 ### Changes
 
-- Weather conditions (third row of forecast) will now show more icons depicting
+- [UI] Weather conditions (third row of forecast) will now show more icons depicting
 the weather (i.e. thunderstorms, clouds, clear...).
-- Migrated test framework to Vitest.
-- Updated styles to be more responsive.
-- Updated markup to be more semantic.
-- Updated dependencies.
-- Code cleanup.
+- [UI] Rewritten the help modal to be more descriptive.
+- [UI] Modal Window improved visually.
+- [UI] Visual update of several other components.
+- [UI] Updated styles to be more responsive.
+- [UI] Updated markup to be more semantic.
+- [UI] Updated translations.
+- [General] Migrated test framework to Vitest.
+- [General] Updated dependencies.
+- [General] Code cleanup.
 
 ### Fixes
 
-- Fixed a bug in which the total precipitation could display a lot of decimals.
-
+- [UI] Fixed a bug in which the total precipitation could display a lot of decimals.
+- [Backend] Fixed the wrong path for the config file in sequelizerc.
 
 ## [1.0.7] - 2023-12-13
 

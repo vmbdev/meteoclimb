@@ -14,6 +14,27 @@
   "forecast.nopop": {
     "defaultMessage": "No se esperan precipitaciones"
   },
+  "forecast.pollution.1": {
+    "defaultMessage": "Buena"
+  },
+  "forecast.pollution.2": {
+    "defaultMessage": "Decente"
+  },
+  "forecast.pollution.3": {
+    "defaultMessage": "Moderada"
+  },
+  "forecast.pollution.4": {
+    "defaultMessage": "Mala"
+  },
+  "forecast.pollution.5": {
+    "defaultMessage": "Muy mala"
+  },
+  "forecast.pollution.aiq": {
+    "defaultMessage": "Calidad del aire: {quality}"
+  },
+  "forecast.pollution.noData": {
+    "defaultMessage": "Sin datos aún"
+  },
   "forecast.pop": {
     "defaultMessage": "{chance}% de probabilidades de {type} {amount}"
   },
@@ -40,6 +61,9 @@
   },
   "forecast.term.humidity": {
     "defaultMessage": "Humedad"
+  },
+  "forecast.term.pollution": {
+    "defaultMessage": "Contaminación"
   },
   "forecast.term.precipitation": {
     "defaultMessage": "precipitación"
@@ -77,17 +101,50 @@
   "forecast.wind": {
     "defaultMessage": "Viento: {speed} {unit}"
   },
-  "help.desc.colours": {
-    "defaultMessage": "Cada parámetro tiene un color asociado al estado, que va desde genial (temperaturas suaves, poco viento, sin precipitaciones o baja humedad) hasta terrible (mucho calor o frío, viento fuerte, lluvia o nieve o humedad extrema. El cuadro que contiene la predicción entera hereda el color de la peor situación posible (por ejemplo, si hay lluvia, tanto el parámetro de la precipitación como el cuadro estarán en rojos, independientemente del color de los demás parámetros)."
+  "help.background": {
+    "defaultMessage": "La tarjeta tendrá como color de fondo el parámetro con la peor valoración. En este caso, el peor escenario posible es que llueva, así que la tarjeta será roja."
   },
-  "help.desc.figure": {
-    "defaultMessage": "En la imagen de abajo, la temperatura es mala al ser demasiado alta, el viento es genial, la precipitación es terrible pues va a llover y la humedad es buena. Como la precipitación tiene la peor puntuación, el color del cuadro será rojo. Por cierto, ¡la flecha del viento apunta a su dirección!"
+  "help.blue": {
+    "defaultMessage": "Azul significa bueno."
+  },
+  "help.card": {
+    "defaultMessage": "Tarjeta del tiempo"
+  },
+  "help.cardDesc": {
+    "defaultMessage": "La figura que vemos representa varios parámetros muy coloridos de un día y lugar concretos. La llamamos {weathercard}."
+  },
+  "help.compare": {
+    "defaultMessage": "La idea es que mires varios lugares y compares, según tus preferencias, cuál ofrece el mejor tiempo posible para disfrutar de nuestra actividad al máximo."
   },
   "help.desc.params": {
-    "defaultMessage": "Se observan cuatro parámetros: {temperature}, {wind}, {precipitation} y {humidity}."
+    "defaultMessage": "Observamos cinco parámetros: {temperature}, {wind}, {precipitation}, {humidity} y {pollution}."
+  },
+  "help.green": {
+    "defaultMessage": "Verde significa muy bueno."
+  },
+  "help.humidity": {
+    "defaultMessage": "La humedad es decente al 52%. No sudarás mucho."
+  },
+  "help.pollution": {
+    "defaultMessage": "La calidad del aire es mala, por lo que está en rojo. No condiciona demasiado a la hora de escalar, pero tampoco nos gusta ir a la naturaleza para respirar contaminación, ¿verdad?. Está es la única propiedad que puede aparecer en negro, cuando se alcanza el nivel más alto de contaminación."
+  },
+  "help.pop": {
+    "defaultMessage": "Va a llover. Cualquier tipo de precipitación (lluvia o nieve) puede arruinar nuestro día de escalada."
+  },
+  "help.purple": {
+    "defaultMessage": "Púrpura significa malo."
+  },
+  "help.red": {
+    "defaultMessage": "Rojo significa terrible."
+  },
+  "help.temperature": {
+    "defaultMessage": "Una temperatura de {temperature}º no es muy alta, ni nada fría."
   },
   "help.title": {
     "defaultMessage": "¿Cómo funciona meteoclimb?"
+  },
+  "help.wind": {
+    "defaultMessage": "Hace bastante viento con {wind}. Puede ser molesto en el exterior si no hay protección suficiente."
   },
   "item.station": {
     "defaultMessage": "Estación en ({lat}, {lon})"

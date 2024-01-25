@@ -11,7 +11,7 @@
   transition-duration: 250ms;
 
   &--collapsed {
-    height: 11rem;
+    margin-top: 1rem;
   }
 
   &__nav {
@@ -30,10 +30,10 @@
 
 @include media.device('sm') {
   .search {
-    height: 20vh;
+    // height: 20vh;
 
     &__nav {
-      width: 70%;
+      width: 100%;
     }
   }
 }
