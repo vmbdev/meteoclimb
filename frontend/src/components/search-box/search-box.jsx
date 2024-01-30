@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
+import PropTypes from 'prop-types';
 
-import SearchBox from './search-box/search-box.jsx';
-import SuggestionList from './suggestion-list/suggestion-list.jsx';
+import SearchInput from './search-input/search-input.jsx';
+import WeatherStationList from './weather-station-list/weather-station-list.jsx';
 import DateSelector from '../date-selector/date-selector.jsx';
 
 import { dateListGen } from '../../helpers/datelistgen.js';
 import { api } from '../../services/api.js';
 import { toaster } from '../../services/toaster.js';
 
-import './search.scss';
+import './search-box.scss';
 
 /**
  * JSX Component that allows searching.
@@ -23,10 +24,10 @@ import './search.scss';
  * @returns The rendered JSX Component.
  */
 const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
-  const [isSearchBoxActive, setSearchBoxActive] = useState(false);
-  const [searchBoxKeyPressed, setSearchBoxKeyPressed] = useState(false);
+  const [isSearchInputActive, setSearchInputActive] = useState(false);
+  const [searchInputKeyPressed, setSearchInputKeyPressed] = useState(false);
   const [isCollapsed, setCollapsed] = useState(false);
-  const [suggestionList, setSuggestionList] = useState([]);
+  const [weatherStationList, setWeatherStationList] = useState([]);
   const [dateList, setDateList] = useState([]);
   const intl = useIntl();
 
@@ -73,7 +74,7 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
    */
   const fetchForecast = async (cityId, dates) => {
     setCollapsed(true);
-    setSearchBoxActive(false);
+    setSearchInputActive(false);
 
     if (!dates) {
       dates = dateList
@@ -90,11 +91,11 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
         const cities = await api.getCities(cityName);
 
         if (cities.length > 0) {
-          setSuggestionList(cities);
-          setSearchBoxActive(true);
+          setWeatherStationList(cities);
+          setSearchInputActive(true);
         } else {
-          setSuggestionList([]);
-          setSearchBoxActive(false);
+          setWeatherStationList([]);
+          setSearchInputActive(false);
         }
       } catch (err) {
         toaster.error(
@@ -105,7 +106,7 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
           'city-error'
         );
       }
-    } else setSearchBoxActive(false);
+    } else setSearchInputActive(false);
   };
 
   const getCollapsedClassName = () => {
@@ -116,19 +117,25 @@ const Search = ({ storedData, awaitSearchResults, setLoadingData }) => {
     <section className={`search ${getCollapsedClassName()}`}>
       <DateSelector setDateList={setDateList} dates={dateList} />
       <div className="search__nav">
-        <SearchBox
+        <SearchInput
           inputChanged={fetchCitiesByName}
-          keyPressed={setSearchBoxKeyPressed}
+          keyPressed={setSearchInputKeyPressed}
         />
-        <SuggestionList
-          isSearchBoxActive={isSearchBoxActive}
-          searchBoxKeyPressed={searchBoxKeyPressed}
+        <WeatherStationList
+          isSearchInputActive={isSearchInputActive}
+          searchInputKeyPressed={searchInputKeyPressed}
           findForecast={findForecast}
-          list={suggestionList}
+          list={weatherStationList}
         />
       </div>
     </section>
   );
 };
+
+Search.propTypes = {
+  storedData: PropTypes.object,
+  awaitSearchResults: PropTypes.func,
+  setLoadingData: PropTypes.func,
+}
 
 export default Search;

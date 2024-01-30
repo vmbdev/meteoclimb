@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import ButtonGroup from '../../button-group/button-group';
 
 const WindSelector = ({ selected, onChange }) => {
@@ -16,5 +18,13 @@ const WindSelector = ({ selected, onChange }) => {
     />
   );
 };
+
+WindSelector.propTypes = {
+  selected: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  onChange: PropTypes.func.isRequired,
+}
 
 export default WindSelector;

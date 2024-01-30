@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './close-button.scss';
 
@@ -15,5 +16,9 @@ const CloseButton = ({ closeAction }) => {
     </button>
   );
 };
+
+CloseButton.propTypes = {
+  closeAction: PropTypes.func.isRequired,
+}
 
 export default CloseButton;

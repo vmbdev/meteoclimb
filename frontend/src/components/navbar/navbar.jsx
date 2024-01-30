@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Brand from './brand/brand.jsx';
 import './navbar.scss';
 
@@ -20,5 +22,9 @@ const Navbar = ({ children }) => {
     </nav>
   );
 };
+
+Navbar.propTypes = {
+  children: PropTypes.node,
+}
 
 export default Navbar;

@@ -41,7 +41,7 @@
   "help.desc.params": "Observamos cinco parámetros: {temperature}, {wind}, {precipitation}, {humidity} y {pollution}.",
   "help.green": "Verde significa muy bueno.",
   "help.humidity": "La humedad es decente al 52%. No sudarás mucho.",
-  "help.pollution": "La calidad del aire es mala, por lo que está en rojo. No condiciona demasiado a la hora de escalar, pero tampoco nos gusta ir a la naturaleza para respirar contaminación, ¿verdad?. Está es la única propiedad que puede aparecer en negro, cuando se alcanza el nivel más alto de contaminación.",
+  "help.pollution": "La calidad del aire es mala, por lo que está en rojo. No condiciona demasiado a la hora de escalar, pero tampoco nos gusta ir a la naturaleza para respirar contaminación, ¿verdad?. Ésta es la única propiedad que puede aparecer en negro, cuando se alcanza el nivel más alto de contaminación.",
   "help.pop": "Va a llover. Cualquier tipo de precipitación (lluvia o nieve) puede arruinar nuestro día de escalada.",
   "help.purple": "Púrpura significa malo.",
   "help.red": "Rojo significa terrible.",

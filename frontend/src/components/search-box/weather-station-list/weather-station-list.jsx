@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-import SuggestionItem from '../suggestion-item/suggestion-item.jsx';
-import './suggestion-list.scss';
+import WeatherStation from '../weather-station/weather-station.jsx';
+import './weather-station-list.scss';
 
 /**
- * JSX Component representing the suggested values as the search input receives
+ * JSX Component representing the weather stations as the search input receives
  * new text.
  * @param {Object} props
- * @param {boolean} props.isSearchBoxActive  True if the search box is focused.
- * @param {Function} props.searchBoxKeyPressed  Called when the search box has
+ * @param {boolean} props.isSearchInputActive  True if the search box is focused.
+ * @param {Function} props.searchInputKeyPressed  Called when the search box has
  *     received a key input, to enable navigation with keyboard.
  * @param {Object[]} props.list  The list of suggestions for the current input.
  * @param {Function} props.findForecast  Called when an item from the list is
@@ -16,8 +17,8 @@ import './suggestion-list.scss';
  * @returns The rendered JSX Component.
  */
 const SuggestionList = ({
-  isSearchBoxActive,
-  searchBoxKeyPressed,
+  isSearchInputActive,
+  searchInputKeyPressed,
   list,
   findForecast,
 }) => {
@@ -25,14 +26,14 @@ const SuggestionList = ({
   const [activeItem, setActiveItem] = useState(0);
 
   useEffect(() => {
-    setVisibility(isSearchBoxActive);
-  }, [isSearchBoxActive]);
+    setVisibility(isSearchInputActive);
+  }, [isSearchInputActive]);
 
   useEffect(() => {
-    if (searchBoxKeyPressed) {
+    if (searchInputKeyPressed) {
       let nextActiveItem;
 
-      switch (searchBoxKeyPressed) {
+      switch (searchInputKeyPressed) {
         case 'ArrowUp': {
           if (activeItem === 0) nextActiveItem = list.length - 1;
           else nextActiveItem = activeItem - 1;
@@ -59,9 +60,7 @@ const SuggestionList = ({
         }
       }
     }
-    // we don't want to re-render when activeItem or list change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchBoxKeyPressed]);
+  }, [searchInputKeyPressed]);
 
   const isVisible = () => {
     return `suggestions--${visible ? 'visible' : 'hidden'}`;
@@ -73,7 +72,7 @@ const SuggestionList = ({
     for (let i = 0; i < list.length; i++) {
       items.push(
         <li key={i}>
-          <SuggestionItem
+          <WeatherStation
             id={i}
             active={i === activeItem ? true : false}
             city={list[i]}
@@ -92,5 +91,12 @@ const SuggestionList = ({
     </ul>
   );
 };
+
+SuggestionList.propTypes = {
+  isSearchInputActive: PropTypes.bool,
+  searchInputKeyPressed: PropTypes.bool,
+  list: PropTypes.array,
+  findForecast: PropTypes.func,
+}
 
 export default SuggestionList;

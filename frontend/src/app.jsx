@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import { ToastContainer } from 'react-toastify';
+import PropTypes from 'prop-types';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 // Components
-import Search from './components/search/search.jsx';
-import Results from './components/results/results.jsx';
+import SearchBox from './components/search-box/search-box.jsx';
+import WeatherList from './components/weather-list/weather-list.jsx';
 import Footer from './components/footer/footer.jsx';
 import Navbar from './components/navbar/navbar.jsx';
 import Help from './components/help/help.jsx';
@@ -20,15 +21,15 @@ import Settings, {
 import settings from './settings.js';
 import './styles/main.scss';
 
-function App(props) {
-  const [searchResults, setSearchResults] = useState([]);
-  const [storedData, setStoredData] = useState([]);
+function App({ defaultLang, defaultMessages }) {
+  const [searchResults, setSearchResults] = useState();
+  const [storedData, setStoredData] = useState();
   const [loadingData, setLoadingData] = useState(false);
   const [theme, setTheme] = useState(settings.theme);
-  const [lang, setLang] = useState(props.defaultLang);
+  const [lang, setLang] = useState(defaultLang);
   const [tempUnit, setTempUnit] = useState(settings.units.temp);
   const [windUnit, setWindUnit] = useState(settings.units.wind);
-  const [messages, setMessages] = useState(props.defaultMessages);
+  const [messages, setMessages] = useState(defaultMessages);
 
   useEffect(() => {
     loadDataFromStorage();
@@ -135,12 +136,12 @@ function App(props) {
           </Navbar>
         </header>
         <main role="main" className="main-content">
-          <Search
+          <SearchBox
             storedData={storedData}
             awaitSearchResults={getSearchResults}
             setLoadingData={setLoadingData}
           />
-          <Results
+          <WeatherList
             saveToStorage={saveResultsIntoStorage}
             searchResults={searchResults}
             units={{ temp: tempUnit, wind: windUnit }}
@@ -153,7 +154,7 @@ function App(props) {
             defaultMessage="© 2022 meteoclimb - Source code at {link}"
             values={{
               link: (
-                <a href="https://github.com/vmbdev/meteoclimb" target="_blank">
+                <a href="https://github.com/vmbdev/meteoclimb" target="_blank" rel="noreferrer">
                   GitHub
                 </a>
               ),
@@ -163,6 +164,11 @@ function App(props) {
       </div>
     </IntlProvider>
   );
+}
+
+App.propTypes = {
+  defaultLang: PropTypes.string,
+  defaultMessages: PropTypes.object,
 }
 
 export default App;

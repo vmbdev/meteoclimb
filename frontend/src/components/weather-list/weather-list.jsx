@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
+import PropTypes from 'prop-types';
 
-import { toaster } from '../../services/toaster';
-import Forecast from '../forecast/forecast.jsx';
-import './results.scss';
+import { toaster } from '../../services/toaster.js';
+import WeatherCard from '../weather-card/weather-card.jsx';
+import './weather-list.scss';
 
 /**
  * JSX Component displaying the results of a weather search.
@@ -12,9 +13,10 @@ import './results.scss';
  *     with the results to be displayed.
  * @param {Function} props.saveToStorage  A function to store the results
  *     somewhere (i.e. local storage).
+ * @param {Object} props.units  The units of the measurements to be used.
  * @returns The rendered JSX component.
  */
-const Results = ({
+const WeatherList = ({
   searchResults,
   saveToStorage,
   units = { temp: 'celsius', wind: 'kmh' },
@@ -24,7 +26,7 @@ const Results = ({
 
   useEffect(() => {
     (async () => {
-      if (searchResults.forecast) {
+      if (searchResults && searchResults.forecast) {
         try {
           const forecast = await searchResults.forecast;
 
@@ -108,7 +110,7 @@ const Results = ({
       {results.map(({ city, forecast }, indexCity) =>
         forecast.map((res, indexForecast) => (
           <li key={`${city.id}+${res.date}`}>
-            <Forecast
+            <WeatherCard
               date={res.date}
               city={city}
               conditions={res.conditions}
@@ -124,4 +126,10 @@ const Results = ({
   );
 };
 
-export default Results;
+WeatherList.propTypes = {
+  searchResults: PropTypes.object,
+  saveToStorage: PropTypes.func,
+  units: PropTypes.object,
+}
+
+export default WeatherList;

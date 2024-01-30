@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 
 import { toDMS } from '../../../helpers/geocoords.js';
 import { getCountry } from '../../../helpers/countrycodes.js';
-import './suggestion-item.scss';
+import './weather-station.scss';
 
 /**
  * JSX Component representing an item from the list of search suggestions.
@@ -16,7 +17,7 @@ import './suggestion-item.scss';
  * @param {Function} props.findForecast  Called when the item is selected.
  * @returns The rendered JSX Component.
  */
-const SuggestionItem = ({ id, active, city, setActive, findForecast }) => {
+const WeatherStation = ({ id, active, city, setActive, findForecast }) => {
   const [country, setCountry] = useState({ flag: '', name: '' });
 
   const getClassName = () => {
@@ -56,4 +57,12 @@ const SuggestionItem = ({ id, active, city, setActive, findForecast }) => {
   );
 };
 
-export default SuggestionItem;
+WeatherStation.propTypes = {
+  id: PropTypes.number.isRequired,
+  active: PropTypes.bool,
+  city: PropTypes.object,
+  setActive: PropTypes.func,
+  findForecast: PropTypes.func,
+}
+
+export default WeatherStation;

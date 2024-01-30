@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import './settings-menu.scss';
 
@@ -24,12 +25,20 @@ const Settings = ({ children }) => {
   )
 }
 
+Settings.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 export const SettingsItem = ({ children }) => {
   return (
     <article className="settings-item">
       {children}
     </article>
   )
+}
+
+SettingsItem.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export default Settings;

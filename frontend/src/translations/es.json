@@ -126,7 +126,7 @@
     "defaultMessage": "La humedad es decente al 52%. No sudarás mucho."
   },
   "help.pollution": {
-    "defaultMessage": "La calidad del aire es mala, por lo que está en rojo. No condiciona demasiado a la hora de escalar, pero tampoco nos gusta ir a la naturaleza para respirar contaminación, ¿verdad?. Está es la única propiedad que puede aparecer en negro, cuando se alcanza el nivel más alto de contaminación."
+    "defaultMessage": "La calidad del aire es mala, por lo que está en rojo. No condiciona demasiado a la hora de escalar, pero tampoco nos gusta ir a la naturaleza para respirar contaminación, ¿verdad?. Ésta es la única propiedad que puede aparecer en negro, cuando se alcanza el nivel más alto de contaminación."
   },
   "help.pop": {
     "defaultMessage": "Va a llover. Cualquier tipo de precipitación (lluvia o nieve) puede arruinar nuestro día de escalada."

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { getLanguageData } from '../../../helpers/countrycodes.js';
 import ButtonGroup from '../../button-group/button-group.jsx';
@@ -45,5 +46,11 @@ const LangSelector = ({ lang, availableTranslations, changeLang }) => {
     />
   );
 };
+
+LangSelector.propTypes = {
+  lang: PropTypes.string.isRequired,
+  availableTranslations: PropTypes.array,
+  changeLang: PropTypes.func,
+}
 
 export default LangSelector;

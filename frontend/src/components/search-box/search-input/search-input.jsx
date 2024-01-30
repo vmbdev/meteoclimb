@@ -1,6 +1,8 @@
 import React from 'react';
 import { useIntl } from 'react-intl';
-import './search-box.scss';
+import PropTypes from 'prop-types';
+
+import './search-input.scss';
 
 /**
  * JSX Component representing an input for searching.
@@ -9,7 +11,7 @@ import './search-box.scss';
  * @param {Function} props.inputChanged  Called when the search input changes.
  * @returns The rendered JSX Component.
  */
-const SearchBox = ({ keyPressed, inputChanged }) => {
+const SearchInput = ({ keyPressed, inputChanged }) => {
   const intl = useIntl();
 
   const keyPressedDown = (e) => {
@@ -41,4 +43,9 @@ const SearchBox = ({ keyPressed, inputChanged }) => {
   );
 };
 
-export default SearchBox;
+SearchInput.propTypes = {
+  keyPressed: PropTypes.func,
+  inputChanged: PropTypes.func,
+}
+
+export default SearchInput;

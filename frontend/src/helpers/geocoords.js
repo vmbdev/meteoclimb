@@ -1,7 +1,7 @@
 /**
  * Converts the coordinate to DMS (Degrees, Minutes, Seconds)
  * @function
- * @param {*} coord
+ * @param {*} coord  The coordinate value.
  * @param {*} type  Longitude ('lon') or latitude ('lat')
  * @returns  The coordinate in DMS
  */

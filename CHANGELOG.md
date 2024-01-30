@@ -1,10 +1,12 @@
 # Changelog
 
-## [1.1.0] - next
+## [1.0.8] - 2024-01-30
 
 ### Added
 
 - [UI and Backend] Air Pollution detection.
+- [UI] Property types are now checked with PropTypes. One day I'll migrate
+meteoclimb to TypeScript, but in the meanwhile...
 
 ### Changes
 
@@ -16,6 +18,7 @@ the weather (i.e. thunderstorms, clouds, clear...).
 - [UI] Updated styles to be more responsive.
 - [UI] Updated markup to be more semantic.
 - [UI] Updated translations.
+- [UI] Renamed a lot of the components to a more significative name.
 - [General] Migrated test framework to Vitest.
 - [General] Updated dependencies.
 - [General] Code cleanup.

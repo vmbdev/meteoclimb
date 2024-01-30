@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CloseButton from '../close-button/close-button.jsx';
 import './modal-window.scss';
@@ -28,5 +29,11 @@ const ModalWindow = ({ active, children, closeAction }) => {
     </div>
   );
 };
+
+ModalWindow.propTypes = {
+  active: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  closeAction: PropTypes.func.isRequired,
+}
 
 export default ModalWindow;

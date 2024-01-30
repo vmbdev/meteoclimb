@@ -1,3 +1,7 @@
+/**
+ * List of country names and flags indexed by its code.
+ * @constant
+ */
 const countryCodes = {
   AF: { name: 'Afghanistan', flag: '/flags/af.svg' },
   AL: { name: 'Albania', flag: '/flags/al.svg' },
@@ -257,16 +261,32 @@ const countryCodes = {
   AX: { name: 'Åland Islands', flag: '/flags/ax.svg' },
 };
 
+/**
+ * Retrieves the country object by the code.
+ * @param {string} code  The country code (UK, ES, FR...).
+ * @returns {Object}  An object containing the country name and the flag.
+ */
 const getCountry = (code) => {
   return countryCodes[code.toUpperCase()];
 };
 
+/**
+ * Retrieves the country name by the code.
+ * @param {string} code  The country code (UK, ES, FR...).
+ * @returns {string}  The name of the country.
+ */
 const getCountryName = (code) => {
   return countryCodes[code.toUpperCase()].name;
 };
 
-const getLanguageData = (lang) => {
-  const cLang = Intl.getCanonicalLocales(lang)[0];
+/**
+ * Returns an object containing information about a country using its locale.
+ * @param {string} locale  The locale of the language (i.e. en-UK)
+ * @returns {Object}  An object containing the language name in it's original
+ *   language, the canonical locale and the flag image.
+ */
+const getLanguageData = (locale) => {
+  const cLang = Intl.getCanonicalLocales(locale)[0];
   const name = new Intl.DisplayNames([cLang], { type: 'language' });
 
   const langObj = {

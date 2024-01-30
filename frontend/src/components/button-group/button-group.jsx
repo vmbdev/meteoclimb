@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './button-group.scss';
 
 /**
+ * On/off button toggles.
  * @param {Object} props
  * @param {Object[]} props.buttons Buttons containing icon, text and values.
  * @param {any} props.selected The value that will be selected.
@@ -40,5 +42,15 @@ const ButtonGroup = ({ buttons, selected, onChange, showText = true }) => {
 
   return <article className="button-group">{getButtons()}</article>;
 };
+
+ButtonGroup.propTypes = {
+  buttons: PropTypes.array.isRequired,
+  selected: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  onChange: PropTypes.func,
+  showText: PropTypes.bool,
+}
 
 export default ButtonGroup;

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
 
 import { toaster } from '../../../services/toaster';
 import './theme-switcher.scss';
@@ -34,5 +35,10 @@ const ThemeSwitcher = ({ switchTheme, theme }) => {
     </article>
   );
 };
+
+ThemeSwitcher.propTypes = {
+  switchTheme: PropTypes.func.isRequired,
+  theme: PropTypes.string.isRequired,
+}
 
 export default ThemeSwitcher;

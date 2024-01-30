@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './date-selector.scss';
 
@@ -46,5 +47,10 @@ const DateSelector = ({ dates, setDateList }) => {
     </article>
   );
 };
+
+DateSelector.propTypes = {
+  dates: PropTypes.array.isRequired,
+  setDateList: PropTypes.func,
+}
 
 export default DateSelector;

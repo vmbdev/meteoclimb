@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+import PropTypes from 'prop-types';
 
 import ModalWindow from '../modal-window/modal-window.jsx';
-import Forecast from '../forecast/forecast.jsx';
+import WeatherCard from '../weather-card/weather-card.jsx';
 import { convertTemperature, convertWind } from '../../helpers/converters.js';
 import './help.scss';
 
@@ -29,7 +30,7 @@ const Help = ({ units }) => {
       <ModalWindow active={modalActive} closeAction={closeModal}>
         <div className="help__modal">
           <div className="modal__left">
-            <Forecast
+            <WeatherCard
               date="2002-07-15"
               city={{
                 country: 'ES',
@@ -208,5 +209,9 @@ const Help = ({ units }) => {
     </>
   );
 };
+
+Help.propTypes = {
+  units: PropTypes.object.isRequired,
+}
 
 export default Help;

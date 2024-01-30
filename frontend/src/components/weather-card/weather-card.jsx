@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { FormattedMessage, useIntl } from 'react-intl';
+import PropTypes from 'prop-types';
 
 import { getCountry } from '../../helpers/countrycodes.js';
 import { convertTemperature, convertWind } from '../../helpers/converters.js';
 import CloseButton from '../close-button/close-button.jsx';
-import './forecast.scss';
+import './weather-card.scss';
+
+const inInterval = (value, min, max) => {
+  return value >= min && value <= max;
+};
 
 /**
- * JSX Component depicting the forecast for a given day.
+ * JSX Component depicting the weather for a given day.
  * @param {Object} props
  * @param {Object} props.conditions  Object representing the weather.
  * @param {string} props.date  Date of the forecast prediction in ISO format.
@@ -18,7 +23,7 @@ import './forecast.scss';
  * @param {Object} props.units  Temperature (temp) and wind (wind) units.
  * @returns The rendered JSX Component.
  */
-const Forecast = ({ conditions, date, city, remove, units }) => {
+const WeatherCard = ({ conditions, date, city, units, remove = null }) => {
   const [country, setCountry] = useState({ flag: '', name: '' });
   const [stateClasses, setStateClasses] = useState({
     main: null,
@@ -31,10 +36,6 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
   const intl = useIntl();
 
   useEffect(() => {
-    const inInterval = (value, min, max) => {
-      return value >= min && value <= max;
-    };
-
     const states = {};
     const temp = conditions.temp.max;
     const wind = conditions.wind.speed;
@@ -279,4 +280,12 @@ const Forecast = ({ conditions, date, city, remove, units }) => {
   );
 };
 
-export default Forecast;
+WeatherCard.propTypes = {
+  conditions: PropTypes.object.isRequired,
+  date: PropTypes.string.isRequired,
+  city: PropTypes.object.isRequired,
+  remove: PropTypes.func,
+  units: PropTypes.object.isRequired,
+}
+
+export default WeatherCard;
