@@ -92,6 +92,9 @@ database.
 
 First of all, you'll need an OpenWeather API key (currently the only provider
 available). You can get one from [here](https://openweathermap.org/appid).
+Since June 2024, you'll also need to subscribe for the One Call API 3.0. As of
+April 20th, you can get 1,000 free API calls per day and even set a limit. More
+info [here](https://openweathermap.org/api).
 
 Rename /backend/config/**meteo.config.example.js** to
 /backend/config/**meteo.config.js**, and edit it to match your set up. For example:

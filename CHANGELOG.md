@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.9] - 2024-04-20
+
+### Changes
+
+- [Backend] OpenWeather One Call 3.0 API support by default, by deprecation
+of 2.5 API.
+
 ## [1.0.8] - 2024-01-30
 
 ### Added
