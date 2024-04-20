@@ -1,4 +1,5 @@
 import ky from 'ky';
+
 import WeatherProvider from './../weatherprovider.js';
 
 /**
@@ -16,7 +17,7 @@ class OpenWeather extends WeatherProvider {
 
     // lat={lat}&lon={lon}&exclude={part}
     this.host = 'https://api.openweathermap.org';
-    this.oneCallPath = `/data/2.5/onecall?appid=${this.key}&units=${this.units}`;
+    this.oneCallPath = `/data/3.0/onecall?appid=${this.key}&units=${this.units}`;
     this.airPollutionPath = `/data/2.5/air_pollution/forecast?appid=${this.key}`;
   }
 
