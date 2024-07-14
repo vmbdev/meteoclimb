@@ -42,15 +42,16 @@
   
   &__color {
     &:before {
-      @include t.themify {
-        border: 1px solid t.theme(main_textcolor);
-      }
       content: '';
       display: inline-block;
       margin-left: -1.5rem;
       margin-right: 0.5rem;
       height: 1rem;
       width: 1rem;
+
+      @include t.themify {
+        border: 1px solid t.theme(main_textcolor);
+      }
     }
   
     @include forecastState('great');
